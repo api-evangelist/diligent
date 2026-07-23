@@ -1,0 +1,1680 @@
+openapi: 3.0.1
+info:
+  version: 1.6.0
+  title: Diligent CDD API
+  description: 'Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).
+
+    '
+servers:
+- url: https://api.godiligent.ai
+  description: Production
+- url: https://api.sandbox.godiligent.ai
+  description: Sandbox
+security:
+- xApiKey: []
+tags:
+- name: CDD
+  description: Customer Due Diligence
+paths:
+  /cdds:
+    post:
+      tags:
+      - CDD
+      summary: Perform CDD
+      description: Perform CDD on a given business. Supports idempotency to prevent duplicate processing of the same request.
+      parameters:
+      - name: idempotency-key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CDDRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CDDResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '409':
+          description: Conflict - Idempotency key already used with different payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'Conflict: Idempotency key already used with different payload'
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+    get:
+      tags:
+      - CDD
+      summary: Get list of CDD
+      description: Get list of CDD
+      parameters:
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Start date for filtering CDD cases (optional)
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: End date for filtering CDD cases (optional)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  cases:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CDDShort'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /cdds/bulk:
+    post:
+      tags:
+      - CDD
+      summary: Perform Bulk CDD
+      description: Perform CDD on multiple businesses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CDDRequest'
+        required: true
+      responses:
+        '200':
+          description: Bulk CDD operation completed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CDDBulkResponseItem'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /cdds/{id}:
+    get:
+      tags:
+      - CDD
+      summary: Get CDD by id
+      description: Get CDD results for a business
+      parameters:
+      - name: id
+        in: path
+        description: The id of the cdd request
+        required: true
+        schema:
+          type: string
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CDD'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /cdds/{id}/report:
+    get:
+      tags:
+      - CDD
+      summary: Get CDD report by id
+      description: Get CDD report for a business
+      parameters:
+      - name: id
+        in: path
+        description: The id of the cdd request
+        required: true
+        schema:
+          type: string
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+      responses:
+        '200':
+          description: OK
+          content:
+            text/markdown:
+              schema:
+                type: string
+                format: binary
+                description: The markdown content of the report
+              example: <binary content of the markdown file>
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /cdds/{id}/run-checks:
+    post:
+      tags:
+      - CDD
+      summary: Run risk checks on a completed CDD case
+      description: Triggers risk checks on a completed CDD case. The case must be in COMPLETED state. Optionally accepts a risk check set ID to run specific checks.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the cdd request
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                risk_check_set_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: Optional risk check set ID to run specific checks. If not provided, the original risk check set ID used when case was created will be used.
+                  example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+      responses:
+        '200':
+          description: OK - Risk checks have been triggered successfully
+        '400':
+          description: Bad Request - Invalid case ID format or case is not in COMPLETED state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid case ID format
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                  message:
+                    type: string
+                    example: Case is not completed
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found - Case does not exist or does not belong to the customer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Case not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      security:
+      - xApiKey: []
+  /cdds/{id}/documents:
+    post:
+      tags:
+      - CDD
+      summary: Add document to CDD
+      description: Add document to CDD
+      parameters:
+      - name: id
+        in: path
+        description: The id of the cdd request
+        required: true
+        schema:
+          type: string
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - type
+              - file
+              properties:
+                type:
+                  type: string
+                  description: The type of the document
+                  enum:
+                  - PROOF_OF_ADDRESS
+                  - SHAREHOLDERS_LIST
+                  - ARTICLES_OF_INCORPORATION
+                  example: PROOF_OF_ADDRESS
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /cdds/{id}/pull-registry-documents:
+    post:
+      tags:
+      - CDD
+      summary: Pull registry documents
+      description: Pull registry documents
+      parameters:
+      - name: id
+        in: path
+        description: The id of the cdd request
+        required: true
+        schema:
+          type: string
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+      responses:
+        '204':
+          description: No Content - The request was successful and the documents are being processed.
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /cdds/{id}/customer-reviews:
+    get:
+      tags:
+      - CDD
+      summary: List customer reviews by CDD id
+      description: List customer reviews for a given CDD case
+      parameters:
+      - name: id
+        in: path
+        description: The id of the cdd request
+        required: true
+        schema:
+          type: string
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  reviews:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 2c5edfb186c0b5939b5a5b1b1cd080a4
+                        business_id:
+                          type: string
+                          example: 45_qjbmtm5v8Mk2GNyx3Vw
+                        provider:
+                          type: string
+                          enum:
+                          - yelp
+                          - bbb
+                          - google_maps
+                          - trustpilot
+                          - facebook
+                          - instagram
+                          example: yelp
+                        timestamp:
+                          type: string
+                          format: date-time
+                          example: '2025-01-28T03:13:27Z'
+                        text:
+                          type: string
+                          example: Great craftsmanship and follow-through.
+                        language:
+                          type: string
+                          nullable: true
+                          example: en
+                        rating:
+                          type: integer
+                          example: 5
+                        user_name:
+                          type: string
+                          example: Melissa C.
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+components:
+  schemas:
+    Name:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Billie GmbH
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+    OnlineScreening:
+      type: object
+      description: Data from online presence of the business
+      properties:
+        legal_name:
+          type: string
+          example: PayLane Sp. z o.o.
+        names:
+          type: array
+          items:
+            $ref: '#/components/schemas/Name'
+        industry:
+          $ref: '#/components/schemas/Industry'
+        addresses:
+          $ref: '#/components/schemas/Addresses'
+        websites:
+          $ref: '#/components/schemas/Websites'
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        identification_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentificationNumber'
+    Websites:
+      type: object
+      properties:
+        primary:
+          $ref: '#/components/schemas/Website'
+        additional:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalWebsite'
+    CDDRequestLegalNameAddress:
+      type: object
+      required:
+      - legal_name
+      - address
+      properties:
+        website:
+          type: string
+          description: The website of the business
+          example: example.com
+        email:
+          type: string
+          description: The email of the business
+          example: fulan@domain.com
+        legal_name:
+          type: string
+          description: The legal name of the business
+          example: PayLane Sp. z o.o.
+        address:
+          type: string
+          description: The address of the business
+          example: Am Generalshof 12, 10117 Berlin, Germany
+        external_id:
+          type: string
+          description: Reference to be used in the customer's system
+          example: 1538c2f9-ff0f-489e-0099-a5f116a4af07
+        vat_number:
+          type: string
+          description: The VAT number of the business
+          example: BE09999999XX.
+        register_number:
+          type: string
+          description: The registry number of the business (i.e. company house number, SIRET, SIREN, P.IVA, only GB, FR and IT companies are supported)
+          example: '12345678'
+        country_code:
+          type: string
+          description: Country code in ISO 3166-1 alpha-2 format
+          example: DE
+        description:
+          type: string
+          description: The description of the business
+          example: Software consultancy
+        registry_profile:
+          type: string
+          enum:
+          - FULL
+          - BASIC
+        contact_person:
+          $ref: '#/components/schemas/ContactPerson'
+        risk_check_set_id:
+          type: string
+          description: The risk check set id, if not set the default risk check set will be used
+          example: 550e8400-e29b-41d4-a716-446655440000
+        pull_registry_documents:
+          type: boolean
+          description: Whether to pull registry documents for the company (Only supported for DE, and IT)
+          default: false
+          example: true
+        trading_name:
+          type: string
+          description: The trading name (DBA) of the business
+          nullable: true
+          example: Acme Trading Co
+        trading_address:
+          type: string
+          description: The trading address of the business
+          nullable: true
+          example: 123 Trade Street, London
+    CDDRequestRegisterNumberAndCountryCode:
+      type: object
+      required:
+      - register_number
+      - country_code
+      properties:
+        website:
+          type: string
+          description: The website of the business
+          example: example.com
+        email:
+          type: string
+          description: The email of the business
+          example: fulan@domain.com
+        legal_name:
+          type: string
+          description: The legal name of the business
+          example: PayLane Sp. z o.o.
+        address:
+          type: string
+          description: The address of the business
+          example: Am Generalshof 12, 10117 Berlin, Germany
+        external_id:
+          type: string
+          description: Reference to be used in the customer's system
+          example: 1538c2f9-ff0f-489e-0099-a5f116a4af07
+        vat_number:
+          type: string
+          description: The VAT number of the business
+          example: BE09999999XX.
+        register_number:
+          type: string
+          description: The registry number of the business (i.e. company house number, SIRET, SIREN, P.IVA, only GB, FR and IT companies are supported)
+          example: '12345678'
+        country_code:
+          type: string
+          description: Country code in ISO 3166-1 alpha-2 format
+          example: DE
+        description:
+          type: string
+          description: The description of the business
+          example: Software consultancy
+        registry_profile:
+          type: string
+          enum:
+          - FULL
+          - BASIC
+        contact_person:
+          $ref: '#/components/schemas/ContactPerson'
+        risk_check_set_id:
+          type: string
+          description: The risk check set id, if not set the default risk check set will be used
+          example: 550e8400-e29b-41d4-a716-446655440000
+        pull_registry_documents:
+          type: boolean
+          description: Whether to pull registry documents for the company (Only supported for DE, and IT)
+          default: false
+          example: true
+        trading_name:
+          type: string
+          description: The trading name (DBA) of the business
+          nullable: true
+          example: Acme Trading Co
+        trading_address:
+          type: string
+          description: The trading address of the business
+          nullable: true
+          example: 123 Trade Street, London
+    SignatoryPower:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: Doe
+        date_of_birth:
+          type: string
+          example: '1990-01-01'
+        entity_name:
+          type: string
+          example: Example GmbH
+        location:
+          type: string
+          example: City, Country
+        role:
+          type: string
+          example: ROLE
+        effective_date:
+          type: string
+          example: '2024-01-01'
+        representation:
+          type: string
+          example: Representation details
+        role_local:
+          type: string
+          example: Role
+        signatory_power:
+          type: string
+          example: POWER_TYPE
+    BaseProfile:
+      type: object
+      required:
+      - provider
+      - data
+      - sources
+      properties:
+        provider:
+          type: string
+          description: The name of the provider.
+          example: google
+        data:
+          type: object
+          description: The data related to the profile.
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+    CDDInput:
+      type: object
+      description: What was used to perform the CDD
+      properties:
+        website:
+          type: string
+          description: The website of the business
+          example: https://example.com
+        email:
+          type: string
+          description: The email of the business
+          example: fulan@domain.com
+        legal_name:
+          type: string
+          description: The legal name of the business
+          example: PayLane Sp. z o.o.
+        registry_profile:
+          type: string
+          enum:
+          - FULL
+          - BASIC
+        address:
+          type: string
+          description: The address of the business
+          example: Am Generalshof 12, 10117 Berlin, Germany
+        external_id:
+          type: string
+          description: Reference to be used in the customer's system
+          example: 1538c2f9-ff0f-489e-0099-a5f116a4af07
+        vat_number:
+          type: string
+          description: The VAT number of the business
+          example: BE09999999XX.
+    ValidationErrorItem:
+      type: object
+      properties:
+        path:
+          type: array
+          items:
+            type: string
+          description: JSON path to the field with the error
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code indicating the type of error
+      required:
+      - path
+      - message
+      - code
+    IndustryScheme:
+      type: object
+      properties:
+        primary:
+          $ref: '#/components/schemas/IndustrySchemeItem'
+        additional:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndustrySchemeItem'
+    DomainInformation:
+      type: object
+      properties:
+        name:
+          type: string
+          example: spyra.com
+        ssl:
+          $ref: '#/components/schemas/SslInfo'
+        extension:
+          type: string
+          example: com
+        ips_v4:
+          type: array
+          items:
+            type: string
+            example: 129.0.0.1
+        is_disposable:
+          type: boolean
+          example: false
+        status:
+          type: array
+          items:
+            type: string
+            example: clientdeleteprohibited
+        registrar:
+          type: string
+          example: GoDaddy.com, LLC
+        registrant:
+          type: string
+          example: Spyra GmbH
+        created_at:
+          type: string
+          example: '2000-02-06T18:03:12Z'
+          format: ISO8601
+        expires_at:
+          type: string
+          format: ISO8601
+          example: '2025-08-18T11:59:59Z'
+        age:
+          type: integer
+          example: 8670
+        country:
+          type: string
+          example: US
+        isp_name:
+          type: string
+          example: Fastly Inc.
+    Shareholder:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John Doe
+        percentage:
+          type: integer
+          example: 100
+        type:
+          type: string
+          example: INDIVIDUAL
+        location:
+          type: string
+          example: City, Country
+        is_major_shareholder:
+          type: boolean
+          example: true
+        is_ubo:
+          type: boolean
+          example: true
+        gender:
+          type: string
+          example: MALE
+        tax_code:
+          type: string
+          example: '123456789'
+        address:
+          type: string
+          example: 123 Main St, City, Country
+    Email:
+      type: object
+      properties:
+        email:
+          type: string
+          example: example@example.com
+        is_valid:
+          type: boolean
+          example: true
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+    Checks:
+      type: object
+      description: The checks performed on the business
+      properties:
+        verdict:
+          type: string
+          enum:
+          - ACCEPT
+          - REVIEW
+          - REJECT
+          example: ACCEPT
+        groups:
+          type: array
+          description: The groups of checks configured by the user
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: onboarding
+              description:
+                type: string
+                example: Onboarding checks
+              type:
+                type: string
+                enum:
+                - BINARY
+                - SCORE
+                example: BINARY
+              result:
+                type: boolean
+                description: Whether the group passed or not
+                example: true
+              score:
+                type: integer
+                description: only applicable if type is SCORE
+                example: 0
+              action:
+                type: string
+                enum:
+                - ACCEPT
+                - REVIEW
+                - REJECT
+                example: ACCEPT
+              checks:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Check'
+    Addresses:
+      type: object
+      properties:
+        primary:
+          $ref: '#/components/schemas/Address'
+        additional:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+    IdentificationNumber:
+      type: object
+      properties:
+        type:
+          type: string
+          example: VAT
+        number:
+          type: string
+          example: '123456789'
+      required:
+      - type
+      - number
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the document
+          example: doc_123
+        created_at:
+          type: string
+          format: ISO8601
+          description: The date the document was created
+          example: '2023-04-30T23:50:51.222Z'
+        file_name:
+          type: string
+          description: The name of the document
+          example: proof_of_address.pdf
+        file_type:
+          type: string
+          description: mime type of the file
+          enum:
+          - application/pdf
+          example: application/pdf
+        type:
+          type: string
+          description: The type of the document
+          enum:
+          - CHRONOLOGICAL_EXTRACT
+          - SHAREHOLDER_LIST
+          - REGISTRY_EXCERPT
+          - INCORPORATION
+          - OWNERSHIP_AND_SHAREHOLDING_CHANGES
+          - OFFICER_CHANGES
+          - FINANCIAL_STATEMENTS
+          - ADDRESS_AND_STRUCTURAL_CHANGES
+          example: INCORPORATION
+        url:
+          type: string
+          description: The URL to download the document
+          example: https://example-bucket.s3.eu-central-1.amazonaws.com/placeholder-folder/sample-document.pdf
+    Check:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the check
+          example: is_online_seller
+        description:
+          type: string
+          description: The description of the check
+          example: Checks if a website is an online shop i.e. ecommerce (excluding tourism and travel websites)
+        result:
+          type: boolean
+          description: The result of the check, true indicates positive outcome, false indicates negative outcome, null indicates the check was not performed due to missing data
+          enum:
+          - true
+          - false
+          - null
+          example: true
+        score:
+          type: integer
+          description: only applicable if type of associated group is SCORE
+          example: 0
+        context:
+          type: string
+          description: The context of the check
+          example: website
+        meta:
+          type: object
+          description: unstructured data related to the check
+          additionalProperties: true
+    AdditionalWebsite:
+      type: object
+      properties:
+        url:
+          type: string
+          example: https://www.example.com
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+    IndustrySchemes:
+      type: object
+      properties:
+        naics:
+          $ref: '#/components/schemas/IndustryScheme'
+        sic:
+          $ref: '#/components/schemas/IndustryScheme'
+        nace:
+          $ref: '#/components/schemas/IndustryScheme'
+        mcc:
+          $ref: '#/components/schemas/IndustryScheme'
+    Website:
+      type: object
+      properties:
+        url:
+          type: string
+          example: https://www.example.com
+        is_active:
+          type: boolean
+          example: true
+        domain:
+          $ref: '#/components/schemas/DomainInformation'
+        subdomains:
+          type: array
+          items:
+            type: string
+        content:
+          $ref: '#/components/schemas/WebsiteContent'
+        e_commerce:
+          type: object
+          properties:
+            product_count:
+              type: integer
+              example: 2000
+            category_count:
+              type: integer
+              example: 899
+            prices:
+              type: array
+              items:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                    example: EUR
+                  percentiles:
+                    type: object
+                    properties:
+                      '10':
+                        type: string
+                        example: '8.99'
+                      '20':
+                        type: string
+                        example: '14.99'
+                      '30':
+                        type: string
+                        example: '19.90'
+                      '40':
+                        type: string
+                        example: '24.99'
+                      '50':
+                        type: string
+                        example: '31.92'
+                      '60':
+                        type: string
+                        example: '41.30'
+                      '70':
+                        type: string
+                        example: '55.00'
+                      '80':
+                        type: string
+                        example: '75.00'
+                      '90':
+                        type: string
+                        example: '129.99'
+                  median:
+                    type: string
+                    example: '31.92'
+                  average:
+                    type: string
+                    example: '55.38'
+                  standard_deviation:
+                    type: string
+                    example: '75.45'
+                  min:
+                    type: string
+                    example: '0.01'
+                  max:
+                    type: string
+                    example: '1299.00'
+            platform:
+              type: string
+              example: SHOPIFY
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+    Source:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Source Name
+        link:
+          type: string
+          example: https://www.example.com
+    RiskCategory:
+      type: object
+      properties:
+        description:
+          type: string
+          example: Business is not operating in a prohibited industry.
+        category:
+          type: string
+          example: OTHER_NON_PROHIBITED
+        is_high_risk:
+          type: boolean
+          example: false
+        explanation:
+          type: string
+    SslInfo:
+      type: object
+      properties:
+        is_valid:
+          type: boolean
+          example: false
+        valid_from:
+          type: string
+          example: '2023-02-25T11:45:11.000Z'
+          format: ISO8601
+        valid_to:
+          type: string
+          example: '2024-03-28T11:45:10.000Z'
+          format: ISO8601
+        days_until_expiration:
+          type: integer
+          example: 147
+        valid_for:
+          type: array
+          items:
+            type: string
+            example: webflow.io
+    Registry:
+      type: object
+      required:
+      - name
+      - legal_form
+      - register
+      - address
+      - ownership
+      - source
+      properties:
+        status:
+          type: string
+          example: ACTIVE
+          enum:
+          - ACTIVE
+          - REGISTERED
+          - INACTIVE
+          - SUSPENDED
+          - IN_REGISTRATION
+          - TERMINATED
+        name:
+          type: string
+          example: XYZZ GmbH
+        commercial_name:
+          type: string
+        is_blocked:
+          type: boolean
+          default: false
+        legal_form:
+          type: string
+          example: GmbH
+        description:
+          type: string
+          example: SOFTWARE CONSULTANCY
+        register:
+          type: object
+          required:
+          - id
+          - country
+          properties:
+            id:
+              type: string
+              example: HRB 259538 B
+            country:
+              type: string
+              example: DE
+            city:
+              type: string
+              example: Charlottenburg (Berlin)
+            foundation_date:
+              type: string
+              example: '2023-12-04'
+        address:
+          $ref: '#/components/schemas/Address'
+        vat_number:
+          type: string
+        representation_rules:
+          type: string
+          example: This is a placeholder for representation rules.
+        signatory_powers:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatoryPower'
+        ownership:
+          type: object
+          properties:
+            shareholders:
+              type: array
+              items:
+                $ref: '#/components/schemas/Shareholder'
+            total_percentage:
+              type: integer
+              example: 100
+            total_shareholders_count:
+              type: integer
+              example: 1
+            total_major_shareholders_count:
+              type: integer
+              example: 1
+            total_ubos_count:
+              type: integer
+              example: 1
+        industry_classifications:
+          type: object
+          properties:
+            ateco:
+              type: array
+              items:
+                type: string
+                example: '47199'
+            nace:
+              type: array
+              items:
+                type: string
+                example: '4719'
+            sic:
+              type: array
+              items:
+                type: string
+                example: '5999'
+        pec:
+          type: string
+          example: QUADERNOAQUADRETTISRL@ARUBAPEC.IT
+        rea_code:
+          type: string
+          example: '128207'
+        financials:
+          type: object
+          properties:
+            date:
+              type: string
+              example: '2022-12-31'
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: share_capital
+                    enum:
+                    - turnover
+                    - share_capital
+                    - net_worth
+                  note:
+                    type: string
+                    description: The note of the financial item
+                  unit:
+                    type: string
+                    example: EUR
+                  value:
+                    type: number
+                    format: int64
+                    example: 100000
+        extras:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: website
+              value:
+                type: string
+                example: www.example.eu
+        source:
+          $ref: '#/components/schemas/Source'
+    Industry:
+      type: object
+      properties:
+        is_online_seller:
+          type: boolean
+          example: true
+        one_liner:
+          type: object
+          properties:
+            text:
+              type: string
+              example: Billie is a B2B platform offering 'Buy Now, Pay Later' solutions to enhance checkout experiences and boost sales.
+        summary:
+          type: object
+          properties:
+            text:
+              type: string
+              example: Billie.io is a German-based financial technology company that offers a "Buy Now, Pay Later" (BNPL) payment platform specifically designed for B2B transactions. The company enables online merchants to increase sales by providing their business customers with flexible payment options and terms, ranging from 14 to 120 days. Merchants receive immediate payouts while Billie assumes the risk. The platform boasts high acceptance rates and aims to improve customer satisfaction and checkout conversion rates. Billie's services include real-time customer verification, professional dunning processes, and automatic payment allocation. The company generates revenue by facilitating these transactions and providing additional financial services to B2B merchants.
+        risk_categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/RiskCategory'
+        schemes:
+          $ref: '#/components/schemas/IndustrySchemes'
+    IndustrySchemeItem:
+      type: object
+      properties:
+        code:
+          type: string
+          example: '6499'
+        description:
+          type: string
+          example: 649 Other financial service activities, except insurance and pension funding activities
+        source:
+          type: string
+          example: paylane
+        explanation:
+          type: string
+          example: The primary NAICS code 522320 is applicable due to the company's core business of facilitating financial transactions and providing a payment platform for B2B transactions.
+    CDDRequest:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/CDDRequestWebsite'
+      - $ref: '#/components/schemas/CDDRequestLegalNameAddress'
+      - $ref: '#/components/schemas/CDDRequestRegisterNumberAndCountryCode'
+    CDDResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the CDD request
+          example: a91a8416-0a38-49e5-887e-8437519b3e78
+        state:
+          type: string
+          description: The state of the CDD process
+          enum:
+          - INITIATED
+          - IN_PROGRESS
+          - RUNNING_CHECKS
+          - COMPLETED
+          - INCONCLUSIVE
+          - FAILED
+          example: INITIATED
+        input:
+          $ref: '#/components/schemas/CDDInput'
+        created_at:
+          type: string
+          example: '2024-03-20T15:18:36.803Z'
+          format: ISO8601
+    WebsiteContent:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Spyra
+        description:
+          type: string
+          example: Publisher efficient Urology learning materials. Our books let Urologists focus on what matters.
+        screenshot:
+          type: string
+          example: https://www.example.com/screenshot.png
+        links:
+          type: object
+          properties:
+            privacy_policy:
+              type: string
+              example: https://www.example.com/privacy-policy
+            terms_of_service:
+              type: string
+              example: https://www.example.com/terms-of-service
+            return_policy:
+              type: string
+              example: https://www.example.com/return-policy
+            refund_policy:
+              type: string
+              example: https://www.example.com/refund-policy
+            shipping_policy:
+              type: string
+              example: https://www.example.com/shipping-policy
+            imprint:
+              type: string
+              example: https://www.example.com/imprint
+            placeholder_text:
+              type: boolean
+              example: false
+    PhoneNumber:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          example: +1 234-567-8900
+        is_valid:
+          type: boolean
+          example: true
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+    CDDBulkResponseItem:
+      type: object
+      properties:
+        index:
+          type: integer
+          description: Index of the input in the bulk request
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          description: Status of the processing for this item
+        data:
+          $ref: '#/components/schemas/CDDResponse'
+        message:
+          type: string
+          description: Error message if status is 'error'
+      required:
+      - index
+      - status
+    CDDShort:
+      type: object
+      properties:
+        id:
+          type: string
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+        state:
+          type: string
+          enum:
+          - INITIATED
+          - COMPLETED
+          - FAILED
+          example: COMPLETED
+        input:
+          $ref: '#/components/schemas/CDDInput'
+        created_at:
+          type: string
+          format: ISO8601
+          example: '2024-03-20T15:18:36.803Z'
+        checks:
+          type: object
+          properties:
+            verdict:
+              type: string
+              description: The final verdict of the CDD
+              enum:
+              - ACCEPT
+              - REVIEW
+              - REJECT
+              example: ACCEPT
+            groups:
+              type: array
+              description: The groups of checks configured by the user
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The name of the group
+                    example: onboarding
+                  action:
+                    type: string
+                    description: The action to take if the group fails
+                    enum:
+                    - ACCEPT
+                    - REVIEW
+                    - REJECT
+                    example: ACCEPT
+    ContactPerson:
+      type: object
+      description: Contact person details. At least one of 'name' or 'email' must be provided if the object exists.
+      properties:
+        name:
+          type: string
+          nullable: true
+          minLength: 1
+          description: Name of the contact person
+        email:
+          type: string
+          nullable: true
+          format: email
+          description: Email address of the contact person
+        country_code:
+          type: string
+          nullable: true
+          description: Country code of the contact person
+        address:
+          type: string
+          nullable: true
+          description: Address of the contact person
+        phone_number:
+          type: string
+          nullable: true
+          description: Phone number of the contact person
+      anyOf:
+      - required:
+        - name
+      - required:
+        - email
+      - required:
+        - phone_number
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorItem'
+      required:
+      - errors
+    Address:
+      type: object
+      properties:
+        formatted_address:
+          type: string
+          example: 123 Imaginary St, 45678 Fictional City
+        components:
+          type: object
+          properties:
+            street:
+              type: string
+              example: Imaginary St
+            street_number:
+              type: string
+              example: '123'
+            state:
+              type: string
+              example: IS
+            locality_code:
+              type: string
+              example: IS
+            city:
+              type: string
+              example: Fictional City
+            postal_code:
+              type: string
+              example: '45678'
+            country_code:
+              type: string
+              example: FC
+            country:
+              type: string
+              example: Fictionland
+        type:
+          type: string
+          enum:
+          - residential
+          - business
+          - unknown
+          example: residential
+        is_valid:
+          type: boolean
+          example: true
+        is_verified:
+          type: boolean
+          example: true
+        is_suspicious:
+          type: boolean
+          example: false
+        is_blacklisted:
+          type: boolean
+          example: false
+        is_primary:
+          type: boolean
+          example: true
+        street_view:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+    CDD:
+      type: object
+      description: The CDD case details
+      required:
+      - id
+      - state
+      - input
+      properties:
+        id:
+          type: string
+          description: The id of the CDD request
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+        state:
+          type: string
+          description: The state of the CDD
+          example: COMPLETED
+        input:
+          $ref: '#/components/schemas/CDDInput'
+        created_at:
+          type: string
+          format: ISO8601
+          example: '2024-03-20T15:18:36.803Z'
+        online_screening:
+          $ref: '#/components/schemas/OnlineScreening'
+        registry:
+          $ref: '#/components/schemas/Registry'
+        documents:
+          type: array
+          description: The documents uploaded or collected for the CDD case
+          items:
+            $ref: '#/components/schemas/Document'
+        checks:
+          $ref: '#/components/schemas/Checks'
+    CDDRequestWebsite:
+      type: object
+      required:
+      - website
+      properties:
+        website:
+          type: string
+          description: The website of the business
+          example: example.com
+        email:
+          type: string
+          description: The email of the business
+          example: fulan@domain.com
+        legal_name:
+          type: string
+          description: The legal name of the business
+          example: PayLane Sp. z o.o.
+        address:
+          type: string
+          description: The address of the business
+          example: Am Generalshof 12, 10117 Berlin, Germany
+        external_id:
+          type: string
+          description: Reference to be used in the customer's system
+          example: 1538c2f9-ff0f-489e-0099-a5f116a4af07
+        vat_number:
+          type: string
+          description: The VAT number of the business
+          example: BE09999999XX.
+        register_number:
+          type: string
+          description: The registry number of the business (i.e. company house number, SIRET, SIREN, P.IVA, only GB, FR and IT companies are supported)
+          example: '12345678'
+        country_code:
+          type: string
+          description: Country code in ISO 3166-1 alpha-2 format
+          example: DE
+        description:
+          type: string
+          description: The description of the business
+          example: Software consultancy
+        registry_profile:
+          type: string
+          enum:
+          - FULL
+          - BASIC
+        contact_person:
+          $ref: '#/components/schemas/ContactPerson'
+        risk_check_set_id:
+          type: string
+          description: The risk check set id, if not set the default risk check set will be used
+          example: 550e8400-e29b-41d4-a716-446655440000
+        pull_registry_documents:
+          type: boolean
+          description: Whether to pull registry documents for the company (Only supported for DE, and IT)
+          default: false
+          example: true
+        trading_name:
+          type: string
+          description: The trading name (DBA) of the business
+          nullable: true
+          example: Acme Trading Co
+        trading_address:
+          type: string
+          description: The trading address of the business
+          nullable: true
+          example: 123 Trade Street, London
+    Profile:
+      $ref: '#/components/schemas/BaseProfile'
+  securitySchemes:
+    xApiKey:
+      type: apiKey
+      name: X-API-KEY
+      in: header

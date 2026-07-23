@@ -1,0 +1,106 @@
+openapi: 3.0.1
+info:
+  version: 1.6.0
+  title: Diligent CDD Instant Screening (experimental) API
+  description: 'Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).
+
+    '
+servers:
+- url: https://api.godiligent.ai
+  description: Production
+- url: https://api.sandbox.godiligent.ai
+  description: Sandbox
+security:
+- xApiKey: []
+tags:
+- name: Instant Screening (experimental)
+  description: Instant Website Screening API
+paths:
+  /screen:
+    post:
+      summary: Screen a website instantly for operational status (Experimental)
+      tags:
+      - Instant Screening (experimental)
+      x-badges:
+      - name: Beta
+        position: before
+        color: purple
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - website
+              properties:
+                website:
+                  type: string
+                  format: uri
+                  example: https://example-store.com
+      responses:
+        '200':
+          description: Successful screening result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScreeningResponse'
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+components:
+  schemas:
+    ScreeningResponse:
+      type: object
+      required:
+      - run_id
+      - website
+      - screened_at
+      - platform
+      - operational_status
+      properties:
+        run_id:
+          type: string
+          description: Unique identifier for this screening run
+          example: run_123456789
+        website:
+          type: string
+          format: uri
+          example: https://example-store.com
+        screened_at:
+          type: string
+          format: date-time
+          example: '2025-03-31T12:34:56Z'
+        platform:
+          type: string
+          enum:
+          - SHOPIFY
+          - WOOCOMMERCE
+          - NOPCOMMERCE
+          - ZID
+          - SALLA
+          - WIZISHOP
+          - MAGENTO
+          - OXID
+          - PRESTASHOP
+          - CUSTOM
+          description: Detected platform of the website
+          example: SALLA
+        operational_status:
+          type: object
+          required:
+          - is_active
+          - explanation
+          properties:
+            is_active:
+              type: boolean
+              example: false
+            explanation:
+              type: string
+              example: The message indicates that the store is currently under maintenance, which is a clear indicator of a non-operational status.
+  securitySchemes:
+    xApiKey:
+      type: apiKey
+      name: X-API-KEY
+      in: header

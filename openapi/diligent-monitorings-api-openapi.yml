@@ -1,0 +1,621 @@
+openapi: 3.0.1
+info:
+  version: 1.6.0
+  title: Diligent CDD Monitorings API
+  description: 'Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).
+
+    '
+servers:
+- url: https://api.godiligent.ai
+  description: Production
+- url: https://api.sandbox.godiligent.ai
+  description: Sandbox
+security:
+- xApiKey: []
+tags:
+- name: Monitorings
+  description: Website monitoring and alerts for changes and risks
+paths:
+  /monitoring-alerts:
+    get:
+      tags:
+      - Monitorings
+      summary: List monitoring alerts
+      description: Retrieve a paginated list of monitoring alerts for the authenticated customer. Supports filtering by seen/unseen status and execution time, and provides an unseen alert count.
+      parameters:
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Number of alerts per page (1-100, default 10)
+      - name: next_token
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Pagination token for next page (Base64-encoded)
+      - name: only_unacknowledged
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        description: If 'true', returns only unacknowledged alerts
+      - name: acknowledged
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        description: If 'true', returns only acknowledged alerts
+      - name: execution_time_before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Only include alerts executed before this time (ISO8601)
+      - name: execution_time_after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Only include alerts executed after this time (ISO8601)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitoringAlertsListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /monitoring-alerts/acknowledge:
+    post:
+      tags:
+      - Monitorings
+      summary: Acknowledge (mark as seen) monitoring alerts
+      description: Acknowledge (mark as seen) one or all monitoring alerts for the authenticated customer. Exactly one of alertId or all must be provided in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcknowledgeAlertsRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcknowledgeAlertsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Alert not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /monitorings:
+    post:
+      tags:
+      - Monitorings
+      summary: Create a new monitoring
+      description: Create a new monitoring for a customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MonitoringRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Monitoring'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+    get:
+      tags:
+      - Monitorings
+      summary: List monitorings
+      description: Get a list of monitorings for a customer
+      parameters:
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Number of items per page (1-100, default 10)
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - last_execution
+          - next_run
+          - state
+          - website
+          default: last_execution
+        description: 'Field to sort by (default: last_execution)'
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: Sort order (asc or desc, default desc)
+      - name: next_token
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Pagination token for next page
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by running state
+      - name: website
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by specific website URL
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Monitoring'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+  /monitorings/bulk-create:
+    post:
+      tags:
+      - Monitorings
+      summary: Bulk create monitorings
+      description: Create multiple monitorings in a single request. All websites must be unique and not already exist for the customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              maxItems: 200
+              items:
+                allOf:
+                - $ref: '#/components/schemas/MonitoringRequest'
+                - type: object
+                  properties:
+                    run_now:
+                      type: boolean
+                      description: If true, monitoring will be executed immediately after creation.
+                    expires_at:
+                      type: string
+                      format: date-time
+                      description: Optional expiration date for the monitoring.
+      responses:
+        '200':
+          description: Successful bulk creation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  is_successful:
+                    type: boolean
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Monitoring'
+        '400':
+          description: Validation or duplicate error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  duplicates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        website:
+                          type: string
+                          description: The duplicate website URL
+                        index:
+                          type: integer
+                          description: The index position of the duplicate item in the request array
+                    description: List of duplicate website objects with their positions in the request array
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      security:
+      - xApiKey: []
+  /monitorings/{id}/deactivate:
+    delete:
+      tags:
+      - Monitorings
+      summary: Deactivate a monitoring
+      description: Deactivate a monitoring by ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+components:
+  schemas:
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorItem'
+      required:
+      - errors
+    MonitoringAlertsListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitoringAlert'
+        unacknowledged_count:
+          type: integer
+          description: Number of unacknowledged alerts
+          example: 1
+        next_token:
+          type: string
+          description: Pagination token for next page (null if last page)
+          example: eyJjdXN0b21lcklkIjp7IlMiOiI2OWRmNWQ4MS0yYjc0LTRmNDItYTQwMS0xM2ViOTZiYTA2MTkifSwiZXhlY3V0aW9uVGltZSI6eyJTIjoiMjAyNS0wNy0zMVQxMjowMTozMC44OTFaIn19
+    AcknowledgeAlertsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation succeeded
+        message:
+          type: string
+          description: Success message
+        unacknowledged_count:
+          type: integer
+          description: Number of unacknowledged alerts remaining
+          nullable: true
+    AcknowledgeAlertsRequest:
+      type: object
+      properties:
+        alert_id:
+          type: string
+          description: ID of the alert to acknowledge
+        all:
+          type: boolean
+          description: If true, acknowledge all alerts
+      oneOf:
+      - required:
+        - alert_id
+      - required:
+        - all
+      description: Either alert_id OR all must be provided, but not both
+    ValidationErrorItem:
+      type: object
+      properties:
+        path:
+          type: array
+          items:
+            type: string
+          description: JSON path to the field with the error
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code indicating the type of error
+      required:
+      - path
+      - message
+      - code
+    MonitoringAlert:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique alert identifier
+          example: a1b2c3d4
+        monitoring_id:
+          type: string
+          format: uuid
+          description: Monitoring ID
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+        customer_id:
+          type: string
+          format: uuid
+          description: Customer ID
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+        execution_result_id:
+          type: string
+          format: uuid
+          description: Execution result ID
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+        website:
+          type: string
+          format: uri
+          description: Website URL
+          example: https://example.com
+        failed_checks:
+          type: array
+          items:
+            type: object
+            properties:
+              check:
+                type: string
+                description: Check type
+                example: non_operational_website
+              explanation:
+                type: string
+                description: Explanation of the failed check
+                example: Website is not reachable
+              method_used:
+                type: string
+                description: Method used to perform the check
+                example: AI
+              status:
+                type: string
+                description: Status of the check
+                example: FAILED
+          description: Failed checks
+          example:
+          - check: non_operational_website
+            explanation: No Website Data found
+            method_used: ''
+            status: FAILED
+        execution_time:
+          type: string
+          description: Execution time of the monitoring
+          example: '2022-01-01T00:00:00.000Z'
+        created_at:
+          type: string
+          description: Creation time of the alert
+          example: '2022-01-01T00:00:00.000Z'
+        acknowledged_at:
+          type: string
+          nullable: true
+          description: Acknowledged time of the alert or null if not acknowledged
+          example: '2025-08-01T06:12:47.905Z'
+        external_id:
+          type: string
+          nullable: true
+          description: External reference ID or null if not set
+          example: '123456'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+    MonitoringRequest:
+      type: object
+      required:
+      - website
+      - checks
+      - frequency
+      properties:
+        website:
+          type: string
+          format: uri
+          description: The website URL to monitor
+          example: https://example.com
+        checks:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - non_operational_website
+            - high_risk_mcc
+            - high_risk_diligent_classification
+            - catalog_contain_loan_flipping_indicators
+          description: Array of monitoring checks to perform
+          example:
+          - non_operational_website
+          - high_risk_diligent_classification
+        frequency:
+          type: string
+          enum:
+          - weekly
+          - every_2_weeks
+          - every_3_weeks
+          - every_4_weeks
+          default: every_2_weeks
+          description: How often to run the monitoring checks
+          example: weekly
+        run_now:
+          type: boolean
+          default: true
+          description: Whether to execute the monitoring immediately after creation
+        expires_at:
+          type: string
+          format: date-time
+          description: Optional expiration date for the monitoring (defaults to 6 months from creation)
+          example: '2024-12-31T23:59:59.000Z'
+        skip_duplicate:
+          type: boolean
+          description: If an existing, active monitoring exist with the same site skip don't fail
+          example: false
+    Monitoring:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique monitoring identifier
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+        website:
+          type: string
+          format: uri
+          description: The monitored website URL
+          example: https://example.com
+        customer_id:
+          type: string
+          description: Customer identifier
+        checks:
+          type: array
+          items:
+            type: string
+            enum:
+            - non_operational_website
+            - high_risk_diligent_classification
+            - catalog_contain_loan_flipping_indicators
+          description: Active monitoring checks
+        frequency:
+          type: string
+          enum:
+          - weekly
+          - every_2_weeks
+          - every_3_weeks
+          - every_4_weeks
+          description: Monitoring frequency
+        is_active:
+          type: boolean
+          description: Whether monitoring is active
+        running_state:
+          type: string
+          enum:
+          - IDLE
+          - RUNNING
+          - FAILED
+          description: Current execution state
+        next_run_at:
+          type: string
+          format: date-time
+          description: Next scheduled execution time
+        expires_at:
+          type: string
+          format: date-time
+          description: Monitoring expiration date
+        last_execution:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of last execution, null if never executed
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        execution_results:
+          type: array
+          items:
+            type: object
+          description: Results from the latest monitoring execution
+        external_id:
+          type: string
+          description: External identifier for this monitoring
+  securitySchemes:
+    xApiKey:
+      type: apiKey
+      name: X-API-KEY
+      in: header

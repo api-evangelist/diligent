@@ -1,0 +1,171 @@
+openapi: 3.0.1
+info:
+  version: 1.6.0
+  title: Diligent CDD Webhooks API
+  description: 'Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).
+
+    '
+servers:
+- url: https://api.godiligent.ai
+  description: Production
+- url: https://api.sandbox.godiligent.ai
+  description: Sandbox
+security:
+- xApiKey: []
+tags:
+- name: Webhooks
+  description: "\n## How to Secure Webhook Deliveries\nTo ensure that webhook payloads are securely transmitted and verified. This guide explains how to configure and validate\nwebhook deliveries using a shared secret.\n\n### How It Works\n\nWhen setting up a webhook, a secret is configured on both the sender (our system) and the receiver (your endpoint). Each\nwebhook payload is signed using this secret, allowing the receiver to verify its authenticity.\n\n#### Step 1: Configuring Your Webhook Secret\n\n1. When creating a webhook in our system, specify a unique secret key. This secret should be a strong, randomly\ngenerated string.\n2. Store this secret securely on your server; it should never be exposed publicly.\n\n#### Step 2: Receiving Webhook Payloads\n\nWhen your server receives a webhook event, the request will include an `X-Signature` header containing a HMAC signature\nof the payload.\n\nExample header:\n\n```\nX-Signature: sha256=abcdef1234567890...\n```\n\n#### Step 3: Validating the Webhook Signature\n\nTo verify the webhook payload:\n\n1. Retrieve the `X-Signature` value from the request headers.\n2. Compute the HMAC SHA-256 signature of the request payload using your webhook secret.\n3. Compare the computed signature with the one in the `X-Signature` header.\n4. If they match, the webhook is valid.\n\n#### (Python)\n\n```python\nimport hashlib\nimport hmac\nimport json\n\ndef verify_webhook_signature(secret, payload, signature):\n  computed_signature = hmac.new(secret.encode(), payload.encode(), hashlib.sha256).hexdigest()\n  expected_signature = f\"sha256={computed_signature}\"\n  return hmac.compare_digest(expected_signature, signature)\n\n# Example usage:\nsecret = \"your_webhook_secret\"\npayload = json.dumps({\"event\": \"example\"})\nreceived_signature = \"sha256=abcdef1234567890...\"\n\nif verify_webhook_signature(secret, payload, received_signature):\n  print(\"Valid webhook received!\")\nelse:\n  print(\"Invalid webhook signature!\")\n```\n\n#### (JavaScript)\n\n```javascript\nconst crypto = require('crypto');\n\nfunction verifyWebhookSignature (secret, payload, signature) {\nconst computedSignature = `sha256=${crypto.createHmac('sha256', secret)\n.update(payload)\n.digest('hex')}`;\nreturn crypto.timingSafeEqual(Buffer.from(computedSignature), Buffer.from(signature));\n}\n\n// Example usage:\nconst secret = \"your_webhook_secret\";\nconst payload = JSON.stringify({ event: \"example\" });\nconst receivedSignature = \"sha256=abcdef1234567890...\";\n\nif (verifyWebhookSignature(secret, payload, receivedSignature)) {\nconsole.log(\"Valid webhook received!\");\n} else {\nconsole.log(\"Invalid webhook signature!\");\n}\n```\n\n#### Security Considerations\n\n- Always use HTTPS to prevent interception of webhook payloads.\n- Reject webhook requests that fail signature validation.\n- Rotate secrets periodically to enhance security.\n\nBy following this guide, you ensure that webhook deliveries are secure and trusted.\n"
+paths:
+  /webhooks:
+    post:
+      summary: Register or update webhook configuration
+      operationId: registerWebhook
+      tags:
+      - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                webhook_url:
+                  type: string
+                  format: uri
+                  description: Must be a valid URL starting with https.
+                is_active:
+                  type: boolean
+                  default: true
+                  description: Indicates if the webhook is active.
+                secret:
+                  type: string
+                  description: Secret key to sign the webhook payload, and will be passed in the `X-Signature` header.
+                events:
+                  type: array
+                  description: List of events to trigger the webhook. If not provided, no events will be triggered.
+                  items:
+                    type: string
+                    enum:
+                    - cdd_state_changed
+                    - monitoring_alert_fired
+                    description: "__cdd_state_changed__: When the state of a CDD changes to either inconclusive or complete. \n__monitoring_alert_fired__: When a monitoring alert is fired."
+              required:
+              - webhook_url
+      responses:
+        '200':
+          description: Webhook configuration created or updated.
+        '400':
+          description: Invalid input or validation error.
+    get:
+      summary: List registered webhooks
+      operationId: listWebhooks
+      tags:
+      - Webhooks
+      responses:
+        '200':
+          description: List of registered webhooks (limited to 1 for now).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique ID for the webhook.
+                    webhook_url:
+                      type: string
+                      format: uri
+                    is_active:
+                      type: boolean
+                    events:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                        - cdd_state_changed
+                        - monitoring_alert_fired
+  /webhooks/{webhook_id}/events:
+    get:
+      tags:
+      - Webhooks
+      summary: List recent webhook deliveries
+      operationId: listWebhookDeliveries
+      parameters:
+      - name: webhook_id
+        in: path
+        required: true
+        description: Webhook ID to filter deliveries.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of recent webhook delivery events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                    webhook_id:
+                      type: string
+                      format: uuid
+                    event_type:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
+                    status_code:
+                      type: integer
+                      example: 204
+                    request:
+                      type: object
+                      properties:
+                        headers:
+                          type: object
+                        payload:
+                          type: object
+                    response:
+                      type: object
+                      properties:
+                        headers:
+                          type: object
+                        body:
+                          type: object
+  /webhooks/{webhook_id}/events/{event_id}/redeliver:
+    post:
+      summary: Redeliver a webhook event
+      operationId: redeliverWebhook
+      tags:
+      - Webhooks
+      parameters:
+      - name: webhook_id
+        in: path
+        required: true
+        description: Webhook ID for the event to redeliver.
+        schema:
+          type: string
+      - name: event_id
+        in: path
+        required: true
+        description: Event ID of the webhook to redeliver.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Webhook redelivery initiated.
+        '404':
+          description: Event or Webhook not found.
+        '500':
+          description: Error during redelivery.
+components:
+  securitySchemes:
+    xApiKey:
+      type: apiKey
+      name: X-API-KEY
+      in: header

@@ -1,0 +1,281 @@
+openapi: 3.0.1
+info:
+  version: 1.6.0
+  title: Diligent CDD Name Screening API
+  description: 'Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).
+
+    '
+servers:
+- url: https://api.godiligent.ai
+  description: Production
+- url: https://api.sandbox.godiligent.ai
+  description: Sandbox
+security:
+- xApiKey: []
+tags:
+- name: Name Screening
+  description: Name screening remediation
+paths:
+  /v1/name-screenings/alerts/remediate:
+    post:
+      tags:
+      - Name Screening
+      summary: Submit alert for remediation (Beta)
+      description: 'Submit an externally-screened alert for AI-powered remediation. For customers who perform name screening themselves and want Diligent''s AI to resolve the hits.
+
+
+        Processing is asynchronous — use [Get Alert](/api-reference/name-screening/get-alert) to retrieve results.
+
+
+        See the [Remediation API Guide](/guides/name-screening/remediation-api) for recommended field labels and detailed examples.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemediateAlertRequest'
+            examples:
+              individual:
+                summary: Individual with sanctions hit
+                value:
+                  reference: WC-CASE-2026-001
+                  alt_reference: CUST-SCREENING-42
+                  input:
+                  - label: full_name
+                    value: John Alexander Doe
+                  - label: entity_type
+                    value: INDIVIDUAL
+                  - label: date_of_birth
+                    value: '1985-03-15'
+                  - label: country_code
+                    value: DE
+                  hits:
+                  - reference: WC-RESULT-12345
+                    profile_reference: WC-ENTITY-789
+                    categories:
+                    - SANCTION
+                    fields:
+                    - label: Name
+                      value: John A. Doe
+                    - label: Date of Birth
+                      value: '1985-03-15'
+                    - label: Nationality
+                      value: German
+              business:
+                summary: Business entity
+                value:
+                  reference: CA-SEARCH-2026-002
+                  alt_reference: CUST-KYB-99
+                  input:
+                  - label: name
+                    value: Acme Holdings GmbH
+                  - label: entity_type
+                    value: BUSINESS
+                  - label: country_code
+                    value: AT
+                  - label: company_identifier
+                    value: FN 123456a
+                  hits:
+                  - reference: CA-MATCH-456
+                    categories:
+                    - SANCTION
+                    fields:
+                    - label: Name
+                      value: Acme Holdings Ltd
+                    - label: Country of Registration
+                      value: Cyprus
+                    - label: Listed On
+                      value: OFAC SDN
+              multiple_hits:
+                summary: Multiple hits across categories
+                value:
+                  reference: BR-RESULT-2026-003
+                  alt_reference: CUST-AML-77
+                  input:
+                  - label: full_name
+                    value: John Doe
+                  - label: entity_type
+                    value: INDIVIDUAL
+                  - label: date_of_birth
+                    value: '1985-03-15'
+                  hits:
+                  - reference: BR-MATCH-001
+                    categories:
+                    - SANCTION
+                    fields:
+                    - label: Name
+                      value: John A. Doe
+                    - label: Listed On
+                      value: EU Sanctions List
+                  - reference: BR-MATCH-002
+                    categories:
+                    - PEP
+                    fields:
+                    - label: Name
+                      value: Jonathan Doe
+                    - label: Position
+                      value: Member of Parliament
+                    - label: Country
+                      value: United Kingdom
+      responses:
+        '201':
+          description: Alert accepted for remediation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemediateAlertResponse'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized - Invalid or missing API key
+        '404':
+          description: Customer configuration not found
+        '500':
+          description: Internal Server Error
+      security:
+      - xApiKey: []
+components:
+  schemas:
+    FreeformField:
+      type: object
+      required:
+      - label
+      - value
+      properties:
+        label:
+          type: string
+          description: Field name
+          example: Name
+        value:
+          type: string
+          description: Field value
+          example: John Doe
+    RemediateAlertResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Alert ID. Use with GET /v1/name-screenings/alerts/{id} to retrieve results.
+          example: 550e8400-e29b-41d4-a716-446655440000
+        reference:
+          type: string
+          description: Provider reference (echoed back).
+          example: WC-CASE-2026-001
+        alt_reference:
+          type: string
+          nullable: true
+          description: Client reference (echoed back), or null if not provided.
+          example: INTERNAL-42
+        hits:
+          type: array
+          description: Submitted hits with references.
+          items:
+            type: object
+            properties:
+              reference:
+                type: string
+                description: Provider hit reference (as submitted).
+                example: WC-RESULT-12345
+              profile_reference:
+                type: string
+                description: Provider entity reference (as submitted, or defaulted to reference).
+                example: WC-ENTITY-789
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: Validation failed
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                example: hits.0.reference
+              message:
+                type: string
+                example: Reference is required
+    RemediateAlertRequest:
+      type: object
+      required:
+      - reference
+      - input
+      - hits
+      properties:
+        reference:
+          type: string
+          description: Provider reference for the alert (e.g. case ID from your screening provider).
+          example: WC-CASE-2026-001
+        alt_reference:
+          type: string
+          description: Your own client reference for the same alert (e.g. internal case number).
+          example: INTERNAL-42
+        input:
+          type: array
+          description: Subject profile as label/value pairs. Freeform labels — the AI uses LLM-based extraction.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/FreeformField'
+        hits:
+          type: array
+          description: Screening hits to remediate. At least one required.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/RemediateHit'
+    RemediateHit:
+      type: object
+      required:
+      - reference
+      - categories
+      - fields
+      properties:
+        reference:
+          type: string
+          description: Provider reference for this hit (e.g. result ID or match ID from your screening provider). Must be unique within the alert.
+          example: WC-RESULT-12345
+        profile_reference:
+          type: string
+          description: Provider's unique reference for the matched profile/entity. May differ from `reference` — some providers use separate IDs for the match result vs the underlying entity. Enables enrichment caching when the same entity appears across multiple alerts. Defaults to `reference` if omitted.
+          example: WC-ENTITY-789
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+            - SANCTION
+            - PEP
+            - MEDIA
+          description: Hit categories.
+          example:
+          - SANCTION
+        fields:
+          type: array
+          description: Hit entity profile as label/value pairs. Freeform — use whatever labels your provider gives you.
+          minItems: 1
+          items:
+            type: object
+            required:
+            - label
+            - value
+            properties:
+              label:
+                type: string
+                description: Field name (e.g. Name, Date of Birth, Nationality)
+                example: Name
+              value:
+                type: string
+                description: Field value
+                example: John A. Doe
+  securitySchemes:
+    xApiKey:
+      type: apiKey
+      name: X-API-KEY
+      in: header
