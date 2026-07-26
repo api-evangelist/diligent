@@ -1,0 +1,52 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.godiligent.ai/guides/introduction
+authentication:
+  style: api-key
+  header: X-API-KEY
+  docs: https://docs.godiligent.ai/guides/introduction
+  cross_ref: authentication/diligent-authentication.yml
+idempotency:
+  supported: true
+  header: idempotency-key
+  scope: per-request payload
+  applies_to:
+    - POST /cdds
+  conflict_behavior: >-
+    Reusing an idempotency-key with a different request payload returns 409
+    Conflict. Reuse the same key only for identical retries.
+pagination:
+  style: page-size
+  params:
+    - page_size
+  notes: List endpoints accept a page_size query parameter.
+versioning:
+  scheme: spec-version
+  current: 1.6.0
+  cross_ref: lifecycle/diligent-lifecycle.yml
+environments:
+  production: https://api.godiligent.ai
+  sandbox: https://api.sandbox.godiligent.ai
+  cross_ref: sandbox/diligent-sandbox.yml
+error_envelope:
+  format: custom
+  fields:
+    error: Error message string (ErrorResponse)
+    errors: Field-level validation array (ValidationError)
+  cross_ref: errors/diligent-problem-types.yml
+rate_limiting:
+  style: concurrency-limit
+  limits:
+    - resource: CDD cases
+      concurrent: 10
+    - resource: name screening requests
+      concurrent: 20
+  notes: Documented as concurrent-request limits per account, not a token-bucket rate.
+webhooks:
+  signed: true
+  signature_header: X-Signature
+  secret: shared secret set at registration
+  events:
+    - cdd_state_changed
+    - monitoring_alert_fired
+  cross_ref: asyncapi/diligent-webhooks.yml

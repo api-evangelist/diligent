@@ -1,0 +1,24 @@
+{
+  "provider": "diligent",
+  "sources": [
+    "diligent-cdd-api-openapi.yml",
+    "diligent-company-api-openapi.yml",
+    "diligent-instant-screening-experimental-api-openapi.yml",
+    "diligent-monitorings-api-openapi.yml",
+    "diligent-name-screening-api-openapi.yml",
+    "diligent-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "diligent-cdd-api-openapi.yml",
+    "diligent-company-api-openapi.yml",
+    "diligent-instant-screening-experimental-api-openapi.yml",
+    "diligent-monitorings-api-openapi.yml",
+    "diligent-name-screening-api-openapi.yml",
+    "diligent-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

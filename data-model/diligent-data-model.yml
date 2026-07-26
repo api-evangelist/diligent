@@ -1,0 +1,69 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/diligent-openapi-original.json
+entities:
+  - name: CDD
+    description: A Customer Due Diligence case on a business.
+    id_field: id
+  - name: CDDInput
+    description: The input criteria for a CDD case (legal name/address, register number + country, or website).
+  - name: Checks
+    description: The set of risk checks run against a CDD case.
+  - name: Check
+    description: An individual risk check result within a CDD case.
+  - name: Document
+    description: A supporting document attached to a CDD case.
+  - name: Registry
+    description: Registry data pulled for a company (IT/DE registries).
+  - name: OnlineScreening
+    description: Online/website screening data attached to a CDD case.
+  - name: Report
+    description: A detailed CDD report.
+  - name: CompanyInfo
+    description: Identified company information.
+  - name: Profile
+    description: A business profile (websites, addresses, contacts, industry).
+  - name: BlockedCompany
+    description: A company on the account block list.
+  - name: Monitoring
+    description: An ongoing monitoring configuration for a customer/website.
+  - name: MonitoringAlert
+    description: An alert produced by a monitoring run.
+  - name: OnlineScreening
+    description: Instant/operational website screening result.
+  - name: ScreeningResponse
+    description: Response envelope for instant website screening.
+relationships:
+  - from: CDD
+    to: CDDInput
+    kind: has_one
+    via: input
+  - from: CDD
+    to: OnlineScreening
+    kind: has_one
+    via: online_screening
+  - from: CDD
+    to: Registry
+    kind: has_one
+    via: registry
+  - from: CDD
+    to: Document
+    kind: has_many
+    via: documents
+  - from: CDD
+    to: Checks
+    kind: has_one
+    via: checks
+  - from: Checks
+    to: Check
+    kind: has_many
+    via: checks
+  - from: MonitoringAlert
+    to: Monitoring
+    kind: belongs_to
+    via: monitoring_id
+notes: >-
+  Relationships derived from OpenAPI schema $ref links. The CDD case is the
+  central entity, aggregating input criteria, checks, documents, registry and
+  online-screening data. Monitorings emit MonitoringAlerts; BlockedCompany,
+  CompanyInfo and Profile are standalone screening/identification resources.

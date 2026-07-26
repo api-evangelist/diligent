@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.godiligent.ai/guides/introduction
+versioning:
+  scheme: spec-version
+  current: 1.6.0
+  notes: >-
+    The primary OpenAPI reports info.version 1.6.0. A separate Remediation API is
+    published at version 0.1.0-beta. The instant website screening endpoint
+    (POST /screen) is marked experimental.
+  beta_surfaces:
+    - Diligent Remediation API (0.1.0-beta)
+    - POST /screen (Instant Screening, experimental)
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published deprecation/sunset policy found.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.godiligent.ai/
+deprecated_operations: []

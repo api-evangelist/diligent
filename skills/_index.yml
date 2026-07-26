@@ -1,0 +1,36 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/diligent-openapi-original.json
+skills:
+  - file: diligent-perform-cdd.md
+    name: Perform a Customer Due Diligence (CDD) case
+    api: openapi/diligent-openapi-original.json
+    operations:
+      - "POST /cdds"
+      - "GET /cdds/{id}"
+      - "POST /cdds/{id}/documents"
+      - "POST /cdds/{id}/run-checks"
+      - "GET /cdds/{id}/report"
+  - file: diligent-name-screening-remediation.md
+    name: Remediate a name-screening alert
+    api: openapi/diligent-remediation-openapi.json
+    operations:
+      - "POST /v1/name-screenings/alerts/remediate"
+  - file: diligent-monitoring.md
+    name: Set up ongoing monitoring and handle alerts
+    api: openapi/diligent-openapi-original.json
+    operations:
+      - "POST /monitorings"
+      - "POST /monitorings/bulk-create"
+      - "GET /monitorings"
+      - "GET /monitoring-alerts"
+      - "POST /monitoring-alerts/acknowledge"
+      - "DELETE /monitorings/{id}/deactivate"
+  - file: diligent-webhooks.md
+    name: Register and verify Diligent webhooks
+    api: openapi/diligent-openapi-original.json
+    operations:
+      - registerWebhook
+      - listWebhooks
+      - listWebhookDeliveries
+      - redeliverWebhook

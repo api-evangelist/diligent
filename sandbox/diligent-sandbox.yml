@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.godiligent.ai/guides/introduction
+environments:
+  production:
+    base_url: https://api.godiligent.ai
+  sandbox:
+    base_url: https://api.sandbox.godiligent.ai
+    description: >-
+      Dedicated sandbox host for testing CDD, screening, monitoring and webhook
+      flows without touching production data.
+auth:
+  style: api-key
+  header: X-API-KEY
+  notes: >-
+    Sandbox uses its own X-API-KEY issued for the sandbox environment. Diligent
+    does not publish shared/magic test credentials or fixture identifiers in its
+    public docs; test keys are provisioned per account.
+test_values:
+  published: false
+  notes: No public test credentials, magic identifiers, or fixture values are documented.

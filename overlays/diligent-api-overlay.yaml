@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Diligent API
+  version: 1.0.0
+extends: openapi/diligent-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-18'
+      x-apievangelist-provider: diligent
+      x-apievangelist-auth: apiKey (X-API-KEY header)
+      x-apievangelist-environments:
+        production: https://api.godiligent.ai
+        sandbox: https://api.sandbox.godiligent.ai
+      x-apievangelist-idempotency:
+        supported: true
+        header: idempotency-key
+        applies_to:
+          - POST /cdds
+      x-apievangelist-webhooks:
+        signed: true
+        signature_header: X-Signature
+        events:
+          - cdd_state_changed
+          - monitoring_alert_fired
+      x-apievangelist-compliance:
+        - SOC 2 Type II
+        - ISO 27001
+        - GDPR

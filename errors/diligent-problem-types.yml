@@ -1,0 +1,44 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/diligent-openapi-original.json
+format: custom
+envelope:
+  primary:
+    schema: ErrorResponse
+    fields:
+      error: Human-readable error message (string)
+  validation:
+    schema: ValidationError
+    fields:
+      errors: Array of ValidationErrorItem (field-level validation failures)
+note: >-
+  Diligent does not use RFC 9457 application/problem+json. Errors return a JSON
+  body with an `error` string (ErrorResponse) or, for input validation, an
+  `errors` array (ValidationError). Statuses below are derived from the OpenAPI
+  4xx/5xx responses.
+problems:
+  - status: 400
+    title: Bad Request
+    schema: ErrorResponse
+    content_type: application/json
+    remediation: Fix the request payload/parameters; check the `error` message and any ValidationError `errors[]`.
+  - status: 401
+    title: Unauthorized
+    remediation: Provide a valid X-API-KEY header.
+  - status: 403
+    title: Forbidden
+    remediation: The API key lacks permission for this resource or environment.
+  - status: 404
+    title: Not found
+    remediation: The referenced resource id does not exist.
+  - status: 409
+    title: Conflict
+    schema: ErrorResponse
+    content_type: application/json
+    remediation: >-
+      Idempotency key already used with a different request payload. Reuse the
+      same idempotency-key only for identical retries, or use a new key.
+    source_operation: openapi/diligent-openapi-original.json#POST /cdds
+  - status: 500
+    title: Internal Server Error
+    remediation: Transient server error; retry with backoff. Contact support if persistent.

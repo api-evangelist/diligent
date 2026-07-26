@@ -1,0 +1,15 @@
+generated: '2026-07-18'
+method: searched
+probe: true
+source: https://www.godiligent.ai/security
+url: https://www.godiligent.ai/security
+certifications:
+- SOC 2
+- ISO 27001
+- GDPR
+evidence:
+- source: https://www.godiligent.ai/security
+  keywords:
+  - soc2
+  - iso 27001
+  - gdpr

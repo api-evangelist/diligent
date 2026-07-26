@@ -1,0 +1,48 @@
+# Godiligent API Documentation
+
+## Docs
+
+- [Block Company](https://docs.godiligent.ai/api-reference/blocked-companies/block.md): Block company by various data points
+- [List blocked companies](https://docs.godiligent.ai/api-reference/blocked-companies/list.md): List all blocked companies by various data points
+- [Unblock Company](https://docs.godiligent.ai/api-reference/blocked-companies/unblock.md): Unblock company by id
+- [Add Document](https://docs.godiligent.ai/api-reference/cdd/add-document.md): Add supporting documents to a CDD case
+- [Get CDD](https://docs.godiligent.ai/api-reference/cdd/get-cdd.md): Retrieve details of a specific CDD request
+- [Get CDD Report](https://docs.godiligent.ai/api-reference/cdd/get-report.md): Download a detailed CDD report
+- [List CDDs](https://docs.godiligent.ai/api-reference/cdd/list-cdds.md): Retrieve a list of CDD requests
+- [Perform CDD](https://docs.godiligent.ai/api-reference/cdd/perform-cdd.md): Perform Customer Due Diligence checks
+- [Pull registry documents](https://docs.godiligent.ai/api-reference/cdd/pull-registry-documents.md): Pull registry documents from official registries, supported only in IT and DE
+- [Run risk checks](https://docs.godiligent.ai/api-reference/cdd/run-checks.md): Run risk checks on a completed CDD case
+- [Identify Company](https://docs.godiligent.ai/api-reference/company/identify.md): Get company by various data points
+- [Acknowledge Monitoring Alerts](https://docs.godiligent.ai/api-reference/monitorings/acknowledge-alerts.md): Acknowledge (mark as seen) one or all monitoring alerts.
+- [Bulk Create Monitorings](https://docs.godiligent.ai/api-reference/monitorings/bulk-create-monitorings.md): Create multiple monitorings for a customer in a single request. Maximum of 200 monitorings per request.
+- [Deactivate Monitoring](https://docs.godiligent.ai/api-reference/monitorings/deactivate-monitorings.md): Deactivate a monitoring configuration for a customer. Idempotent and safe to repeat.
+- [List Monitoring Alerts](https://docs.godiligent.ai/api-reference/monitorings/list-alerts.md): Retrieve a paginated list of monitoring alerts for failed monitorings.
+- [List Monitoring Runs](https://docs.godiligent.ai/api-reference/monitorings/list-monitoring-executions.md): Retrieve a paginated list of monitoring runs (executions), regardless of whether they produced alerts.
+- [List Monitorings](https://docs.godiligent.ai/api-reference/monitorings/list-monitorings.md): Get a paginated list of monitoring configurations for a customer
+- [Create Monitoring](https://docs.godiligent.ai/api-reference/monitorings/new-monitorings.md): Create a single monitoring configuration for a customer to receive alerts about website changes and risks.
+- [Create Search](https://docs.godiligent.ai/api-reference/name-screening/create-search.md): Create a new name screening search to query providers for matches
+- [Get Alert](https://docs.godiligent.ai/api-reference/name-screening/get-alert.md): Retrieve a name screening alert with enriched evidence and supporting facts
+- [Get Search](https://docs.godiligent.ai/api-reference/name-screening/get-search.md): Retrieve a name screening search with hits and remediation data
+- [Remediation](https://docs.godiligent.ai/api-reference/name-screening/submit-remediation.md): Submit an externally-screened alert for AI-powered remediation
+- [Scan Website](https://docs.godiligent.ai/api-reference/screening/scan-website.md): Screen a website instantly for operational status (Experimental)
+- [Delete Webhook](https://docs.godiligent.ai/api-reference/webhooks/delete.md): Delete a webhook endpoint.
+- [Get Webhook](https://docs.godiligent.ai/api-reference/webhooks/get.md): Retrieve a single webhook by ID.
+- [List Deliveries](https://docs.godiligent.ai/api-reference/webhooks/list.md): List recent webhook deliveries for a specific webhook.
+- [List Webhooks](https://docs.godiligent.ai/api-reference/webhooks/list-webhooks.md): List all webhooks registered for your account.
+- [Redeliver Webhook](https://docs.godiligent.ai/api-reference/webhooks/redeliver.md): Redeliver a webhook event
+- [Register Webhook](https://docs.godiligent.ai/api-reference/webhooks/register.md): Register a webhook endpoint for your account.
+- [Update Webhook](https://docs.godiligent.ai/api-reference/webhooks/update.md): Update an existing webhook endpoint.
+- [Customer Due Diligence (CDD) Flow](https://docs.godiligent.ai/guides/cdd/cdd-case-flow.md): Overview of how a CDD case progresses through the workflow
+- [High-Risk Industry Categories](https://docs.godiligent.ai/guides/cdd/high-risk-categories.md): Comprehensive guide to understanding high-risk business categories identified during CDD screening
+- [Using risk_check_set_id](https://docs.godiligent.ai/guides/cdd/risk-check-set-id.md): Control which risk checks run when performing CDD
+- [Introduction](https://docs.godiligent.ai/guides/introduction.md): Complete reference for the Diligent API
+- [Name Screening: AI Remediation](https://docs.godiligent.ai/guides/name-screening/guide.md): Automated alert remediation using AI-powered entity resolution
+- [Remediation API](https://docs.godiligent.ai/guides/name-screening/remediation-api.md): Submit externally-screened alerts for AI-powered remediation
+- [OKTA Integration Setup](https://docs.godiligent.ai/guides/okta-integration.md): Step-by-step guide to configure OKTA SSO integration with Diligent
+- [Securing Webhooks](https://docs.godiligent.ai/guides/webhooks/securing-webhooks.md): Guide to securely configure and validate webhook deliveries using a shared secret
+- [Working with webhooks](https://docs.godiligent.ai/guides/webhooks/working-with-webhooks.md)
+
+## OpenAPI Specs
+
+- [openapi](https://docs.godiligent.ai/openapi.yaml)
+- [openapi-remediation](https://docs.godiligent.ai/api-reference/openapi-remediation.json)
