@@ -1,0 +1,1304 @@
+{
+  "item": [
+    {
+      "id": "96e9c45f-0b17-40fa-9d23-1b42fd69c7df",
+      "name": "Company",
+      "description": {
+        "content": "Company Information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a7a0a751-ee55-4a65-ae3d-30233326c90c",
+          "name": "Block company",
+          "request": {
+            "name": "Block company",
+            "description": {
+              "content": "Block company by various data points",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "blocked-companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"website\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"email\": \"<string>\",\n  \"legal_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"vat_number\": \"<string>\",\n  \"register_number\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d47286d3-7dd6-4e80-9a50-a1131bb0284d",
+              "name": "Successfully blocked company, returns the created record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"reason\": \"Fraudulent activity\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane ltd\",\n  \"address\": \"123 Imaginary St, 45678 Fictional City\",\n  \"external_id\": \"abc123 - my customer reference\",\n  \"vat_number\": \"BE09999999XX\",\n  \"register_number\": \"123546\",\n  \"notes\": \"Company engaged in fraudulent activity\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"bc-a91a8416-0a38\",\n  \"reason\": \"Fraudulent activity\",\n  \"blocked_at\": \"2025-01-15T12:30:45Z\",\n  \"website\": \"example.com\",\n  \"email\": \"contact@example.com\",\n  \"legal_name\": \"Example Company Ltd\",\n  \"address\": \"123 Example Street, City\",\n  \"country_code\": \"DE\",\n  \"vat_number\": \"BE09999999XX\",\n  \"register_number\": \"123456789\",\n  \"notes\": \"Multiple reports of fraud from customers\",\n  \"external_id\": \"cust-12345\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82b275ce-e9a0-44ec-85b3-162aa1cbcc02",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"reason\": \"Fraudulent activity\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane ltd\",\n  \"address\": \"123 Imaginary St, 45678 Fictional City\",\n  \"external_id\": \"abc123 - my customer reference\",\n  \"vat_number\": \"BE09999999XX\",\n  \"register_number\": \"123546\",\n  \"notes\": \"Company engaged in fraudulent activity\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"errors\": [\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      },\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      }\n    ]\n  },\n  {\n    \"errors\": [\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      },\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a56ff1d-7d2d-4e40-9a0a-e031138fc164",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"reason\": \"Fraudulent activity\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane ltd\",\n  \"address\": \"123 Imaginary St, 45678 Fictional City\",\n  \"external_id\": \"abc123 - my customer reference\",\n  \"vat_number\": \"BE09999999XX\",\n  \"register_number\": \"123546\",\n  \"notes\": \"Company engaged in fraudulent activity\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e6be511-2ced-4f2e-bbc1-22824769cc1d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"reason\": \"Fraudulent activity\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane ltd\",\n  \"address\": \"123 Imaginary St, 45678 Fictional City\",\n  \"external_id\": \"abc123 - my customer reference\",\n  \"vat_number\": \"BE09999999XX\",\n  \"register_number\": \"123546\",\n  \"notes\": \"Company engaged in fraudulent activity\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6ea11175-2292-4a5b-9708-f1d72e37a6b0",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"reason\": \"Fraudulent activity\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane ltd\",\n  \"address\": \"123 Imaginary St, 45678 Fictional City\",\n  \"external_id\": \"abc123 - my customer reference\",\n  \"vat_number\": \"BE09999999XX\",\n  \"register_number\": \"123546\",\n  \"notes\": \"Company engaged in fraudulent activity\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "335e7556-f086-4f26-a910-7e83f84feb14",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"reason\": \"Fraudulent activity\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane ltd\",\n  \"address\": \"123 Imaginary St, 45678 Fictional City\",\n  \"external_id\": \"abc123 - my customer reference\",\n  \"vat_number\": \"BE09999999XX\",\n  \"register_number\": \"123546\",\n  \"notes\": \"Company engaged in fraudulent activity\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33c5c3d0-02e1-45d9-9d8e-3cee11c94ec3",
+          "name": "List blocked companies",
+          "request": {
+            "name": "List blocked companies",
+            "description": {
+              "content": "Returns a list of all blocked companies. Optionally filter by customer_id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "blocked-companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "register_number",
+                  "value": "<string>",
+                  "description": "Filter by register_number"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92a769e7-36ad-44ee-a135-6fd8159950d4",
+              "name": "List of blocked companies",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "register_number",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"bc-a91a8416-0a38\",\n    \"reason\": \"Fraudulent activity\",\n    \"blocked_at\": \"2025-01-15T12:30:45Z\",\n    \"website\": \"example.com\",\n    \"email\": \"contact@example.com\",\n    \"legal_name\": \"Example Company Ltd\",\n    \"address\": \"123 Example Street, City\",\n    \"country_code\": \"DE\",\n    \"vat_number\": \"BE09999999XX\",\n    \"register_number\": \"123456789\",\n    \"notes\": \"Multiple reports of fraud from customers\",\n    \"external_id\": \"cust-12345\"\n  },\n  {\n    \"id\": \"bc-a91a8416-0a38\",\n    \"reason\": \"Fraudulent activity\",\n    \"blocked_at\": \"2025-01-15T12:30:45Z\",\n    \"website\": \"example.com\",\n    \"email\": \"contact@example.com\",\n    \"legal_name\": \"Example Company Ltd\",\n    \"address\": \"123 Example Street, City\",\n    \"country_code\": \"DE\",\n    \"vat_number\": \"BE09999999XX\",\n    \"register_number\": \"123456789\",\n    \"notes\": \"Multiple reports of fraud from customers\",\n    \"external_id\": \"cust-12345\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a18ae83a-0a4a-420a-939d-048b957a49f9",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "register_number",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ce8e660-2745-4cb1-8b8b-b4d6c0d0d830",
+          "name": "Unblock a company",
+          "request": {
+            "name": "Unblock a company",
+            "description": {
+              "content": "Remove a company from the blocked list by its unique ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "blocked-companies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of the blocked company record"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f707bd0-5091-4455-a9a5-1a2af92a0df6",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the blocked company record"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d30a2cfc-649c-4017-adb6-960a36d88e88",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the blocked company record"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5118badc-53cc-4873-9739-32cc9164964c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the blocked company record"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ef303c9-22db-4cbf-b731-44079b726efa",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the blocked company record"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1b6c554f-dda8-420a-a05d-c29e29126585",
+              "name": "Not Found - Company block record doesn't exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the blocked company record"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9d7d55eb-dda3-45e4-a557-2b2dcf7df9ed",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "blocked-companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the blocked company record"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5dbcddf5-eb56-4d5c-8548-0c5b087c89fc",
+          "name": "identify",
+          "request": {
+            "name": "identify",
+            "description": {
+              "content": "identify company by various data points",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "companies",
+                "identify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "legal_name",
+                  "value": "<string>",
+                  "description": "The legal_name of the company"
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "The address of the business, partial or full address"
+                },
+                {
+                  "disabled": false,
+                  "key": "vat_number",
+                  "value": "<string>",
+                  "description": "The VAT number of the business"
+                },
+                {
+                  "disabled": false,
+                  "key": "registry_profile",
+                  "value": "<string>",
+                  "description": "The level of details to be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "country_code",
+                  "value": "<string>",
+                  "description": "The country code of the business, in alpha-2 format (ISO 3166-1 alpha-2)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a35825ca-90ea-4d76-9bb2-7a6ab808068c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "legal_name",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "address",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "vat_number",
+                      "value": "DE123456789"
+                    },
+                    {
+                      "key": "registry_profile",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "DE"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"XYZZ GmbH\",\n    \"legal_form\": \"GmbH\",\n    \"register\": {\n      \"id\": \"HRB 259538 B\",\n      \"country\": \"DE\",\n      \"city\": \"Charlottenburg (Berlin)\",\n      \"foundation_date\": \"2023-12-04\"\n    },\n    \"address\": {\n      \"formatted_address\": \"123 Imaginary St, 45678 Fictional City\",\n      \"components\": {\n        \"street\": \"Imaginary St\",\n        \"street_number\": \"123\",\n        \"state\": \"IS\",\n        \"locality_code\": \"IS\",\n        \"city\": \"Fictional City\",\n        \"postal_code\": \"45678\",\n        \"country_code\": \"FC\",\n        \"country\": \"Fictionland\"\n      },\n      \"type\": \"residential\",\n      \"is_valid\": true,\n      \"is_verified\": true,\n      \"is_suspicious\": false,\n      \"is_blacklisted\": false,\n      \"is_primary\": true,\n      \"street_view\": \"string\",\n      \"sources\": [\n        {\n          \"name\": \"Source Name\",\n          \"link\": \"https://www.example.com\"\n        },\n        {\n          \"name\": \"Source Name\",\n          \"link\": \"https://www.example.com\"\n        }\n      ]\n    },\n    \"ownership\": {\n      \"shareholders\": [\n        {\n          \"name\": \"John Doe\",\n          \"percentage\": 100,\n          \"type\": \"INDIVIDUAL\",\n          \"location\": \"City, Country\",\n          \"is_major_shareholder\": true,\n          \"is_ubo\": true,\n          \"gender\": \"MALE\",\n          \"tax_code\": \"123456789\",\n          \"address\": \"123 Main St, City, Country\"\n        },\n        {\n          \"name\": \"John Doe\",\n          \"percentage\": 100,\n          \"type\": \"INDIVIDUAL\",\n          \"location\": \"City, Country\",\n          \"is_major_shareholder\": true,\n          \"is_ubo\": true,\n          \"gender\": \"MALE\",\n          \"tax_code\": \"123456789\",\n          \"address\": \"123 Main St, City, Country\"\n        }\n      ],\n      \"total_percentage\": 100,\n      \"total_shareholders_count\": 1,\n      \"total_major_shareholders_count\": 1,\n      \"total_ubos_count\": 1\n    },\n    \"source\": {\n      \"name\": \"Source Name\",\n      \"link\": \"https://www.example.com\"\n    },\n    \"status\": \"ACTIVE\",\n    \"commercial_name\": \"string\",\n    \"is_blocked\": false,\n    \"description\": \"SOFTWARE CONSULTANCY\",\n    \"vat_number\": \"string\",\n    \"representation_rules\": \"This is a placeholder for representation rules.\",\n    \"signatory_powers\": [\n      {\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"date_of_birth\": \"1990-01-01\",\n        \"entity_name\": \"Example GmbH\",\n        \"location\": \"City, Country\",\n        \"role\": \"ROLE\",\n        \"effective_date\": \"2024-01-01\",\n        \"representation\": \"Representation details\",\n        \"role_local\": \"Role\",\n        \"signatory_power\": \"POWER_TYPE\"\n      },\n      {\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"date_of_birth\": \"1990-01-01\",\n        \"entity_name\": \"Example GmbH\",\n        \"location\": \"City, Country\",\n        \"role\": \"ROLE\",\n        \"effective_date\": \"2024-01-01\",\n        \"representation\": \"Representation details\",\n        \"role_local\": \"Role\",\n        \"signatory_power\": \"POWER_TYPE\"\n      }\n    ],\n    \"industry_classifications\": {\n      \"ateco\": [\n        \"47199\",\n        \"47199\"\n      ],\n      \"nace\": [\n        \"4719\",\n        \"4719\"\n      ],\n      \"sic\": [\n        \"5999\",\n        \"5999\"\n      ]\n    },\n    \"pec\": \"QUADERNOAQUADRETTISRL@ARUBAPEC.IT\",\n    \"rea_code\": \"128207\",\n    \"financials\": {\n      \"date\": \"2022-12-31\",\n      \"items\": [\n        {\n          \"id\": \"share_capital\",\n          \"note\": \"string\",\n          \"unit\": \"EUR\",\n          \"value\": 100000\n        },\n        {\n          \"id\": \"share_capital\",\n          \"note\": \"string\",\n          \"unit\": \"EUR\",\n          \"value\": 100000\n        }\n      ]\n    },\n    \"extras\": [\n      {\n        \"name\": \"website\",\n        \"value\": \"www.example.eu\"\n      },\n      {\n        \"name\": \"website\",\n        \"value\": \"www.example.eu\"\n      }\n    ]\n  },\n  {\n    \"name\": \"XYZZ GmbH\",\n    \"legal_form\": \"GmbH\",\n    \"register\": {\n      \"id\": \"HRB 259538 B\",\n      \"country\": \"DE\",\n      \"city\": \"Charlottenburg (Berlin)\",\n      \"foundation_date\": \"2023-12-04\"\n    },\n    \"address\": {\n      \"formatted_address\": \"123 Imaginary St, 45678 Fictional City\",\n      \"components\": {\n        \"street\": \"Imaginary St\",\n        \"street_number\": \"123\",\n        \"state\": \"IS\",\n        \"locality_code\": \"IS\",\n        \"city\": \"Fictional City\",\n        \"postal_code\": \"45678\",\n        \"country_code\": \"FC\",\n        \"country\": \"Fictionland\"\n      },\n      \"type\": \"residential\",\n      \"is_valid\": true,\n      \"is_verified\": true,\n      \"is_suspicious\": false,\n      \"is_blacklisted\": false,\n      \"is_primary\": true,\n      \"street_view\": \"string\",\n      \"sources\": [\n        {\n          \"name\": \"Source Name\",\n          \"link\": \"https://www.example.com\"\n        },\n        {\n          \"name\": \"Source Name\",\n          \"link\": \"https://www.example.com\"\n        }\n      ]\n    },\n    \"ownership\": {\n      \"shareholders\": [\n        {\n          \"name\": \"John Doe\",\n          \"percentage\": 100,\n          \"type\": \"INDIVIDUAL\",\n          \"location\": \"City, Country\",\n          \"is_major_shareholder\": true,\n          \"is_ubo\": true,\n          \"gender\": \"MALE\",\n          \"tax_code\": \"123456789\",\n          \"address\": \"123 Main St, City, Country\"\n        },\n        {\n          \"name\": \"John Doe\",\n          \"percentage\": 100,\n          \"type\": \"INDIVIDUAL\",\n          \"location\": \"City, Country\",\n          \"is_major_shareholder\": true,\n          \"is_ubo\": true,\n          \"gender\": \"MALE\",\n          \"tax_code\": \"123456789\",\n          \"address\": \"123 Main St, City, Country\"\n        }\n      ],\n      \"total_percentage\": 100,\n      \"total_shareholders_count\": 1,\n      \"total_major_shareholders_count\": 1,\n      \"total_ubos_count\": 1\n    },\n    \"source\": {\n      \"name\": \"Source Name\",\n      \"link\": \"https://www.example.com\"\n    },\n    \"status\": \"ACTIVE\",\n    \"commercial_name\": \"string\",\n    \"is_blocked\": false,\n    \"description\": \"SOFTWARE CONSULTANCY\",\n    \"vat_number\": \"string\",\n    \"representation_rules\": \"This is a placeholder for representation rules.\",\n    \"signatory_powers\": [\n      {\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"date_of_birth\": \"1990-01-01\",\n        \"entity_name\": \"Example GmbH\",\n        \"location\": \"City, Country\",\n        \"role\": \"ROLE\",\n        \"effective_date\": \"2024-01-01\",\n        \"representation\": \"Representation details\",\n        \"role_local\": \"Role\",\n        \"signatory_power\": \"POWER_TYPE\"\n      },\n      {\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"date_of_birth\": \"1990-01-01\",\n        \"entity_name\": \"Example GmbH\",\n        \"location\": \"City, Country\",\n        \"role\": \"ROLE\",\n        \"effective_date\": \"2024-01-01\",\n        \"representation\": \"Representation details\",\n        \"role_local\": \"Role\",\n        \"signatory_power\": \"POWER_TYPE\"\n      }\n    ],\n    \"industry_classifications\": {\n      \"ateco\": [\n        \"47199\",\n        \"47199\"\n      ],\n      \"nace\": [\n        \"4719\",\n        \"4719\"\n      ],\n      \"sic\": [\n        \"5999\",\n        \"5999\"\n      ]\n    },\n    \"pec\": \"QUADERNOAQUADRETTISRL@ARUBAPEC.IT\",\n    \"rea_code\": \"128207\",\n    \"financials\": {\n      \"date\": \"2022-12-31\",\n      \"items\": [\n        {\n          \"id\": \"share_capital\",\n          \"note\": \"string\",\n          \"unit\": \"EUR\",\n          \"value\": 100000\n        },\n        {\n          \"id\": \"share_capital\",\n          \"note\": \"string\",\n          \"unit\": \"EUR\",\n          \"value\": 100000\n        }\n      ]\n    },\n    \"extras\": [\n      {\n        \"name\": \"website\",\n        \"value\": \"www.example.eu\"\n      },\n      {\n        \"name\": \"website\",\n        \"value\": \"www.example.eu\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a83753b-a33a-4391-a609-d5eeffe224e3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "legal_name",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "address",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "vat_number",
+                      "value": "DE123456789"
+                    },
+                    {
+                      "key": "registry_profile",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "DE"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"errors\": [\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      },\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      }\n    ]\n  },\n  {\n    \"errors\": [\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      },\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64e8966a-48d2-4c27-9184-19039d87e6b3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "legal_name",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "address",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "vat_number",
+                      "value": "DE123456789"
+                    },
+                    {
+                      "key": "registry_profile",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "DE"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "269f7ddf-4725-4a58-a4ab-a4ecfaa46579",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "legal_name",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "address",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "vat_number",
+                      "value": "DE123456789"
+                    },
+                    {
+                      "key": "registry_profile",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "DE"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "302c71b8-f37e-4471-8df1-989b74a31c5c",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "legal_name",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "address",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "vat_number",
+                      "value": "DE123456789"
+                    },
+                    {
+                      "key": "registry_profile",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "DE"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d88d7f07-9fe3-4ce5-9046-cb2d71a605a4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "legal_name",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "address",
+                      "value": "CrossLend GmbH"
+                    },
+                    {
+                      "key": "vat_number",
+                      "value": "DE123456789"
+                    },
+                    {
+                      "key": "registry_profile",
+                      "value": "FULL"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "DE"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.godiligent.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "23f8003a-f409-4a98-8d1c-065520ebdd6b",
+    "name": "Diligent CDD Company API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).\n",
+      "type": "text/plain"
+    }
+  }
+}

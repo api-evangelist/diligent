@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Diligent CDD Instant Screening (experimental) API",
+    "version": "1.6.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instant Screening (experimental)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Screen a website instantly for operational status (Experimental)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/screen",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Screen a website instantly for operational status (Experimental)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

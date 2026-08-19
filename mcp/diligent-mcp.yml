@@ -2,11 +2,9 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/diligent-openapi-original.json
-note: >-
-  No official hosted/remote Diligent MCP server was found. This is a candidate
-  tool list derived one-to-one from the Diligent OpenAPI operations. Most
-  operations do not declare an operationId in the source spec, so source_operation
-  references the HTTP method + path verbatim.
+note: No official hosted/remote Diligent MCP server was found. This is a candidate tool list derived one-to-one
+  from the Diligent OpenAPI operations. Most operations do not declare an operationId in the source spec,
+  so source_operation references the HTTP method + path verbatim.
 server:
   name: diligent
   transport: http
@@ -15,78 +13,84 @@ auth:
   type: apiKey
   header: X-API-KEY
 tools:
-  - name: perform_cdd
-    description: Perform a Customer Due Diligence (CDD) check on a business.
-    source_operation: openapi/diligent-openapi-original.json#POST /cdds
-  - name: list_cdds
-    description: Get a list of CDD cases.
-    source_operation: openapi/diligent-openapi-original.json#GET /cdds
-  - name: perform_bulk_cdd
-    description: Perform a bulk CDD across multiple businesses.
-    source_operation: openapi/diligent-openapi-original.json#POST /cdds/bulk
-  - name: get_cdd
-    description: Retrieve a CDD case by id.
-    source_operation: openapi/diligent-openapi-original.json#GET /cdds/{id}
-  - name: get_cdd_report
-    description: Download a detailed CDD report by id.
-    source_operation: openapi/diligent-openapi-original.json#GET /cdds/{id}/report
-  - name: run_cdd_risk_checks
-    description: Run risk checks on a completed CDD case.
-    source_operation: openapi/diligent-openapi-original.json#POST /cdds/{id}/run-checks
-  - name: add_cdd_document
-    description: Add a supporting document to a CDD case.
-    source_operation: openapi/diligent-openapi-original.json#POST /cdds/{id}/documents
-  - name: pull_registry_documents
-    description: Pull registry documents from official registries (IT and DE only).
-    source_operation: openapi/diligent-openapi-original.json#POST /cdds/{id}/pull-registry-documents
-  - name: list_cdd_customer_reviews
-    description: List customer reviews for a CDD case.
-    source_operation: openapi/diligent-openapi-original.json#GET /cdds/{id}/customer-reviews
-  - name: block_company
-    description: Block a company by various data points.
-    source_operation: openapi/diligent-openapi-original.json#POST /blocked-companies
-  - name: list_blocked_companies
-    description: List all blocked companies.
-    source_operation: openapi/diligent-openapi-original.json#GET /blocked-companies
-  - name: unblock_company
-    description: Unblock a company by id.
-    source_operation: openapi/diligent-openapi-original.json#DELETE /blocked-companies/{id}
-  - name: list_monitoring_alerts
-    description: List monitoring alerts.
-    source_operation: openapi/diligent-openapi-original.json#GET /monitoring-alerts
-  - name: acknowledge_monitoring_alerts
-    description: Acknowledge (mark as seen) one or all monitoring alerts.
-    source_operation: openapi/diligent-openapi-original.json#POST /monitoring-alerts/acknowledge
-  - name: identify_company
-    description: Identify a company by various data points.
-    source_operation: openapi/diligent-openapi-original.json#GET /companies/identify
-  - name: register_webhook
-    description: Register or update a webhook configuration.
-    source_operation: openapi/diligent-openapi-original.json#registerWebhook
-  - name: list_webhooks
-    description: List registered webhooks.
-    source_operation: openapi/diligent-openapi-original.json#listWebhooks
-  - name: list_webhook_deliveries
-    description: List recent webhook deliveries for a webhook.
-    source_operation: openapi/diligent-openapi-original.json#listWebhookDeliveries
-  - name: redeliver_webhook
-    description: Redeliver a webhook event.
-    source_operation: openapi/diligent-openapi-original.json#redeliverWebhook
-  - name: create_monitoring
-    description: Create a single monitoring configuration for a customer.
-    source_operation: openapi/diligent-openapi-original.json#POST /monitorings
-  - name: list_monitorings
-    description: List monitoring configurations.
-    source_operation: openapi/diligent-openapi-original.json#GET /monitorings
-  - name: bulk_create_monitorings
-    description: Bulk create monitorings (max 200 per request).
-    source_operation: openapi/diligent-openapi-original.json#POST /monitorings/bulk-create
-  - name: deactivate_monitoring
-    description: Deactivate a monitoring configuration.
-    source_operation: openapi/diligent-openapi-original.json#DELETE /monitorings/{id}/deactivate
-  - name: screen_website
-    description: Screen a website instantly for operational status (experimental).
-    source_operation: openapi/diligent-openapi-original.json#POST /screen
-  - name: remediate_name_screening_alert
-    description: Submit an externally-screened alert for AI-powered remediation (beta).
-    source_operation: openapi/diligent-remediation-openapi.json#POST /v1/name-screenings/alerts/remediate
+- name: perform_cdd
+  description: Perform a Customer Due Diligence (CDD) check on a business.
+  source_operation: openapi/diligent-openapi-original.json#POST /cdds
+- name: list_cdds
+  description: Get a list of CDD cases.
+  source_operation: openapi/diligent-openapi-original.json#GET /cdds
+- name: perform_bulk_cdd
+  description: Perform a bulk CDD across multiple businesses.
+  source_operation: openapi/diligent-openapi-original.json#POST /cdds/bulk
+- name: get_cdd
+  description: Retrieve a CDD case by id.
+  source_operation: openapi/diligent-openapi-original.json#GET /cdds/{id}
+- name: get_cdd_report
+  description: Download a detailed CDD report by id.
+  source_operation: openapi/diligent-openapi-original.json#GET /cdds/{id}/report
+- name: run_cdd_risk_checks
+  description: Run risk checks on a completed CDD case.
+  source_operation: openapi/diligent-openapi-original.json#POST /cdds/{id}/run-checks
+- name: add_cdd_document
+  description: Add a supporting document to a CDD case.
+  source_operation: openapi/diligent-openapi-original.json#POST /cdds/{id}/documents
+- name: pull_registry_documents
+  description: Pull registry documents from official registries (IT and DE only).
+  source_operation: openapi/diligent-openapi-original.json#POST /cdds/{id}/pull-registry-documents
+- name: list_cdd_customer_reviews
+  description: List customer reviews for a CDD case.
+  source_operation: openapi/diligent-openapi-original.json#GET /cdds/{id}/customer-reviews
+- name: block_company
+  description: Block a company by various data points.
+  source_operation: openapi/diligent-openapi-original.json#POST /blocked-companies
+- name: list_blocked_companies
+  description: List all blocked companies.
+  source_operation: openapi/diligent-openapi-original.json#GET /blocked-companies
+- name: unblock_company
+  description: Unblock a company by id.
+  source_operation: openapi/diligent-openapi-original.json#DELETE /blocked-companies/{id}
+- name: list_monitoring_alerts
+  description: List monitoring alerts.
+  source_operation: openapi/diligent-openapi-original.json#GET /monitoring-alerts
+- name: acknowledge_monitoring_alerts
+  description: Acknowledge (mark as seen) one or all monitoring alerts.
+  source_operation: openapi/diligent-openapi-original.json#POST /monitoring-alerts/acknowledge
+- name: identify_company
+  description: Identify a company by various data points.
+  source_operation: openapi/diligent-openapi-original.json#GET /companies/identify
+- name: register_webhook
+  description: Register or update a webhook configuration.
+  source_operation: openapi/diligent-openapi-original.json#registerWebhook
+- name: list_webhooks
+  description: List registered webhooks.
+  source_operation: openapi/diligent-openapi-original.json#listWebhooks
+- name: list_webhook_deliveries
+  description: List recent webhook deliveries for a webhook.
+  source_operation: openapi/diligent-openapi-original.json#listWebhookDeliveries
+- name: redeliver_webhook
+  description: Redeliver a webhook event.
+  source_operation: openapi/diligent-openapi-original.json#redeliverWebhook
+- name: create_monitoring
+  description: Create a single monitoring configuration for a customer.
+  source_operation: openapi/diligent-openapi-original.json#POST /monitorings
+- name: list_monitorings
+  description: List monitoring configurations.
+  source_operation: openapi/diligent-openapi-original.json#GET /monitorings
+- name: bulk_create_monitorings
+  description: Bulk create monitorings (max 200 per request).
+  source_operation: openapi/diligent-openapi-original.json#POST /monitorings/bulk-create
+- name: deactivate_monitoring
+  description: Deactivate a monitoring configuration.
+  source_operation: openapi/diligent-openapi-original.json#DELETE /monitorings/{id}/deactivate
+- name: screen_website
+  description: Screen a website instantly for operational status (experimental).
+  source_operation: openapi/diligent-openapi-original.json#POST /screen
+- name: remediate_name_screening_alert
+  description: Submit an externally-screened alert for AI-powered remediation (beta).
+  source_operation: openapi/diligent-remediation-openapi.json#POST /v1/name-screenings/alerts/remediate
+deployment:
+  mode: none
+  verified: derived
+  tools: 25
+  checked: '2026-08-12'
+  source: catalog MCP census

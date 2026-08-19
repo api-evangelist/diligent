@@ -1,0 +1,573 @@
+{
+  "item": [
+    {
+      "id": "99bf7a42-d9a3-47c1-afae-b63248e58571",
+      "name": "Webhooks",
+      "description": {
+        "content": "\n## How to Secure Webhook Deliveries\nTo ensure that webhook payloads are securely transmitted and verified. This guide explains how to configure and validate\nwebhook deliveries using a shared secret.\n\n### How It Works\n\nWhen setting up a webhook, a secret is configured on both the sender (our system) and the receiver (your endpoint). Each\nwebhook payload is signed using this secret, allowing the receiver to verify its authenticity.\n\n#### Step 1: Configuring Your Webhook Secret\n\n1. When creating a webhook in our system, specify a unique secret key. This secret should be a strong, randomly\ngenerated string.\n2. Store this secret securely on your server; it should never be exposed publicly.\n\n#### Step 2: Receiving Webhook Payloads\n\nWhen your server receives a webhook event, the request will include an `X-Signature` header containing a HMAC signature\nof the payload.\n\nExample header:\n\n```\nX-Signature: sha256=abcdef1234567890...\n```\n\n#### Step 3: Validating the Webhook Signature\n\nTo verify the webhook payload:\n\n1. Retrieve the `X-Signature` value from the request headers.\n2. Compute the HMAC SHA-256 signature of the request payload using your webhook secret.\n3. Compare the computed signature with the one in the `X-Signature` header.\n4. If they match, the webhook is valid.\n\n#### (Python)\n\n```python\nimport hashlib\nimport hmac\nimport json\n\ndef verify_webhook_signature(secret, payload, signature):\n  computed_signature = hmac.new(secret.encode(), payload.encode(), hashlib.sha256).hexdigest()\n  expected_signature = f\"sha256={computed_signature}\"\n  return hmac.compare_digest(expected_signature, signature)\n\n# Example usage:\nsecret = \"your_webhook_secret\"\npayload = json.dumps({\"event\": \"example\"})\nreceived_signature = \"sha256=abcdef1234567890...\"\n\nif verify_webhook_signature(secret, payload, received_signature):\n  print(\"Valid webhook received!\")\nelse:\n  print(\"Invalid webhook signature!\")\n```\n\n#### (JavaScript)\n\n```javascript\nconst crypto = require('crypto');\n\nfunction verifyWebhookSignature (secret, payload, signature) {\nconst computedSignature = `sha256=${crypto.createHmac('sha256', secret)\n.update(payload)\n.digest('hex')}`;\nreturn crypto.timingSafeEqual(Buffer.from(computedSignature), Buffer.from(signature));\n}\n\n// Example usage:\nconst secret = \"your_webhook_secret\";\nconst payload = JSON.stringify({ event: \"example\" });\nconst receivedSignature = \"sha256=abcdef1234567890...\";\n\nif (verifyWebhookSignature(secret, payload, receivedSignature)) {\nconsole.log(\"Valid webhook received!\");\n} else {\nconsole.log(\"Invalid webhook signature!\");\n}\n```\n\n#### Security Considerations\n\n- Always use HTTPS to prevent interception of webhook payloads.\n- Reject webhook requests that fail signature validation.\n- Rotate secrets periodically to enhance security.\n\nBy following this guide, you ensure that webhook deliveries are secure and trusted.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cfaed7db-6890-4e02-a35b-0345a023230c",
+          "name": "Register or update webhook configuration",
+          "request": {
+            "name": "Register or update webhook configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhook_url\": \"<uri>\",\n  \"is_active\": true,\n  \"secret\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c91fdacb-1e05-4a84-85cc-bd027aecdc7c",
+              "name": "Webhook configuration created or updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_url\": \"<uri>\",\n  \"is_active\": true,\n  \"secret\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bc9602ff-7baa-4aa0-81f2-999eb22c03b3",
+              "name": "Invalid input or validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_url\": \"<uri>\",\n  \"is_active\": true,\n  \"secret\": \"<string>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1a9bdb2-76e0-4982-9794-50bcb4691035",
+          "name": "List registered webhooks",
+          "request": {
+            "name": "List registered webhooks",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "190d7cce-24a4-423f-b424-ef0cb83a38ce",
+              "name": "List of registered webhooks (limited to 1 for now).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"webhook_url\": \"https://dwikriMBxYAdqVvQoHDgu.orzkcjSh,KUlaBNdDY11uJFs7uVNVEjyW8dlAzjto8d4iZ21isuhZCHH4\",\n    \"is_active\": false,\n    \"events\": [\n      \"cdd_state_changed\",\n      \"cdd_state_changed\"\n    ]\n  },\n  {\n    \"id\": \"string\",\n    \"webhook_url\": \"http://AQxFbzzOQcsRFuBLiQCz.vsfcKY6NB9WGVEFQ64OIUmiebFt5k4omaVJB8imDGjG8lzBsh.meoEh\",\n    \"is_active\": false,\n    \"events\": [\n      \"cdd_state_changed\",\n      \"cdd_state_changed\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "849e7006-4bee-47e5-a467-3c1a3f2963b8",
+          "name": "List recent webhook deliveries",
+          "request": {
+            "name": "List recent webhook deliveries",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                ":webhook_id",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "webhook_id",
+                  "description": "(Required) Webhook ID to filter deliveries."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b7a4da2-7510-473c-b710-dd409dea19b0",
+              "name": "List of recent webhook delivery events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":webhook_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_id",
+                      "description": "(Required) Webhook ID to filter deliveries."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"4933900a-882b-64ad-57f9-06ed0faf0b4e\",\n    \"webhook_id\": \"ab875865-5056-bc1c-f51b-560570792c89\",\n    \"event_type\": \"string\",\n    \"timestamp\": \"2024-09-08T19:53:18.098Z\",\n    \"status_code\": 204,\n    \"request\": {\n      \"headers\": {},\n      \"payload\": {}\n    },\n    \"response\": {\n      \"headers\": {},\n      \"body\": {}\n    }\n  },\n  {\n    \"id\": \"eed95847-30f0-7d9f-2c75-41af94bc48e2\",\n    \"webhook_id\": \"632e0a84-4897-6d15-8aa0-375e1576d953\",\n    \"event_type\": \"string\",\n    \"timestamp\": \"1950-05-13T21:04:17.674Z\",\n    \"status_code\": 204,\n    \"request\": {\n      \"headers\": {},\n      \"payload\": {}\n    },\n    \"response\": {\n      \"headers\": {},\n      \"body\": {}\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5fac3e8b-c2e0-4e53-ad8d-7440ad86fc5b",
+          "name": "Redeliver a webhook event",
+          "request": {
+            "name": "Redeliver a webhook event",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                ":webhook_id",
+                "events",
+                ":event_id",
+                "redeliver"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "webhook_id",
+                  "description": "(Required) Webhook ID for the event to redeliver."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "event_id",
+                  "description": "(Required) Event ID of the webhook to redeliver."
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ed10d19-7500-45e9-b951-cb6f2c3919b8",
+              "name": "Webhook redelivery initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":webhook_id",
+                    "events",
+                    ":event_id",
+                    "redeliver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_id",
+                      "description": "(Required) Webhook ID for the event to redeliver."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) Event ID of the webhook to redeliver."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6e90973d-9ecc-42e9-8cbd-d7cbae24287b",
+              "name": "Event or Webhook not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":webhook_id",
+                    "events",
+                    ":event_id",
+                    "redeliver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_id",
+                      "description": "(Required) Webhook ID for the event to redeliver."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) Event ID of the webhook to redeliver."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "254a3803-7083-4ed8-976b-09732f53479b",
+              "name": "Error during redelivery.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":webhook_id",
+                    "events",
+                    ":event_id",
+                    "redeliver"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_id",
+                      "description": "(Required) Webhook ID for the event to redeliver."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) Event ID of the webhook to redeliver."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.godiligent.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "15740fad-39fb-464d-9506-bcfb70956aa3",
+    "name": "Diligent CDD Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).\n",
+      "type": "text/plain"
+    }
+  }
+}

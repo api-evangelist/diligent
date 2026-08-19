@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Diligent CDD Company API",
+    "version": "1.6.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List blocked companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.godiligent.ai/blocked-companies",
+            "params": [
+              {
+                "name": "register_number",
+                "value": "",
+                "type": "query",
+                "description": "Filter by register_number"
+              }
+            ]
+          },
+          "docs": "Returns a list of all blocked companies. Optionally filter by customer_id."
+        },
+        {
+          "info": {
+            "name": "Block company",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/blocked-companies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Block company by various data points"
+        },
+        {
+          "info": {
+            "name": "Unblock a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.godiligent.ai/blocked-companies/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "bc-a91a8416-0a38",
+                "type": "path",
+                "description": "Unique identifier of the blocked company record"
+              }
+            ]
+          },
+          "docs": "Remove a company from the blocked list by its unique ID"
+        },
+        {
+          "info": {
+            "name": "identify",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.godiligent.ai/companies/identify",
+            "params": [
+              {
+                "name": "legal_name",
+                "value": "",
+                "type": "query",
+                "description": "The legal_name of the company"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "The address of the business, partial or full address"
+              },
+              {
+                "name": "vat_number",
+                "value": "",
+                "type": "query",
+                "description": "The VAT number of the business"
+              },
+              {
+                "name": "registry_profile",
+                "value": "",
+                "type": "query",
+                "description": "The level of details to be returned"
+              },
+              {
+                "name": "country_code",
+                "value": "",
+                "type": "query",
+                "description": "The country code of the business, in alpha-2 format (ISO 3166-1 alpha-2)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "identify company by various data points"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

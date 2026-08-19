@@ -1,0 +1,274 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Diligent CDD API",
+    "version": "1.6.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CDD",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of CDD",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.godiligent.ai/cdds",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for filtering CDD cases (optional)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End date for filtering CDD cases (optional)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get list of CDD"
+        },
+        {
+          "info": {
+            "name": "Perform CDD",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/cdds",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Perform CDD on a given business. Supports idempotency to prevent duplicate processing of the same request."
+        },
+        {
+          "info": {
+            "name": "Perform Bulk CDD",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/cdds/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Perform CDD on multiple businesses"
+        },
+        {
+          "info": {
+            "name": "Get CDD by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.godiligent.ai/cdds/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the cdd request"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get CDD results for a business"
+        },
+        {
+          "info": {
+            "name": "Get CDD report by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.godiligent.ai/cdds/:id/report",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the cdd request"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get CDD report for a business"
+        },
+        {
+          "info": {
+            "name": "Run risk checks on a completed CDD case",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/cdds/:id/run-checks",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the cdd request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Triggers risk checks on a completed CDD case. The case must be in COMPLETED state. Optionally accepts a risk check set ID to run specific checks."
+        },
+        {
+          "info": {
+            "name": "Add document to CDD",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/cdds/:id/documents",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the cdd request"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "type",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add document to CDD"
+        },
+        {
+          "info": {
+            "name": "Pull registry documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/cdds/:id/pull-registry-documents",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the cdd request"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Pull registry documents"
+        },
+        {
+          "info": {
+            "name": "List customer reviews by CDD id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.godiligent.ai/cdds/:id/customer-reviews",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the cdd request"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List customer reviews for a given CDD case"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

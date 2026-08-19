@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Diligent CDD Name Screening API",
+    "version": "1.6.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Name Screening",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit alert for remediation (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/v1/name-screenings/alerts/remediate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Submit an externally-screened alert for AI-powered remediation. For customers who perform name screening themselves and want Diligent's AI to resolve the hits.\n\nProcessing is asynchronous — use [Get Alert](/api-reference/name-screening/get-alert) to retrieve results.\n\nSee the [Remediation API Guide](/guides/name-screening/remediation-api) for recommended field labels and detailed examples."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

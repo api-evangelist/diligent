@@ -1,0 +1,2059 @@
+{
+  "item": [
+    {
+      "id": "b3e7e3cb-e4d1-4b80-aad6-e826dd704d5a",
+      "name": "Monitorings",
+      "description": {
+        "content": "Website monitoring and alerts for changes and risks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d042674e-3328-42c8-85ae-b3d62fee6634",
+          "name": "List monitoring alerts",
+          "request": {
+            "name": "List monitoring alerts",
+            "description": {
+              "content": "Retrieve a paginated list of monitoring alerts for the authenticated customer. Supports filtering by seen/unseen status and execution time, and provides an unseen alert count.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitoring-alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10",
+                  "description": "Number of alerts per page (1-100, default 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "next_token",
+                  "value": "<string>",
+                  "description": "Pagination token for next page (Base64-encoded)"
+                },
+                {
+                  "disabled": false,
+                  "key": "only_unacknowledged",
+                  "value": "<string>",
+                  "description": "If 'true', returns only unacknowledged alerts"
+                },
+                {
+                  "disabled": false,
+                  "key": "acknowledged",
+                  "value": "<string>",
+                  "description": "If 'true', returns only acknowledged alerts"
+                },
+                {
+                  "disabled": false,
+                  "key": "execution_time_before",
+                  "value": "<dateTime>",
+                  "description": "Only include alerts executed before this time (ISO8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "execution_time_after",
+                  "value": "<dateTime>",
+                  "description": "Only include alerts executed after this time (ISO8601)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "62751a2d-1052-46de-a58e-d64847d73576",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "only_unacknowledged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "acknowledged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "execution_time_before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "execution_time_after",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"a1b2c3d4\",\n      \"monitoring_id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"customer_id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"execution_result_id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"website\": \"https://example.com\",\n      \"failed_checks\": [\n        {\n          \"check\": \"non_operational_website\",\n          \"explanation\": \"No Website Data found\",\n          \"method_used\": \"\",\n          \"status\": \"FAILED\"\n        }\n      ],\n      \"execution_time\": \"2022-01-01T00:00:00.000Z\",\n      \"created_at\": \"2022-01-01T00:00:00.000Z\",\n      \"acknowledged_at\": \"2025-08-01T06:12:47.905Z\",\n      \"external_id\": \"123456\"\n    },\n    {\n      \"id\": \"a1b2c3d4\",\n      \"monitoring_id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"customer_id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"execution_result_id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"website\": \"https://example.com\",\n      \"failed_checks\": [\n        {\n          \"check\": \"non_operational_website\",\n          \"explanation\": \"No Website Data found\",\n          \"method_used\": \"\",\n          \"status\": \"FAILED\"\n        }\n      ],\n      \"execution_time\": \"2022-01-01T00:00:00.000Z\",\n      \"created_at\": \"2022-01-01T00:00:00.000Z\",\n      \"acknowledged_at\": \"2025-08-01T06:12:47.905Z\",\n      \"external_id\": \"123456\"\n    }\n  ],\n  \"unacknowledged_count\": 1,\n  \"next_token\": \"eyJjdXN0b21lcklkIjp7IlMiOiI2OWRmNWQ4MS0yYjc0LTRmNDItYTQwMS0xM2ViOTZiYTA2MTkifSwiZXhlY3V0aW9uVGltZSI6eyJTIjoiMjAyNS0wNy0zMVQxMjowMTozMC44OTFaIn19\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f50b035b-58df-4034-9642-d34892e51df4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "only_unacknowledged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "acknowledged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "execution_time_before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "execution_time_after",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\",\n      \"code\": \"string\"\n    },\n    {\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\",\n      \"code\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42ffc637-921a-4fca-a9f3-cf353ad00840",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "only_unacknowledged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "acknowledged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "execution_time_before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "execution_time_after",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "804b1272-b770-46e0-afd8-7b9f501cf1d3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "only_unacknowledged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "acknowledged",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "execution_time_before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "execution_time_after",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00f335d6-f2a1-430e-8242-daef3a84d507",
+          "name": "Acknowledge (mark as seen) monitoring alerts",
+          "request": {
+            "name": "Acknowledge (mark as seen) monitoring alerts",
+            "description": {
+              "content": "Acknowledge (mark as seen) one or all monitoring alerts for the authenticated customer. Exactly one of alertId or all must be provided in the request body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitoring-alerts",
+                "acknowledge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "26d04341-03ab-4f1d-bc25-485d2dd3fc20",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts",
+                    "acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\",\n  \"unacknowledged_count\": 6256\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b6f722f-8650-4111-bb88-60306d50c898",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts",
+                    "acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\",\n      \"code\": \"string\"\n    },\n    {\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\",\n      \"code\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "712caa97-ec78-4c17-adc4-d474487e3e59",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts",
+                    "acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cbc8a93d-1836-42a3-9253-f88c230a0bbb",
+              "name": "Alert not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts",
+                    "acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f58da92d-bd65-49b8-844c-d0fa387f782b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitoring-alerts",
+                    "acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5cb6ebc-c5ab-4bda-aa83-a7652dcad03c",
+          "name": "Create a new monitoring",
+          "request": {
+            "name": "Create a new monitoring",
+            "description": {
+              "content": "Create a new monitoring for a customer",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitorings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"website\": \"<uri>\",\n  \"checks\": [\n    \"<string>\"\n  ],\n  \"frequency\": \"every_2_weeks\",\n  \"run_now\": true,\n  \"expires_at\": \"<dateTime>\",\n  \"skip_duplicate\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3ff912df-307f-471e-8e3f-e41d0d9a57fe",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"https://example.com\",\n  \"checks\": [\n    \"non_operational_website\",\n    \"high_risk_diligent_classification\"\n  ],\n  \"frequency\": \"weekly\",\n  \"run_now\": true,\n  \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n  \"skip_duplicate\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n  \"website\": \"https://example.com\",\n  \"customer_id\": \"string\",\n  \"checks\": [\n    \"catalog_contain_loan_flipping_indicators\",\n    \"high_risk_diligent_classification\"\n  ],\n  \"frequency\": \"every_3_weeks\",\n  \"is_active\": true,\n  \"running_state\": \"FAILED\",\n  \"next_run_at\": \"1962-07-28T23:35:57.559Z\",\n  \"expires_at\": \"2025-12-22T10:51:37.008Z\",\n  \"last_execution\": \"1993-04-14T17:06:20.296Z\",\n  \"created_at\": \"2021-06-08T10:11:04.529Z\",\n  \"updated_at\": \"1983-11-03T22:06:25.066Z\",\n  \"external_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d482eda1-bec7-4673-a7c1-4754f21b5abe",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"https://example.com\",\n  \"checks\": [\n    \"non_operational_website\",\n    \"high_risk_diligent_classification\"\n  ],\n  \"frequency\": \"weekly\",\n  \"run_now\": true,\n  \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n  \"skip_duplicate\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\",\n      \"code\": \"string\"\n    },\n    {\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\",\n      \"code\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb304b78-9604-4daf-8cb2-04c880f9d1e8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"https://example.com\",\n  \"checks\": [\n    \"non_operational_website\",\n    \"high_risk_diligent_classification\"\n  ],\n  \"frequency\": \"weekly\",\n  \"run_now\": true,\n  \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n  \"skip_duplicate\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70c4e658-6b10-4fa6-a33a-a66768bf6095",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"https://example.com\",\n  \"checks\": [\n    \"non_operational_website\",\n    \"high_risk_diligent_classification\"\n  ],\n  \"frequency\": \"weekly\",\n  \"run_now\": true,\n  \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n  \"skip_duplicate\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bdd8a814-08a0-4eb8-9426-8fda01ee1bb9",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"https://example.com\",\n  \"checks\": [\n    \"non_operational_website\",\n    \"high_risk_diligent_classification\"\n  ],\n  \"frequency\": \"weekly\",\n  \"run_now\": true,\n  \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n  \"skip_duplicate\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70742a15-cb89-40aa-a7de-90885914cbac",
+          "name": "List monitorings",
+          "request": {
+            "name": "List monitorings",
+            "description": {
+              "content": "Get a list of monitorings for a customer",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitorings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10",
+                  "description": "Number of items per page (1-100, default 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "last_execution",
+                  "description": "Field to sort by (default: last_execution)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc",
+                  "description": "Sort order (asc or desc, default desc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "next_token",
+                  "value": "<string>",
+                  "description": "Pagination token for next page"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Filter by running state"
+                },
+                {
+                  "disabled": false,
+                  "key": "website",
+                  "value": "<string>",
+                  "description": "Filter by specific website URL"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "38b7d931-da50-4dfb-8914-25b7ac73689f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "last_execution"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "website",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n    \"website\": \"https://example.com\",\n    \"customer_id\": \"string\",\n    \"checks\": [\n      \"high_risk_diligent_classification\",\n      \"non_operational_website\"\n    ],\n    \"frequency\": \"every_2_weeks\",\n    \"is_active\": true,\n    \"running_state\": \"RUNNING\",\n    \"next_run_at\": \"1993-03-26T12:33:41.494Z\",\n    \"expires_at\": \"2012-04-21T02:25:36.465Z\",\n    \"last_execution\": \"1969-07-16T04:32:51.964Z\",\n    \"created_at\": \"1970-03-05T03:48:34.861Z\",\n    \"updated_at\": \"1975-02-14T02:44:52.223Z\",\n    \"external_id\": \"string\"\n  },\n  {\n    \"id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n    \"website\": \"https://example.com\",\n    \"customer_id\": \"string\",\n    \"checks\": [\n      \"non_operational_website\",\n      \"high_risk_diligent_classification\"\n    ],\n    \"frequency\": \"every_3_weeks\",\n    \"is_active\": false,\n    \"running_state\": \"FAILED\",\n    \"next_run_at\": \"1979-04-18T03:33:44.187Z\",\n    \"expires_at\": \"1974-06-13T03:36:08.020Z\",\n    \"last_execution\": \"2002-02-08T07:20:49.268Z\",\n    \"created_at\": \"1956-06-28T17:20:02.366Z\",\n    \"updated_at\": \"1998-08-17T14:00:22.076Z\",\n    \"external_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4be28027-3eb4-404f-acb9-08a44b8c4a0c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "last_execution"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "website",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4b33863-1ebf-4e43-9883-0848c80ebf1e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "last_execution"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "website",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "750c98b2-7165-49ec-bcfd-4d842b845ede",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "last_execution"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "website",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "44224b4c-8668-4a99-8a29-b57e6d52962b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "last_execution"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "next_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "website",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98b90518-ce9d-4c0c-a4ab-76e6e5437569",
+          "name": "Bulk create monitorings",
+          "request": {
+            "name": "Bulk create monitorings",
+            "description": {
+              "content": "Create multiple monitorings in a single request. All websites must be unique and not already exist for the customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitorings",
+                "bulk-create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"website\": \"<uri>\",\n    \"checks\": [\n      \"<string>\"\n    ],\n    \"frequency\": \"every_2_weeks\",\n    \"run_now\": true,\n    \"expires_at\": \"<dateTime>\",\n    \"skip_duplicate\": \"<boolean>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e76ff13-73f6-477b-a9c6-993960f6c203",
+              "name": "Successful bulk creation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    "bulk-create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"https://example.com\",\n    \"checks\": [\n      \"non_operational_website\",\n      \"high_risk_diligent_classification\"\n    ],\n    \"frequency\": \"weekly\",\n    \"run_now\": true,\n    \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n    \"skip_duplicate\": false\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"is_successful\": false,\n  \"items\": [\n    {\n      \"id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"website\": \"https://example.com\",\n      \"customer_id\": \"string\",\n      \"checks\": [\n        \"high_risk_diligent_classification\",\n        \"catalog_contain_loan_flipping_indicators\"\n      ],\n      \"frequency\": \"every_3_weeks\",\n      \"is_active\": false,\n      \"running_state\": \"RUNNING\",\n      \"next_run_at\": \"2009-08-06T05:59:38.751Z\",\n      \"expires_at\": \"1956-05-26T22:43:21.208Z\",\n      \"last_execution\": \"2006-03-22T05:38:45.943Z\",\n      \"created_at\": \"1959-07-27T05:32:11.049Z\",\n      \"updated_at\": \"2020-02-25T01:31:54.092Z\",\n      \"external_id\": \"string\"\n    },\n    {\n      \"id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"website\": \"https://example.com\",\n      \"customer_id\": \"string\",\n      \"checks\": [\n        \"catalog_contain_loan_flipping_indicators\",\n        \"non_operational_website\"\n      ],\n      \"frequency\": \"every_3_weeks\",\n      \"is_active\": true,\n      \"running_state\": \"FAILED\",\n      \"next_run_at\": \"2021-07-09T15:43:11.994Z\",\n      \"expires_at\": \"2023-06-17T20:41:43.808Z\",\n      \"last_execution\": \"1992-11-25T16:08:23.823Z\",\n      \"created_at\": \"1999-01-21T10:55:15.049Z\",\n      \"updated_at\": \"2003-12-29T16:14:23.240Z\",\n      \"external_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e259f70-73c8-40fc-a541-d714fac0f5f9",
+              "name": "Validation or duplicate error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    "bulk-create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"https://example.com\",\n    \"checks\": [\n      \"non_operational_website\",\n      \"high_risk_diligent_classification\"\n    ],\n    \"frequency\": \"weekly\",\n    \"run_now\": true,\n    \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n    \"skip_duplicate\": false\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"duplicates\": [\n    {\n      \"website\": \"string\",\n      \"index\": 7329\n    },\n    {\n      \"website\": \"string\",\n      \"index\": 6892\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d37be2c-6a6a-4a1a-b2c7-629a969a20f8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    "bulk-create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"https://example.com\",\n    \"checks\": [\n      \"non_operational_website\",\n      \"high_risk_diligent_classification\"\n    ],\n    \"frequency\": \"weekly\",\n    \"run_now\": true,\n    \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n    \"skip_duplicate\": false\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ea03196-188a-4574-afa5-483c8e8d3097",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    "bulk-create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"https://example.com\",\n    \"checks\": [\n      \"non_operational_website\",\n      \"high_risk_diligent_classification\"\n    ],\n    \"frequency\": \"weekly\",\n    \"run_now\": true,\n    \"expires_at\": \"2024-12-31T23:59:59.000Z\",\n    \"skip_duplicate\": false\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b614826-8cd0-4220-8fa3-a863129c2ae6",
+          "name": "Deactivate a monitoring",
+          "request": {
+            "name": "Deactivate a monitoring",
+            "description": {
+              "content": "Deactivate a monitoring by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitorings",
+                ":id",
+                "deactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1e3521da-de2e-42b1-9475-62bf87ea4f54",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70869664-ca66-4e6e-a53c-ddb7ad5056ab",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8bf1e29-45c4-4f54-ad03-c3d856dac906",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "245cb8cf-c472-4133-bd55-c381bffbb1a1",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5ef3924c-fec8-4b7a-a692-b25ed4e062d2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "254077e7-b56b-4bd8-848b-2dd1a899df40",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitorings",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.godiligent.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e7b53e6b-82b1-4a08-91dd-51c117470855",
+    "name": "Diligent CDD Monitorings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,3529 @@
+{
+  "item": [
+    {
+      "id": "737f1a0e-5962-4c58-bb96-f798d6692155",
+      "name": "CDD",
+      "description": {
+        "content": "Customer Due Diligence",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "624173a7-c76c-4dd1-a899-316c360bbbd0",
+          "name": "Perform CDD",
+          "request": {
+            "name": "Perform CDD",
+            "description": {
+              "content": "Perform CDD on a given business. Supports idempotency to prevent duplicate processing of the same request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"website\": \"<string>\",\n  \"email\": \"<string>\",\n  \"legal_name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"vat_number\": \"<string>\",\n  \"register_number\": \"<string>\",\n  \"country_code\": \"<string>\",\n  \"description\": \"<string>\",\n  \"registry_profile\": \"<string>\",\n  \"contact_person\": {},\n  \"risk_check_set_id\": \"<string>\",\n  \"pull_registry_documents\": false,\n  \"trading_name\": \"<string>\",\n  \"trading_address\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "73b85913-76a7-4ec0-bedc-a9de775f283b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.",
+                    "key": "idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane Sp. z o.o.\",\n  \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n  \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n  \"vat_number\": \"BE09999999XX.\",\n  \"register_number\": \"12345678\",\n  \"country_code\": \"DE\",\n  \"description\": \"Software consultancy\",\n  \"registry_profile\": \"<string>\",\n  \"contact_person\": {},\n  \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"pull_registry_documents\": true,\n  \"trading_name\": \"Acme Trading Co\",\n  \"trading_address\": \"123 Trade Street, London\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a91a8416-0a38-49e5-887e-8437519b3e78\",\n  \"state\": \"INITIATED\",\n  \"input\": {\n    \"website\": \"https://example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"registry_profile\": \"BASIC\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\"\n  },\n  \"created_at\": \"2024-03-20T15:18:36.803Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ece0698c-4418-4b67-a6b5-7e4a85f86021",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.",
+                    "key": "idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane Sp. z o.o.\",\n  \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n  \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n  \"vat_number\": \"BE09999999XX.\",\n  \"register_number\": \"12345678\",\n  \"country_code\": \"DE\",\n  \"description\": \"Software consultancy\",\n  \"registry_profile\": \"<string>\",\n  \"contact_person\": {},\n  \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"pull_registry_documents\": true,\n  \"trading_name\": \"Acme Trading Co\",\n  \"trading_address\": \"123 Trade Street, London\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\",\n      \"code\": \"string\"\n    },\n    {\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"message\": \"string\",\n      \"code\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e2bf2d0-4649-4fdc-bb87-b07d625ebcfe",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.",
+                    "key": "idempotency-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane Sp. z o.o.\",\n  \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n  \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n  \"vat_number\": \"BE09999999XX.\",\n  \"register_number\": \"12345678\",\n  \"country_code\": \"DE\",\n  \"description\": \"Software consultancy\",\n  \"registry_profile\": \"<string>\",\n  \"contact_person\": {},\n  \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"pull_registry_documents\": true,\n  \"trading_name\": \"Acme Trading Co\",\n  \"trading_address\": \"123 Trade Street, London\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "535bef9a-8a1f-4082-9f24-56a410097026",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.",
+                    "key": "idempotency-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane Sp. z o.o.\",\n  \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n  \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n  \"vat_number\": \"BE09999999XX.\",\n  \"register_number\": \"12345678\",\n  \"country_code\": \"DE\",\n  \"description\": \"Software consultancy\",\n  \"registry_profile\": \"<string>\",\n  \"contact_person\": {},\n  \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"pull_registry_documents\": true,\n  \"trading_name\": \"Acme Trading Co\",\n  \"trading_address\": \"123 Trade Street, London\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b3aab618-8409-4c08-a7ae-e05ccf04c74f",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.",
+                    "key": "idempotency-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane Sp. z o.o.\",\n  \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n  \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n  \"vat_number\": \"BE09999999XX.\",\n  \"register_number\": \"12345678\",\n  \"country_code\": \"DE\",\n  \"description\": \"Software consultancy\",\n  \"registry_profile\": \"<string>\",\n  \"contact_person\": {},\n  \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"pull_registry_documents\": true,\n  \"trading_name\": \"Acme Trading Co\",\n  \"trading_address\": \"123 Trade Street, London\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7b411178-84d5-434f-9f06-2ce803622df1",
+              "name": "Conflict - Idempotency key already used with different payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.",
+                    "key": "idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane Sp. z o.o.\",\n  \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n  \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n  \"vat_number\": \"BE09999999XX.\",\n  \"register_number\": \"12345678\",\n  \"country_code\": \"DE\",\n  \"description\": \"Software consultancy\",\n  \"registry_profile\": \"<string>\",\n  \"contact_person\": {},\n  \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"pull_registry_documents\": true,\n  \"trading_name\": \"Acme Trading Co\",\n  \"trading_address\": \"123 Trade Street, London\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Conflict: Idempotency key already used with different payload\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cf91638-1ad9-48ad-a5c4-97651ce0033a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional idempotency key to ensure the same request is not processed multiple times. If the same key is sent with a different payload, a 409 Conflict error is returned. The result is cached for 7 days.",
+                    "key": "idempotency-key",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"example.com\",\n  \"email\": \"fulan@domain.com\",\n  \"legal_name\": \"PayLane Sp. z o.o.\",\n  \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n  \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n  \"vat_number\": \"BE09999999XX.\",\n  \"register_number\": \"12345678\",\n  \"country_code\": \"DE\",\n  \"description\": \"Software consultancy\",\n  \"registry_profile\": \"<string>\",\n  \"contact_person\": {},\n  \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"pull_registry_documents\": true,\n  \"trading_name\": \"Acme Trading Co\",\n  \"trading_address\": \"123 Trade Street, London\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe42725d-e9e4-4665-a7b9-eaae8bb8710e",
+          "name": "Get list of CDD",
+          "request": {
+            "name": "Get list of CDD",
+            "description": {
+              "content": "Get list of CDD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<dateTime>",
+                  "description": "Start date for filtering CDD cases (optional)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "End date for filtering CDD cases (optional)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5adfe9be-4370-463d-bef4-f809b9ac25b0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 1,\n  \"cases\": [\n    {\n      \"id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"state\": \"COMPLETED\",\n      \"input\": {\n        \"website\": \"https://example.com\",\n        \"email\": \"fulan@domain.com\",\n        \"legal_name\": \"PayLane Sp. z o.o.\",\n        \"registry_profile\": \"FULL\",\n        \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n        \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n        \"vat_number\": \"BE09999999XX.\"\n      },\n      \"created_at\": \"2024-03-20T15:18:36.803Z\",\n      \"checks\": {\n        \"verdict\": \"ACCEPT\",\n        \"groups\": [\n          {\n            \"name\": \"onboarding\",\n            \"action\": \"ACCEPT\"\n          },\n          {\n            \"name\": \"onboarding\",\n            \"action\": \"ACCEPT\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n      \"state\": \"COMPLETED\",\n      \"input\": {\n        \"website\": \"https://example.com\",\n        \"email\": \"fulan@domain.com\",\n        \"legal_name\": \"PayLane Sp. z o.o.\",\n        \"registry_profile\": \"FULL\",\n        \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n        \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n        \"vat_number\": \"BE09999999XX.\"\n      },\n      \"created_at\": \"2024-03-20T15:18:36.803Z\",\n      \"checks\": {\n        \"verdict\": \"ACCEPT\",\n        \"groups\": [\n          {\n            \"name\": \"onboarding\",\n            \"action\": \"ACCEPT\"\n          },\n          {\n            \"name\": \"onboarding\",\n            \"action\": \"ACCEPT\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b3bfb72-1da1-4b91-b1a3-208017eb3d84",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a4ff4ea7-5832-47d9-9e5b-c303d2385d0d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "be1e0d2d-85e0-494e-8692-4a11a354ebab",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "675e7682-adbe-44bd-9e29-334eb813aefe",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f22149b7-b8de-4694-a720-91758ba8a7b7",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e23d050-8e11-4fb3-accf-50bf17134499",
+          "name": "Perform Bulk CDD",
+          "request": {
+            "name": "Perform Bulk CDD",
+            "description": {
+              "content": "Perform CDD on multiple businesses",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"website\": \"<string>\",\n    \"email\": \"<string>\",\n    \"legal_name\": \"<string>\",\n    \"address\": \"<string>\",\n    \"external_id\": \"<string>\",\n    \"vat_number\": \"<string>\",\n    \"register_number\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"description\": \"<string>\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"<string>\",\n    \"pull_registry_documents\": false,\n    \"trading_name\": \"<string>\",\n    \"trading_address\": \"<string>\"\n  },\n  {\n    \"website\": \"<string>\",\n    \"email\": \"<string>\",\n    \"legal_name\": \"<string>\",\n    \"address\": \"<string>\",\n    \"external_id\": \"<string>\",\n    \"vat_number\": \"<string>\",\n    \"register_number\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"description\": \"<string>\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"<string>\",\n    \"pull_registry_documents\": false,\n    \"trading_name\": \"<string>\",\n    \"trading_address\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0f7e8675-1cca-48d1-a079-7b31fc911135",
+              "name": "Bulk CDD operation completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  },\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"index\": 3655,\n    \"status\": \"error\",\n    \"data\": {\n      \"id\": \"a91a8416-0a38-49e5-887e-8437519b3e78\",\n      \"state\": \"INITIATED\",\n      \"input\": {\n        \"website\": \"https://example.com\",\n        \"email\": \"fulan@domain.com\",\n        \"legal_name\": \"PayLane Sp. z o.o.\",\n        \"registry_profile\": \"BASIC\",\n        \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n        \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n        \"vat_number\": \"BE09999999XX.\"\n      },\n      \"created_at\": \"2024-03-20T15:18:36.803Z\"\n    },\n    \"message\": \"string\"\n  },\n  {\n    \"index\": 8452,\n    \"status\": \"error\",\n    \"data\": {\n      \"id\": \"a91a8416-0a38-49e5-887e-8437519b3e78\",\n      \"state\": \"INITIATED\",\n      \"input\": {\n        \"website\": \"https://example.com\",\n        \"email\": \"fulan@domain.com\",\n        \"legal_name\": \"PayLane Sp. z o.o.\",\n        \"registry_profile\": \"BASIC\",\n        \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n        \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n        \"vat_number\": \"BE09999999XX.\"\n      },\n      \"created_at\": \"2024-03-20T15:18:36.803Z\"\n    },\n    \"message\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89131e27-ed82-4221-bae0-4d044887d2bb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  },\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"errors\": [\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      },\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      }\n    ]\n  },\n  {\n    \"errors\": [\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      },\n      {\n        \"path\": [\n          \"string\",\n          \"string\"\n        ],\n        \"message\": \"string\",\n        \"code\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74820f54-15b1-4323-8a06-476cba77a0e9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  },\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ab26d66-d692-43e6-a3b2-fad46f6c0f64",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  },\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "094bb95a-c8a9-4643-a3e0-dacfedae745f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  },\n  {\n    \"website\": \"example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\",\n    \"register_number\": \"12345678\",\n    \"country_code\": \"DE\",\n    \"description\": \"Software consultancy\",\n    \"registry_profile\": \"<string>\",\n    \"contact_person\": {},\n    \"risk_check_set_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"pull_registry_documents\": true,\n    \"trading_name\": \"Acme Trading Co\",\n    \"trading_address\": \"123 Trade Street, London\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e0b4636-164f-474c-b75b-d683f12b4024",
+          "name": "Get CDD by id",
+          "request": {
+            "name": "Get CDD by id",
+            "description": {
+              "content": "Get CDD results for a business",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the cdd request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7eced01e-1d87-4fa9-9f30-6c61f9bcc0d2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4\",\n  \"state\": \"COMPLETED\",\n  \"input\": {\n    \"website\": \"https://example.com\",\n    \"email\": \"fulan@domain.com\",\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"registry_profile\": \"FULL\",\n    \"address\": \"Am Generalshof 12, 10117 Berlin, Germany\",\n    \"external_id\": \"1538c2f9-ff0f-489e-0099-a5f116a4af07\",\n    \"vat_number\": \"BE09999999XX.\"\n  },\n  \"created_at\": \"2024-03-20T15:18:36.803Z\",\n  \"online_screening\": {\n    \"legal_name\": \"PayLane Sp. z o.o.\",\n    \"names\": [\n      {\n        \"name\": \"Billie GmbH\",\n        \"sources\": [\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          },\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Billie GmbH\",\n        \"sources\": [\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          },\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          }\n        ]\n      }\n    ],\n    \"industry\": {\n      \"is_online_seller\": true,\n      \"one_liner\": {\n        \"text\": \"Billie is a B2B platform offering 'Buy Now, Pay Later' solutions to enhance checkout experiences and boost sales.\"\n      },\n      \"summary\": {\n        \"text\": \"Billie.io is a German-based financial technology company that offers a \\\"Buy Now, Pay Later\\\" (BNPL) payment platform specifically designed for B2B transactions. The company enables online merchants to increase sales by providing their business customers with flexible payment options and terms, ranging from 14 to 120 days. Merchants receive immediate payouts while Billie assumes the risk. The platform boasts high acceptance rates and aims to improve customer satisfaction and checkout conversion rates. Billie's services include real-time customer verification, professional dunning processes, and automatic payment allocation. The company generates revenue by facilitating these transactions and providing additional financial services to B2B merchants.\"\n      },\n      \"risk_categories\": [\n        {\n          \"description\": \"Business is not operating in a prohibited industry.\",\n          \"category\": \"OTHER_NON_PROHIBITED\",\n          \"is_high_risk\": false,\n          \"explanation\": \"string\"\n        },\n        {\n          \"description\": \"Business is not operating in a prohibited industry.\",\n          \"category\": \"OTHER_NON_PROHIBITED\",\n          \"is_high_risk\": false,\n          \"explanation\": \"string\"\n        }\n      ],\n      \"schemes\": {\n        \"naics\": {\n          \"primary\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"additional\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"sic\": {\n          \"primary\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"additional\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"nace\": {\n          \"primary\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"additional\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"mcc\": {\n          \"primary\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"additional\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      }\n    },\n    \"addresses\": {\n      \"primary\": {\n        \"formatted_address\": \"123 Imaginary St, 45678 Fictional City\",\n        \"components\": {\n          \"street\": \"Imaginary St\",\n          \"street_number\": \"123\",\n          \"state\": \"IS\",\n          \"locality_code\": \"IS\",\n          \"city\": \"Fictional City\",\n          \"postal_code\": \"45678\",\n          \"country_code\": \"FC\",\n          \"country\": \"Fictionland\"\n        },\n        \"type\": \"residential\",\n        \"is_valid\": true,\n        \"is_verified\": true,\n        \"is_suspicious\": false,\n        \"is_blacklisted\": false,\n        \"is_primary\": true,\n        \"street_view\": \"string\",\n        \"sources\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"link\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"link\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"additional\": [\n        {\n          \"formatted_address\": \"123 Imaginary St, 45678 Fictional City\",\n          \"components\": {\n            \"street\": \"Imaginary St\",\n            \"street_number\": \"123\",\n            \"state\": \"IS\",\n            \"locality_code\": \"IS\",\n            \"city\": \"Fictional City\",\n            \"postal_code\": \"45678\",\n            \"country_code\": \"FC\",\n            \"country\": \"Fictionland\"\n          },\n          \"type\": \"residential\",\n          \"is_valid\": true,\n          \"is_verified\": true,\n          \"is_suspicious\": false,\n          \"is_blacklisted\": false,\n          \"is_primary\": true,\n          \"street_view\": \"string\",\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"formatted_address\": \"123 Imaginary St, 45678 Fictional City\",\n          \"components\": {\n            \"street\": \"Imaginary St\",\n            \"street_number\": \"123\",\n            \"state\": \"IS\",\n            \"locality_code\": \"IS\",\n            \"city\": \"Fictional City\",\n            \"postal_code\": \"45678\",\n            \"country_code\": \"FC\",\n            \"country\": \"Fictionland\"\n          },\n          \"type\": \"residential\",\n          \"is_valid\": true,\n          \"is_verified\": true,\n          \"is_suspicious\": false,\n          \"is_blacklisted\": false,\n          \"is_primary\": true,\n          \"street_view\": \"string\",\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    \"websites\": {\n      \"primary\": {\n        \"url\": \"https://www.example.com\",\n        \"is_active\": true,\n        \"domain\": {\n          \"name\": \"spyra.com\",\n          \"ssl\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"extension\": \"com\",\n          \"ips_v4\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"is_disposable\": false,\n          \"status\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"registrar\": \"GoDaddy.com, LLC\",\n          \"registrant\": \"Spyra GmbH\",\n          \"created_at\": \"2000-02-06T18:03:12Z\",\n          \"expires_at\": \"2025-08-18T11:59:59Z\",\n          \"age\": 8670,\n          \"country\": \"US\",\n          \"isp_name\": \"Fastly Inc.\"\n        },\n        \"subdomains\": [\n          \"string\",\n          \"string\"\n        ],\n        \"content\": {\n          \"title\": \"Spyra\",\n          \"description\": \"Publisher efficient Urology learning materials. Our books let Urologists focus on what matters.\",\n          \"screenshot\": \"https://www.example.com/screenshot.png\",\n          \"links\": {\n            \"privacy_policy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"terms_of_service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"return_policy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refund_policy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shipping_policy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"imprint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"placeholder_text\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"e_commerce\": {\n          \"product_count\": 2000,\n          \"category_count\": 899,\n          \"prices\": [\n            {\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"percentiles\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"median\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"average\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"standard_deviation\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"min\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"max\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currency\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"percentiles\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"median\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"average\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"standard_deviation\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"min\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"max\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"platform\": \"SHOPIFY\"\n        },\n        \"sources\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"link\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"link\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"additional\": [\n        {\n          \"url\": \"https://www.example.com\",\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"url\": \"https://www.example.com\",\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    \"profiles\": [\n      {\n        \"provider\": \"google\",\n        \"data\": {},\n        \"sources\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"link\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"link\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"provider\": \"google\",\n        \"data\": {},\n        \"sources\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"link\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"link\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"phone_number\": \"+1 234-567-8900\",\n        \"is_valid\": true,\n        \"sources\": [\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          },\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          }\n        ]\n      },\n      {\n        \"phone_number\": \"+1 234-567-8900\",\n        \"is_valid\": true,\n        \"sources\": [\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          },\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          }\n        ]\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"example@example.com\",\n        \"is_valid\": true,\n        \"sources\": [\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          },\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          }\n        ]\n      },\n      {\n        \"email\": \"example@example.com\",\n        \"is_valid\": true,\n        \"sources\": [\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          },\n          {\n            \"name\": \"Source Name\",\n            \"link\": \"https://www.example.com\"\n          }\n        ]\n      }\n    ],\n    \"identification_numbers\": [\n      {\n        \"type\": \"VAT\",\n        \"number\": \"123456789\"\n      },\n      {\n        \"type\": \"VAT\",\n        \"number\": \"123456789\"\n      }\n    ]\n  },\n  \"registry\": {\n    \"name\": \"XYZZ GmbH\",\n    \"legal_form\": \"GmbH\",\n    \"register\": {\n      \"id\": \"HRB 259538 B\",\n      \"country\": \"DE\",\n      \"city\": \"Charlottenburg (Berlin)\",\n      \"foundation_date\": \"2023-12-04\"\n    },\n    \"address\": {\n      \"formatted_address\": \"123 Imaginary St, 45678 Fictional City\",\n      \"components\": {\n        \"street\": \"Imaginary St\",\n        \"street_number\": \"123\",\n        \"state\": \"IS\",\n        \"locality_code\": \"IS\",\n        \"city\": \"Fictional City\",\n        \"postal_code\": \"45678\",\n        \"country_code\": \"FC\",\n        \"country\": \"Fictionland\"\n      },\n      \"type\": \"residential\",\n      \"is_valid\": true,\n      \"is_verified\": true,\n      \"is_suspicious\": false,\n      \"is_blacklisted\": false,\n      \"is_primary\": true,\n      \"street_view\": \"string\",\n      \"sources\": [\n        {\n          \"name\": \"Source Name\",\n          \"link\": \"https://www.example.com\"\n        },\n        {\n          \"name\": \"Source Name\",\n          \"link\": \"https://www.example.com\"\n        }\n      ]\n    },\n    \"ownership\": {\n      \"shareholders\": [\n        {\n          \"name\": \"John Doe\",\n          \"percentage\": 100,\n          \"type\": \"INDIVIDUAL\",\n          \"location\": \"City, Country\",\n          \"is_major_shareholder\": true,\n          \"is_ubo\": true,\n          \"gender\": \"MALE\",\n          \"tax_code\": \"123456789\",\n          \"address\": \"123 Main St, City, Country\"\n        },\n        {\n          \"name\": \"John Doe\",\n          \"percentage\": 100,\n          \"type\": \"INDIVIDUAL\",\n          \"location\": \"City, Country\",\n          \"is_major_shareholder\": true,\n          \"is_ubo\": true,\n          \"gender\": \"MALE\",\n          \"tax_code\": \"123456789\",\n          \"address\": \"123 Main St, City, Country\"\n        }\n      ],\n      \"total_percentage\": 100,\n      \"total_shareholders_count\": 1,\n      \"total_major_shareholders_count\": 1,\n      \"total_ubos_count\": 1\n    },\n    \"source\": {\n      \"name\": \"Source Name\",\n      \"link\": \"https://www.example.com\"\n    },\n    \"status\": \"ACTIVE\",\n    \"commercial_name\": \"string\",\n    \"is_blocked\": false,\n    \"description\": \"SOFTWARE CONSULTANCY\",\n    \"vat_number\": \"string\",\n    \"representation_rules\": \"This is a placeholder for representation rules.\",\n    \"signatory_powers\": [\n      {\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"date_of_birth\": \"1990-01-01\",\n        \"entity_name\": \"Example GmbH\",\n        \"location\": \"City, Country\",\n        \"role\": \"ROLE\",\n        \"effective_date\": \"2024-01-01\",\n        \"representation\": \"Representation details\",\n        \"role_local\": \"Role\",\n        \"signatory_power\": \"POWER_TYPE\"\n      },\n      {\n        \"first_name\": \"John\",\n        \"last_name\": \"Doe\",\n        \"date_of_birth\": \"1990-01-01\",\n        \"entity_name\": \"Example GmbH\",\n        \"location\": \"City, Country\",\n        \"role\": \"ROLE\",\n        \"effective_date\": \"2024-01-01\",\n        \"representation\": \"Representation details\",\n        \"role_local\": \"Role\",\n        \"signatory_power\": \"POWER_TYPE\"\n      }\n    ],\n    \"industry_classifications\": {\n      \"ateco\": [\n        \"47199\",\n        \"47199\"\n      ],\n      \"nace\": [\n        \"4719\",\n        \"4719\"\n      ],\n      \"sic\": [\n        \"5999\",\n        \"5999\"\n      ]\n    },\n    \"pec\": \"QUADERNOAQUADRETTISRL@ARUBAPEC.IT\",\n    \"rea_code\": \"128207\",\n    \"financials\": {\n      \"date\": \"2022-12-31\",\n      \"items\": [\n        {\n          \"id\": \"share_capital\",\n          \"note\": \"string\",\n          \"unit\": \"EUR\",\n          \"value\": 100000\n        },\n        {\n          \"id\": \"share_capital\",\n          \"note\": \"string\",\n          \"unit\": \"EUR\",\n          \"value\": 100000\n        }\n      ]\n    },\n    \"extras\": [\n      {\n        \"name\": \"website\",\n        \"value\": \"www.example.eu\"\n      },\n      {\n        \"name\": \"website\",\n        \"value\": \"www.example.eu\"\n      }\n    ]\n  },\n  \"documents\": [\n    {\n      \"id\": \"doc_123\",\n      \"created_at\": \"2023-04-30T23:50:51.222Z\",\n      \"file_name\": \"proof_of_address.pdf\",\n      \"file_type\": \"application/pdf\",\n      \"type\": \"INCORPORATION\",\n      \"url\": \"https://example-bucket.s3.eu-central-1.amazonaws.com/placeholder-folder/sample-document.pdf\"\n    },\n    {\n      \"id\": \"doc_123\",\n      \"created_at\": \"2023-04-30T23:50:51.222Z\",\n      \"file_name\": \"proof_of_address.pdf\",\n      \"file_type\": \"application/pdf\",\n      \"type\": \"INCORPORATION\",\n      \"url\": \"https://example-bucket.s3.eu-central-1.amazonaws.com/placeholder-folder/sample-document.pdf\"\n    }\n  ],\n  \"checks\": {\n    \"verdict\": \"ACCEPT\",\n    \"groups\": [\n      {\n        \"name\": \"onboarding\",\n        \"description\": \"Onboarding checks\",\n        \"type\": \"BINARY\",\n        \"result\": true,\n        \"score\": 0,\n        \"action\": \"ACCEPT\",\n        \"checks\": [\n          {\n            \"name\": \"is_online_seller\",\n            \"description\": \"Checks if a website is an online shop i.e. ecommerce (excluding tourism and travel websites)\",\n            \"result\": true,\n            \"score\": 0,\n            \"context\": \"website\",\n            \"meta\": {\n              \"key_0\": 2351.6192428625814,\n              \"key_1\": \"string\"\n            }\n          },\n          {\n            \"name\": \"is_online_seller\",\n            \"description\": \"Checks if a website is an online shop i.e. ecommerce (excluding tourism and travel websites)\",\n            \"result\": true,\n            \"score\": 0,\n            \"context\": \"website\",\n            \"meta\": {\n              \"key_0\": 8787,\n              \"key_1\": 1593.2132621559504\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"onboarding\",\n        \"description\": \"Onboarding checks\",\n        \"type\": \"BINARY\",\n        \"result\": true,\n        \"score\": 0,\n        \"action\": \"ACCEPT\",\n        \"checks\": [\n          {\n            \"name\": \"is_online_seller\",\n            \"description\": \"Checks if a website is an online shop i.e. ecommerce (excluding tourism and travel websites)\",\n            \"result\": true,\n            \"score\": 0,\n            \"context\": \"website\",\n            \"meta\": {\n              \"key_0\": 4074.593804676001\n            }\n          },\n          {\n            \"name\": \"is_online_seller\",\n            \"description\": \"Checks if a website is an online shop i.e. ecommerce (excluding tourism and travel websites)\",\n            \"result\": true,\n            \"score\": 0,\n            \"context\": \"website\",\n            \"meta\": {\n              \"key_0\": \"string\",\n              \"key_1\": 4406,\n              \"key_2\": true\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6340a317-3d48-420f-aa2b-7ad394513113",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b459b8bd-21a1-42e9-b037-5e8300d1114c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8fea079e-9178-4d37-875e-72d0741ce748",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f885de7-4a37-42e3-8e8e-d1e0ff98c9bb",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "acacec7a-6f7e-460e-b12f-8381b14a012b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1d641d5-9c68-420e-b25a-2da5137432eb",
+          "name": "Get CDD report by id",
+          "request": {
+            "name": "Get CDD report by id",
+            "description": {
+              "content": "Get CDD report for a business",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds",
+                ":id",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the cdd request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/markdown"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fdababd5-0e53-4887-9cbe-3fd209a55944",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/markdown"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/markdown"
+                }
+              ],
+              "body": "<binary content of the markdown file>",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82ed21f6-be47-446d-bb88-f50aa629ef17",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce2b5eb7-855c-419e-9731-49316d22b7fe",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0b39899-ae42-410e-93ae-63940b240737",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d291992c-e71d-4f1c-b2e3-80bbf89ad73b",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fdafa9ce-2bb9-4c25-a0c3-a0aace8f8137",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43477aac-e028-42a0-8785-d5f9bf7089cb",
+          "name": "Run risk checks on a completed CDD case",
+          "request": {
+            "name": "Run risk checks on a completed CDD case",
+            "description": {
+              "content": "Triggers risk checks on a completed CDD case. The case must be in COMPLETED state. Optionally accepts a risk check set ID to run specific checks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds",
+                ":id",
+                "run-checks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The id of the cdd request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"risk_check_set_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f27b96a9-d297-4a9a-836a-aaebfd38ccf4",
+              "name": "OK - Risk checks have been triggered successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "run-checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk_check_set_id\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "150dd266-e566-46cc-9e94-94ed81c3ee2e",
+              "name": "Bad Request - Invalid case ID format or case is not in COMPLETED state",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "run-checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk_check_set_id\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid case ID format\",\n  \"message\": \"Case is not completed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99e9f1ac-01c1-46d4-aec2-5fbf69742bda",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "run-checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk_check_set_id\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c46e0720-a5ff-4e82-a78d-995d0224b153",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "run-checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk_check_set_id\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b5316db-76fa-4153-88ec-dbdaed37f601",
+              "name": "Not found - Case does not exist or does not belong to the customer",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "run-checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk_check_set_id\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Case not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c29561f6-919c-4e86-82ae-32a66c01cf14",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "run-checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"risk_check_set_id\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5a15be8-21e5-4435-96a1-f2f81e754b16",
+          "name": "Add document to CDD",
+          "request": {
+            "name": "Add document to CDD",
+            "description": {
+              "content": "Add document to CDD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds",
+                ":id",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the cdd request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) The type of the document (This can only be one of PROOF_OF_ADDRESS,SHAREHOLDERS_LIST,ARTICLES_OF_INCORPORATION)"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The file to upload"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "57c10bda-e95f-445e-82f9-2e8c95f7eae0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The type of the document (This can only be one of PROOF_OF_ADDRESS,SHAREHOLDERS_LIST,ARTICLES_OF_INCORPORATION)",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "PROOF_OF_ADDRESS",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"doc_123\",\n  \"created_at\": \"2023-04-30T23:50:51.222Z\",\n  \"file_name\": \"proof_of_address.pdf\",\n  \"file_type\": \"application/pdf\",\n  \"type\": \"INCORPORATION\",\n  \"url\": \"https://example-bucket.s3.eu-central-1.amazonaws.com/placeholder-folder/sample-document.pdf\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c593c93-bde6-4d48-9201-2be4e941caa4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The type of the document (This can only be one of PROOF_OF_ADDRESS,SHAREHOLDERS_LIST,ARTICLES_OF_INCORPORATION)",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "PROOF_OF_ADDRESS",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d9150cd2-4b02-4668-8a2b-49a0f66034ae",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The type of the document (This can only be one of PROOF_OF_ADDRESS,SHAREHOLDERS_LIST,ARTICLES_OF_INCORPORATION)",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "PROOF_OF_ADDRESS",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bbab46e9-a21c-4227-a538-e81ee4fa7de4",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The type of the document (This can only be one of PROOF_OF_ADDRESS,SHAREHOLDERS_LIST,ARTICLES_OF_INCORPORATION)",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "PROOF_OF_ADDRESS",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9ee26e5a-0d99-4ca6-826b-6a40cd1ae6b8",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The type of the document (This can only be one of PROOF_OF_ADDRESS,SHAREHOLDERS_LIST,ARTICLES_OF_INCORPORATION)",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "PROOF_OF_ADDRESS",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2f163add-0b04-4b01-9dde-19e4b821dc7e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The type of the document (This can only be one of PROOF_OF_ADDRESS,SHAREHOLDERS_LIST,ARTICLES_OF_INCORPORATION)",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "PROOF_OF_ADDRESS",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9969a674-ea73-4f2d-a033-c7e7ceb9bc1e",
+          "name": "Pull registry documents",
+          "request": {
+            "name": "Pull registry documents",
+            "description": {
+              "content": "Pull registry documents",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds",
+                ":id",
+                "pull-registry-documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the cdd request"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2de76b95-cfd2-40be-ba6b-94ba3e6b77bd",
+              "name": "No Content - The request was successful and the documents are being processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "pull-registry-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fc0b0dec-9878-4829-9306-d0e407e334cc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "pull-registry-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f1693434-605e-486d-82da-65a87ea3cfdc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "pull-registry-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c1612783-bbdc-4fbe-b1fb-6a2785f63cb3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "pull-registry-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a3dc88f5-860e-43ee-8c9d-964f795bf710",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "pull-registry-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c3599f1-ef3b-4e03-acf3-8703cc21f632",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "pull-registry-documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b76bfe2-392e-4bb7-aa49-32f249891bfc",
+          "name": "List customer reviews by CDD id",
+          "request": {
+            "name": "List customer reviews by CDD id",
+            "description": {
+              "content": "List customer reviews for a given CDD case",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdds",
+                ":id",
+                "customer-reviews"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the cdd request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c6c46c69-7a7a-43d9-a5bf-cd408df4fc92",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "customer-reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 8475,\n  \"reviews\": [\n    {\n      \"id\": \"2c5edfb186c0b5939b5a5b1b1cd080a4\",\n      \"business_id\": \"45_qjbmtm5v8Mk2GNyx3Vw\",\n      \"provider\": \"yelp\",\n      \"timestamp\": \"2025-01-28T03:13:27Z\",\n      \"text\": \"Great craftsmanship and follow-through.\",\n      \"language\": \"en\",\n      \"rating\": 5,\n      \"user_name\": \"Melissa C.\"\n    },\n    {\n      \"id\": \"2c5edfb186c0b5939b5a5b1b1cd080a4\",\n      \"business_id\": \"45_qjbmtm5v8Mk2GNyx3Vw\",\n      \"provider\": \"yelp\",\n      \"timestamp\": \"2025-01-28T03:13:27Z\",\n      \"text\": \"Great craftsmanship and follow-through.\",\n      \"language\": \"en\",\n      \"rating\": 5,\n      \"user_name\": \"Melissa C.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "553cfec3-d3c8-4906-af56-5baf115b146a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "customer-reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4053c62b-ac71-44ff-b0a6-4158a270aaee",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "customer-reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9d111e6-04d9-454e-b86c-ea477fa10a4c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "customer-reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dd8f92aa-7c23-4784-aedf-1ba653e4054d",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "customer-reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d00b5e2a-078d-478f-921a-4fec5af4d6b3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdds",
+                    ":id",
+                    "customer-reviews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the cdd request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.godiligent.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4d1c520e-048a-4e9f-8cf4-5ae3494ce44c",
+    "name": "Diligent CDD API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).\n",
+      "type": "text/plain"
+    }
+  }
+}

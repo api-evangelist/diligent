@@ -1,0 +1,374 @@
+{
+  "item": [
+    {
+      "id": "f8a178f5-ea38-4729-98bb-02452b5117fc",
+      "name": "Name Screening",
+      "description": {
+        "content": "Name screening remediation",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80b9bbaa-78ca-4acb-93b8-0354efeda7f3",
+          "name": "Submit alert for remediation (Beta)",
+          "request": {
+            "name": "Submit alert for remediation (Beta)",
+            "description": {
+              "content": "Submit an externally-screened alert for AI-powered remediation. For customers who perform name screening themselves and want Diligent's AI to resolve the hits.\n\nProcessing is asynchronous — use [Get Alert](/api-reference/name-screening/get-alert) to retrieve results.\n\nSee the [Remediation API Guide](/guides/name-screening/remediation-api) for recommended field labels and detailed examples.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "name-screenings",
+                "alerts",
+                "remediate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reference\": \"<string>\",\n  \"input\": [\n    {\n      \"label\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"hits\": [\n    {\n      \"reference\": \"<string>\",\n      \"categories\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"fields\": [\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"profile_reference\": \"<string>\"\n    }\n  ],\n  \"alt_reference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8aa2c074-e420-4dc6-b241-713db8a8ead1",
+              "name": "Alert accepted for remediation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "name-screenings",
+                    "alerts",
+                    "remediate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"WC-CASE-2026-001\",\n  \"alt_reference\": \"CUST-SCREENING-42\",\n  \"input\": [\n    {\n      \"label\": \"full_name\",\n      \"value\": \"John Alexander Doe\"\n    },\n    {\n      \"label\": \"entity_type\",\n      \"value\": \"INDIVIDUAL\"\n    },\n    {\n      \"label\": \"date_of_birth\",\n      \"value\": \"1985-03-15\"\n    },\n    {\n      \"label\": \"country_code\",\n      \"value\": \"DE\"\n    }\n  ],\n  \"hits\": [\n    {\n      \"reference\": \"WC-RESULT-12345\",\n      \"profile_reference\": \"WC-ENTITY-789\",\n      \"categories\": [\n        \"SANCTION\"\n      ],\n      \"fields\": [\n        {\n          \"label\": \"Name\",\n          \"value\": \"John A. Doe\"\n        },\n        {\n          \"label\": \"Date of Birth\",\n          \"value\": \"1985-03-15\"\n        },\n        {\n          \"label\": \"Nationality\",\n          \"value\": \"German\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"reference\": \"WC-CASE-2026-001\",\n  \"alt_reference\": \"INTERNAL-42\",\n  \"hits\": [\n    {\n      \"reference\": \"WC-RESULT-12345\",\n      \"profile_reference\": \"WC-ENTITY-789\"\n    },\n    {\n      \"reference\": \"WC-RESULT-12345\",\n      \"profile_reference\": \"WC-ENTITY-789\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68e0152c-b5b2-4000-8bc8-3608269ae3a4",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "name-screenings",
+                    "alerts",
+                    "remediate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"WC-CASE-2026-001\",\n  \"alt_reference\": \"CUST-SCREENING-42\",\n  \"input\": [\n    {\n      \"label\": \"full_name\",\n      \"value\": \"John Alexander Doe\"\n    },\n    {\n      \"label\": \"entity_type\",\n      \"value\": \"INDIVIDUAL\"\n    },\n    {\n      \"label\": \"date_of_birth\",\n      \"value\": \"1985-03-15\"\n    },\n    {\n      \"label\": \"country_code\",\n      \"value\": \"DE\"\n    }\n  ],\n  \"hits\": [\n    {\n      \"reference\": \"WC-RESULT-12345\",\n      \"profile_reference\": \"WC-ENTITY-789\",\n      \"categories\": [\n        \"SANCTION\"\n      ],\n      \"fields\": [\n        {\n          \"label\": \"Name\",\n          \"value\": \"John A. Doe\"\n        },\n        {\n          \"label\": \"Date of Birth\",\n          \"value\": \"1985-03-15\"\n        },\n        {\n          \"label\": \"Nationality\",\n          \"value\": \"German\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Validation failed\",\n  \"details\": [\n    {\n      \"field\": \"hits.0.reference\",\n      \"message\": \"Reference is required\"\n    },\n    {\n      \"field\": \"hits.0.reference\",\n      \"message\": \"Reference is required\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e401387-cb77-4273-a871-995752f7959d",
+              "name": "Unauthorized - Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "name-screenings",
+                    "alerts",
+                    "remediate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"WC-CASE-2026-001\",\n  \"alt_reference\": \"CUST-SCREENING-42\",\n  \"input\": [\n    {\n      \"label\": \"full_name\",\n      \"value\": \"John Alexander Doe\"\n    },\n    {\n      \"label\": \"entity_type\",\n      \"value\": \"INDIVIDUAL\"\n    },\n    {\n      \"label\": \"date_of_birth\",\n      \"value\": \"1985-03-15\"\n    },\n    {\n      \"label\": \"country_code\",\n      \"value\": \"DE\"\n    }\n  ],\n  \"hits\": [\n    {\n      \"reference\": \"WC-RESULT-12345\",\n      \"profile_reference\": \"WC-ENTITY-789\",\n      \"categories\": [\n        \"SANCTION\"\n      ],\n      \"fields\": [\n        {\n          \"label\": \"Name\",\n          \"value\": \"John A. Doe\"\n        },\n        {\n          \"label\": \"Date of Birth\",\n          \"value\": \"1985-03-15\"\n        },\n        {\n          \"label\": \"Nationality\",\n          \"value\": \"German\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "de239f9c-c22b-41f2-83fa-f3ee27c1dbac",
+              "name": "Customer configuration not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "name-screenings",
+                    "alerts",
+                    "remediate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"WC-CASE-2026-001\",\n  \"alt_reference\": \"CUST-SCREENING-42\",\n  \"input\": [\n    {\n      \"label\": \"full_name\",\n      \"value\": \"John Alexander Doe\"\n    },\n    {\n      \"label\": \"entity_type\",\n      \"value\": \"INDIVIDUAL\"\n    },\n    {\n      \"label\": \"date_of_birth\",\n      \"value\": \"1985-03-15\"\n    },\n    {\n      \"label\": \"country_code\",\n      \"value\": \"DE\"\n    }\n  ],\n  \"hits\": [\n    {\n      \"reference\": \"WC-RESULT-12345\",\n      \"profile_reference\": \"WC-ENTITY-789\",\n      \"categories\": [\n        \"SANCTION\"\n      ],\n      \"fields\": [\n        {\n          \"label\": \"Name\",\n          \"value\": \"John A. Doe\"\n        },\n        {\n          \"label\": \"Date of Birth\",\n          \"value\": \"1985-03-15\"\n        },\n        {\n          \"label\": \"Nationality\",\n          \"value\": \"German\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "576ff626-89cc-4ed9-9870-4f3e56205777",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "name-screenings",
+                    "alerts",
+                    "remediate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"WC-CASE-2026-001\",\n  \"alt_reference\": \"CUST-SCREENING-42\",\n  \"input\": [\n    {\n      \"label\": \"full_name\",\n      \"value\": \"John Alexander Doe\"\n    },\n    {\n      \"label\": \"entity_type\",\n      \"value\": \"INDIVIDUAL\"\n    },\n    {\n      \"label\": \"date_of_birth\",\n      \"value\": \"1985-03-15\"\n    },\n    {\n      \"label\": \"country_code\",\n      \"value\": \"DE\"\n    }\n  ],\n  \"hits\": [\n    {\n      \"reference\": \"WC-RESULT-12345\",\n      \"profile_reference\": \"WC-ENTITY-789\",\n      \"categories\": [\n        \"SANCTION\"\n      ],\n      \"fields\": [\n        {\n          \"label\": \"Name\",\n          \"value\": \"John A. Doe\"\n        },\n        {\n          \"label\": \"Date of Birth\",\n          \"value\": \"1985-03-15\"\n        },\n        {\n          \"label\": \"Nationality\",\n          \"value\": \"German\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.godiligent.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bce04883-a959-4030-b79c-0798e23d9eff",
+    "name": "Diligent CDD Name Screening API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Diligent CDD Monitorings API",
+    "version": "1.6.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitorings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List monitoring alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.godiligent.ai/monitoring-alerts",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of alerts per page (1-100, default 10)"
+              },
+              {
+                "name": "next_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for next page (Base64-encoded)"
+              },
+              {
+                "name": "only_unacknowledged",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', returns only unacknowledged alerts"
+              },
+              {
+                "name": "acknowledged",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', returns only acknowledged alerts"
+              },
+              {
+                "name": "execution_time_before",
+                "value": "",
+                "type": "query",
+                "description": "Only include alerts executed before this time (ISO8601)"
+              },
+              {
+                "name": "execution_time_after",
+                "value": "",
+                "type": "query",
+                "description": "Only include alerts executed after this time (ISO8601)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a paginated list of monitoring alerts for the authenticated customer. Supports filtering by seen/unseen status and execution time, and provides an unseen alert count."
+        },
+        {
+          "info": {
+            "name": "Acknowledge (mark as seen) monitoring alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/monitoring-alerts/acknowledge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Acknowledge (mark as seen) one or all monitoring alerts for the authenticated customer. Exactly one of alertId or all must be provided in the request body."
+        },
+        {
+          "info": {
+            "name": "List monitorings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.godiligent.ai/monitorings",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (1-100, default 10)"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by (default: last_execution)"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc or desc, default desc)"
+              },
+              {
+                "name": "next_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token for next page"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by running state"
+              },
+              {
+                "name": "website",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific website URL"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of monitorings for a customer"
+        },
+        {
+          "info": {
+            "name": "Create a new monitoring",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/monitorings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new monitoring for a customer"
+        },
+        {
+          "info": {
+            "name": "Bulk create monitorings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.godiligent.ai/monitorings/bulk-create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create multiple monitorings in a single request. All websites must be unique and not already exist for the customer."
+        },
+        {
+          "info": {
+            "name": "Deactivate a monitoring",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.godiligent.ai/monitorings/:id/deactivate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deactivate a monitoring by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
