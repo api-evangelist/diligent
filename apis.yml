@@ -50,6 +50,20 @@ tags:
 - Monitoring
 - Artificial Intelligence
 - Fintech
+- Webhook
+tags_raw:
+- Company
+- Compliance
+- RegTech
+- KYC
+- AML
+- Financial Crime
+- Due Diligence
+- Screening
+- Sanctions
+- Monitoring
+- Artificial Intelligence
+- Fintech
 - Webhooks
 apis:
 - aid: diligent:diligent-cdd-api
@@ -297,6 +311,8 @@ apis:
   humanURL: https://docs.godiligent.ai/guides/introduction
   baseURL: https://api.godiligent.ai
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
