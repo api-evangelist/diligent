@@ -1,10 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   version: 1.6.0
-  title: Diligent CDD Company API
-  description: 'Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).
-
-    '
+  title: Diligent Company API
+  description: Download Postman collection here.
 servers:
 - url: https://api.godiligent.ai
   description: Production
@@ -54,6 +52,8 @@ paths:
           description: Forbidden
         '500':
           description: Internal Server Error
+      operationId: postBlockedCompanies
+      x-operation-id-source: derived
     get:
       tags:
       - Company
@@ -77,6 +77,8 @@ paths:
                   $ref: '#/components/schemas/BlockedCompany'
         '500':
           description: Internal Server Error
+      operationId: getBlockedCompanies
+      x-operation-id-source: derived
   /blocked-companies/{id}:
     delete:
       tags:
@@ -104,6 +106,8 @@ paths:
           description: Not Found - Company block record doesn't exist
         '500':
           description: Internal Server Error
+      operationId: deleteBlockedCompaniesById
+      x-operation-id-source: derived
   /companies/identify:
     get:
       tags:
@@ -176,8 +180,290 @@ paths:
           description: Internal Server Error
       security:
       - xApiKey: []
+      operationId: getCompaniesIdentify
+      x-operation-id-source: derived
 components:
   schemas:
+    CompanyBlockWebsite:
+      type: object
+      required:
+      - website
+      - reason
+      properties:
+        website:
+          type: string
+          description: The website of the business
+          example: example.com
+        email:
+          type: string
+          description: The email of the business
+          example: fulan@domain.com
+        legal_name:
+          type: string
+          description: The legal name of the business
+          example: PayLane ltd
+        address:
+          type: string
+          description: The address of the business, or partial address
+          example: 123 Imaginary St, 45678 Fictional City
+        external_id:
+          type: string
+          description: Reference to be used in the customer's system
+          example: abc123 - my customer reference
+        vat_number:
+          type: string
+          description: The VAT number of the business
+          example: BE09999999XX
+        register_number:
+          type: string
+          description: The register number of the business
+          example: '123546'
+        reason:
+          type: string
+          description: The reason for blocking the company
+          example: Fraudulent activity
+        notes:
+          type: string
+          description: Additional notes for blocking the company
+          example: Company engaged in fraudulent activity
+    Shareholder:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John Doe
+        percentage:
+          type: integer
+          example: 100
+        type:
+          type: string
+          example: INDIVIDUAL
+        location:
+          type: string
+          example: City, Country
+        is_major_shareholder:
+          type: boolean
+          example: true
+        is_ubo:
+          type: boolean
+          example: true
+        gender:
+          type: string
+          example: MALE
+        tax_code:
+          type: string
+          example: '123456789'
+        address:
+          type: string
+          example: 123 Main St, City, Country
+    Source:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Source Name
+        link:
+          type: string
+          example: https://www.example.com
+    Address:
+      type: object
+      properties:
+        formatted_address:
+          type: string
+          example: 123 Imaginary St, 45678 Fictional City
+        components:
+          type: object
+          properties:
+            street:
+              type: string
+              example: Imaginary St
+            street_number:
+              type: string
+              example: '123'
+            state:
+              type: string
+              example: IS
+            locality_code:
+              type: string
+              example: IS
+            city:
+              type: string
+              example: Fictional City
+            postal_code:
+              type: string
+              example: '45678'
+            country_code:
+              type: string
+              example: FC
+            country:
+              type: string
+              example: Fictionland
+        type:
+          type: string
+          enum:
+          - residential
+          - business
+          - unknown
+          example: residential
+        is_valid:
+          type: boolean
+          example: true
+        is_verified:
+          type: boolean
+          example: true
+        is_suspicious:
+          type: boolean
+          example: false
+        is_blacklisted:
+          type: boolean
+          example: false
+        is_primary:
+          type: boolean
+          example: true
+        street_view:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+    CompanyBlockRegisterNumberAndCountryCode:
+      type: object
+      required:
+      - register_number
+      - country_code
+      properties:
+        website:
+          type: string
+          description: The website of the business
+          example: example.com
+        email:
+          type: string
+          description: The email of the business
+          example: fulan@domain.com
+        legal_name:
+          type: string
+          description: The legal name of the business
+          example: PayLane ltd
+        address:
+          type: string
+          description: The address of the business, or partial address
+          example: 123 Imaginary St, 45678 Fictional City
+        external_id:
+          type: string
+          description: Reference to be used in the customer's system
+          example: abc123 - my customer reference
+        vat_number:
+          type: string
+          description: The VAT number of the business
+          example: BE09999999XX
+        register_number:
+          type: string
+          description: The registry number of the business (i.e. company house number, SIRET, SIREN, P.IVA, only GB, FR and IT companies are supported)
+          example: '12345678'
+        reason:
+          type: string
+          description: The reason for blocking the company
+          example: Fraudulent activity
+        notes:
+          type: string
+          description: Additional notes for blocking the company
+          example: Company engaged in fraudulent activity
+    CompanyBlockLegalNameAddress:
+      type: object
+      required:
+      - legal_name
+      - address
+      - reason
+      properties:
+        website:
+          type: string
+          description: The website of the business
+          example: example.com
+        email:
+          type: string
+          description: The email of the business
+          example: fulan@domain.com
+        legal_name:
+          type: string
+          description: The legal name of the business
+          example: PayLane ltd
+        address:
+          type: string
+          description: The address of the business, or partial address
+          example: 123 Imaginary St, 45678 Fictional City
+        external_id:
+          type: string
+          description: Reference to be used in the customer's system
+          example: abc123 - my customer reference
+        vat_number:
+          type: string
+          description: The VAT number of the business
+          example: BE09999999XX
+        register_number:
+          type: string
+          description: The registry number of the business (i.e. company house number, SIRET, SIREN, P.IVA, only GB, FR and IT companies are supported)
+          example: '12345678'
+        reason:
+          type: string
+          description: The reason for blocking the company
+          example: Fraudulent activity
+        notes:
+          type: string
+          description: Additional notes for blocking the company
+          example: Company engaged in fraudulent activity
+    ValidationErrorItem:
+      type: object
+      properties:
+        path:
+          type: array
+          items:
+            type: string
+          description: JSON path to the field with the error
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code indicating the type of error
+      required:
+      - path
+      - message
+      - code
+    SignatoryPower:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: John
+        last_name:
+          type: string
+          example: Doe
+        date_of_birth:
+          type: string
+          example: '1990-01-01'
+        entity_name:
+          type: string
+          example: Example GmbH
+        location:
+          type: string
+          example: City, Country
+        role:
+          type: string
+          example: ROLE
+        effective_date:
+          type: string
+          example: '2024-01-01'
+        representation:
+          type: string
+          example: Representation details
+        role_local:
+          type: string
+          example: Role
+        signatory_power:
+          type: string
+          example: POWER_TYPE
     Registry:
       type: object
       required:
@@ -325,254 +611,6 @@ components:
                 example: www.example.eu
         source:
           $ref: '#/components/schemas/Source'
-    CompanyBlockWebsite:
-      type: object
-      required:
-      - website
-      - reason
-      properties:
-        website:
-          type: string
-          description: The website of the business
-          example: example.com
-        email:
-          type: string
-          description: The email of the business
-          example: fulan@domain.com
-        legal_name:
-          type: string
-          description: The legal name of the business
-          example: PayLane ltd
-        address:
-          type: string
-          description: The address of the business, or partial address
-          example: 123 Imaginary St, 45678 Fictional City
-        external_id:
-          type: string
-          description: Reference to be used in the customer's system
-          example: abc123 - my customer reference
-        vat_number:
-          type: string
-          description: The VAT number of the business
-          example: BE09999999XX
-        register_number:
-          type: string
-          description: The register number of the business
-          example: '123546'
-        reason:
-          type: string
-          description: The reason for blocking the company
-          example: Fraudulent activity
-        notes:
-          type: string
-          description: Additional notes for blocking the company
-          example: Company engaged in fraudulent activity
-    CompanyBlockRegisterNumberAndCountryCode:
-      type: object
-      required:
-      - register_number
-      - country_code
-      properties:
-        website:
-          type: string
-          description: The website of the business
-          example: example.com
-        email:
-          type: string
-          description: The email of the business
-          example: fulan@domain.com
-        legal_name:
-          type: string
-          description: The legal name of the business
-          example: PayLane ltd
-        address:
-          type: string
-          description: The address of the business, or partial address
-          example: 123 Imaginary St, 45678 Fictional City
-        external_id:
-          type: string
-          description: Reference to be used in the customer's system
-          example: abc123 - my customer reference
-        vat_number:
-          type: string
-          description: The VAT number of the business
-          example: BE09999999XX
-        register_number:
-          type: string
-          description: The registry number of the business (i.e. company house number, SIRET, SIREN, P.IVA, only GB, FR and IT companies are supported)
-          example: '12345678'
-        reason:
-          type: string
-          description: The reason for blocking the company
-          example: Fraudulent activity
-        notes:
-          type: string
-          description: Additional notes for blocking the company
-          example: Company engaged in fraudulent activity
-    ValidationError:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationErrorItem'
-      required:
-      - errors
-    SignatoryPower:
-      type: object
-      properties:
-        first_name:
-          type: string
-          example: John
-        last_name:
-          type: string
-          example: Doe
-        date_of_birth:
-          type: string
-          example: '1990-01-01'
-        entity_name:
-          type: string
-          example: Example GmbH
-        location:
-          type: string
-          example: City, Country
-        role:
-          type: string
-          example: ROLE
-        effective_date:
-          type: string
-          example: '2024-01-01'
-        representation:
-          type: string
-          example: Representation details
-        role_local:
-          type: string
-          example: Role
-        signatory_power:
-          type: string
-          example: POWER_TYPE
-    CompanyBlockLegalNameAddress:
-      type: object
-      required:
-      - legal_name
-      - address
-      - reason
-      properties:
-        website:
-          type: string
-          description: The website of the business
-          example: example.com
-        email:
-          type: string
-          description: The email of the business
-          example: fulan@domain.com
-        legal_name:
-          type: string
-          description: The legal name of the business
-          example: PayLane ltd
-        address:
-          type: string
-          description: The address of the business, or partial address
-          example: 123 Imaginary St, 45678 Fictional City
-        external_id:
-          type: string
-          description: Reference to be used in the customer's system
-          example: abc123 - my customer reference
-        vat_number:
-          type: string
-          description: The VAT number of the business
-          example: BE09999999XX
-        register_number:
-          type: string
-          description: The registry number of the business (i.e. company house number, SIRET, SIREN, P.IVA, only GB, FR and IT companies are supported)
-          example: '12345678'
-        reason:
-          type: string
-          description: The reason for blocking the company
-          example: Fraudulent activity
-        notes:
-          type: string
-          description: Additional notes for blocking the company
-          example: Company engaged in fraudulent activity
-    ValidationErrorItem:
-      type: object
-      properties:
-        path:
-          type: array
-          items:
-            type: string
-          description: JSON path to the field with the error
-        message:
-          type: string
-          description: Error message
-        code:
-          type: string
-          description: Error code indicating the type of error
-      required:
-      - path
-      - message
-      - code
-    Address:
-      type: object
-      properties:
-        formatted_address:
-          type: string
-          example: 123 Imaginary St, 45678 Fictional City
-        components:
-          type: object
-          properties:
-            street:
-              type: string
-              example: Imaginary St
-            street_number:
-              type: string
-              example: '123'
-            state:
-              type: string
-              example: IS
-            locality_code:
-              type: string
-              example: IS
-            city:
-              type: string
-              example: Fictional City
-            postal_code:
-              type: string
-              example: '45678'
-            country_code:
-              type: string
-              example: FC
-            country:
-              type: string
-              example: Fictionland
-        type:
-          type: string
-          enum:
-          - residential
-          - business
-          - unknown
-          example: residential
-        is_valid:
-          type: boolean
-          example: true
-        is_verified:
-          type: boolean
-          example: true
-        is_suspicious:
-          type: boolean
-          example: false
-        is_blacklisted:
-          type: boolean
-          example: false
-        is_primary:
-          type: boolean
-          example: true
-        street_view:
-          type: string
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Source'
     BlockedCompany:
       type: object
       required:
@@ -585,48 +623,56 @@ components:
           description: Unique identifier for the blocked company record
           example: bc-a91a8416-0a38
         website:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The website of the business (if provided)
-          nullable: true
           example: example.com
         email:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The email of the business (if provided)
-          nullable: true
           example: contact@example.com
         legal_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The legal name of the business (if provided)
-          nullable: true
           example: Example Company Ltd
         address:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The address of the business (if provided)
-          nullable: true
           example: 123 Example Street, City
         country_code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Country code in ISO 3166-1 alpha-2 format (if provided)
-          nullable: true
           example: DE
         vat_number:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The VAT number of the business (if provided)
-          nullable: true
           example: BE09999999XX
         register_number:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The registry number of the business (if provided)
-          nullable: true
           example: '123456789'
         reason:
           type: string
           description: The reason for blocking the company
           example: Fraudulent activity
         notes:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Additional notes about the block
-          nullable: true
           example: Multiple reports of fraud from customers
         blocked_at:
           type: string
@@ -634,51 +680,20 @@ components:
           description: When the company was blocked
           example: '2025-01-15T12:30:45Z'
         external_id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Reference ID from the customer's system (if provided)
-          nullable: true
           example: cust-12345
-    Source:
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorItem'
       required:
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          example: Source Name
-        link:
-          type: string
-          example: https://www.example.com
-    Shareholder:
-      type: object
-      properties:
-        name:
-          type: string
-          example: John Doe
-        percentage:
-          type: integer
-          example: 100
-        type:
-          type: string
-          example: INDIVIDUAL
-        location:
-          type: string
-          example: City, Country
-        is_major_shareholder:
-          type: boolean
-          example: true
-        is_ubo:
-          type: boolean
-          example: true
-        gender:
-          type: string
-          example: MALE
-        tax_code:
-          type: string
-          example: '123456789'
-        address:
-          type: string
-          example: 123 Main St, City, Country
+      - errors
   securitySchemes:
     xApiKey:
       type: apiKey

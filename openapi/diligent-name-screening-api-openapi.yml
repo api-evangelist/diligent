@@ -1,10 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  version: 1.6.0
-  title: Diligent CDD Name Screening API
-  description: 'Download Postman collection [here](https://docs.godiligent.ai/files/postman_collection.json).
-
-    '
+  version: 0.1.0-beta
+  title: Diligent Remediation API (Beta) Name Screening API
+  description: Submit externally-screened alerts for AI-powered remediation.
 servers:
 - url: https://api.godiligent.ai
   description: Production
@@ -24,10 +22,10 @@ paths:
       description: 'Submit an externally-screened alert for AI-powered remediation. For customers who perform name screening themselves and want Diligent''s AI to resolve the hits.
 
 
-        Processing is asynchronous — use [Get Alert](/api-reference/name-screening/get-alert) to retrieve results.
+        Processing is asynchronous — use Get Alert to retrieve results.
 
 
-        See the [Remediation API Guide](/guides/name-screening/remediation-api) for recommended field labels and detailed examples.'
+        See the Remediation API Guide for recommended field labels and detailed examples.'
       requestBody:
         required: true
         content:
@@ -138,6 +136,8 @@ paths:
           description: Internal Server Error
       security:
       - xApiKey: []
+      operationId: postV1NameScreeningsAlertsRemediate
+      x-operation-id-source: derived
 components:
   schemas:
     FreeformField:
@@ -167,8 +167,9 @@ components:
           description: Provider reference (echoed back).
           example: WC-CASE-2026-001
         alt_reference:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Client reference (echoed back), or null if not provided.
           example: INTERNAL-42
         hits:
@@ -203,33 +204,6 @@ components:
               message:
                 type: string
                 example: Reference is required
-    RemediateAlertRequest:
-      type: object
-      required:
-      - reference
-      - input
-      - hits
-      properties:
-        reference:
-          type: string
-          description: Provider reference for the alert (e.g. case ID from your screening provider).
-          example: WC-CASE-2026-001
-        alt_reference:
-          type: string
-          description: Your own client reference for the same alert (e.g. internal case number).
-          example: INTERNAL-42
-        input:
-          type: array
-          description: Subject profile as label/value pairs. Freeform labels — the AI uses LLM-based extraction.
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/FreeformField'
-        hits:
-          type: array
-          description: Screening hits to remediate. At least one required.
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/RemediateHit'
     RemediateHit:
       type: object
       required:
@@ -274,6 +248,33 @@ components:
                 type: string
                 description: Field value
                 example: John A. Doe
+    RemediateAlertRequest:
+      type: object
+      required:
+      - reference
+      - input
+      - hits
+      properties:
+        reference:
+          type: string
+          description: Provider reference for the alert (e.g. case ID from your screening provider).
+          example: WC-CASE-2026-001
+        alt_reference:
+          type: string
+          description: Your own client reference for the same alert (e.g. internal case number).
+          example: INTERNAL-42
+        input:
+          type: array
+          description: Subject profile as label/value pairs. Freeform labels — the AI uses LLM-based extraction.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/FreeformField'
+        hits:
+          type: array
+          description: Screening hits to remediate. At least one required.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/RemediateHit'
   securitySchemes:
     xApiKey:
       type: apiKey

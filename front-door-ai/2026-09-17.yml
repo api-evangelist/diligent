@@ -1,0 +1,29 @@
+# Front Door AI Index — diligent — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: diligent
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.godiligent.ai
+  final_host: www.godiligent.ai
+  ownership: own
+  owner: diligent
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 23
+  host_score: 23
+  density: 31.38
+  words: 733
+  tiers:
+    agentic: 6
+    core: 17
+    model: 0
+  ambiguous: 11
+  top_terms:
+    AI: 16
+    agent: 10
+    AI agent: 6
+    automation: 1
+    large language model: 1

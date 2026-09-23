@@ -1,24 +1,32 @@
 {
   "provider": "diligent",
   "sources": [
-    "diligent-cdd-api-openapi.yml",
-    "diligent-company-api-openapi.yml",
-    "diligent-instant-screening-experimental-api-openapi.yml",
-    "diligent-monitorings-api-openapi.yml",
-    "diligent-name-screening-api-openapi.yml",
-    "diligent-webhooks-api-openapi.yml"
+    "_original/diligent-openapi-original.json",
+    "_original/diligent-remediation-openapi.json"
   ],
   "outputs": [
     "diligent-cdd-api-openapi.yml",
     "diligent-company-api-openapi.yml",
     "diligent-instant-screening-experimental-api-openapi.yml",
     "diligent-monitorings-api-openapi.yml",
-    "diligent-name-screening-api-openapi.yml",
-    "diligent-webhooks-api-openapi.yml"
+    "diligent-webhooks-api-openapi.yml",
+    "diligent-name-screening-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "diligent-openapi-original.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "diligent-remediation-openapi.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "diligent-cdd-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "diligent-company-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "diligent-instant-screening-experimental-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "diligent-monitorings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "diligent-name-screening-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "diligent-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
