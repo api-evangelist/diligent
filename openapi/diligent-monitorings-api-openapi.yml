@@ -427,12 +427,33 @@ components:
         external_id:
           type: string
           description: External identifier for this monitoring
-    ErrorResponse:
+    ValidationError:
       type: object
       properties:
-        error:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorItem'
+      required:
+      - errors
+    ValidationErrorItem:
+      type: object
+      properties:
+        path:
+          type: array
+          items:
+            type: string
+          description: JSON path to the field with the error
+        message:
           type: string
           description: Error message
+        code:
+          type: string
+          description: Error code indicating the type of error
+      required:
+      - path
+      - message
+      - code
     MonitoringRequest:
       type: object
       required:
@@ -483,21 +504,35 @@ components:
           type: boolean
           description: If an existing, active monitoring exist with the same site skip don't fail
           example: false
-    MonitoringAlertsListResponse:
+    AcknowledgeAlertsRequest:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitoringAlert'
-        unacknowledged_count:
-          type: integer
-          description: Number of unacknowledged alerts
-          example: 1
-        next_token:
+        alert_id:
           type: string
-          description: Pagination token for next page (null if last page)
-          example: eyJjdXN0b21lcklkIjp7IlMiOiI2OWRmNWQ4MS0yYjc0LTRmNDItYTQwMS0xM2ViOTZiYTA2MTkifSwiZXhlY3V0aW9uVGltZSI6eyJTIjoiMjAyNS0wNy0zMVQxMjowMTozMC44OTFaIn19
+          description: ID of the alert to acknowledge
+        all:
+          type: boolean
+          description: If true, acknowledge all alerts
+      oneOf:
+      - required:
+        - alert_id
+      - required:
+        - all
+      description: Either alert_id OR all must be provided, but not both
+    AcknowledgeAlertsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation succeeded
+        message:
+          type: string
+          description: Success message
+        unacknowledged_count:
+          type:
+          - integer
+          - 'null'
+          description: Number of unacknowledged alerts remaining
     MonitoringAlert:
       type: object
       properties:
@@ -572,62 +607,27 @@ components:
           - 'null'
           description: External reference ID or null if not set
           example: '123456'
-    ValidationError:
+    MonitoringAlertsListResponse:
       type: object
       properties:
-        errors:
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/ValidationErrorItem'
-      required:
-      - errors
-    AcknowledgeAlertsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Whether the operation succeeded
-        message:
-          type: string
-          description: Success message
+            $ref: '#/components/schemas/MonitoringAlert'
         unacknowledged_count:
-          type:
-          - integer
-          - 'null'
-          description: Number of unacknowledged alerts remaining
-    ValidationErrorItem:
+          type: integer
+          description: Number of unacknowledged alerts
+          example: 1
+        next_token:
+          type: string
+          description: Pagination token for next page (null if last page)
+          example: eyJjdXN0b21lcklkIjp7IlMiOiI2OWRmNWQ4MS0yYjc0LTRmNDItYTQwMS0xM2ViOTZiYTA2MTkifSwiZXhlY3V0aW9uVGltZSI6eyJTIjoiMjAyNS0wNy0zMVQxMjowMTozMC44OTFaIn19
+    ErrorResponse:
       type: object
       properties:
-        path:
-          type: array
-          items:
-            type: string
-          description: JSON path to the field with the error
-        message:
+        error:
           type: string
           description: Error message
-        code:
-          type: string
-          description: Error code indicating the type of error
-      required:
-      - path
-      - message
-      - code
-    AcknowledgeAlertsRequest:
-      type: object
-      properties:
-        alert_id:
-          type: string
-          description: ID of the alert to acknowledge
-        all:
-          type: boolean
-          description: If true, acknowledge all alerts
-      oneOf:
-      - required:
-        - alert_id
-      - required:
-        - all
-      description: Either alert_id OR all must be provided, but not both
   securitySchemes:
     xApiKey:
       type: apiKey
