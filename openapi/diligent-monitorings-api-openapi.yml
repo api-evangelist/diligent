@@ -354,156 +354,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Monitoring:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique monitoring identifier
-          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
-        website:
-          type: string
-          format: uri
-          description: The monitored website URL
-          example: https://example.com
-        customer_id:
-          type: string
-          description: Customer identifier
-        checks:
-          type: array
-          items:
-            type: string
-            enum:
-            - non_operational_website
-            - high_risk_diligent_classification
-            - catalog_contain_loan_flipping_indicators
-          description: Active monitoring checks
-        frequency:
-          type: string
-          enum:
-          - weekly
-          - every_2_weeks
-          - every_3_weeks
-          - every_4_weeks
-          description: Monitoring frequency
-        is_active:
-          type: boolean
-          description: Whether monitoring is active
-        running_state:
-          type: string
-          enum:
-          - IDLE
-          - RUNNING
-          - FAILED
-          description: Current execution state
-        next_run_at:
-          type: string
-          format: date-time
-          description: Next scheduled execution time
-        expires_at:
-          type: string
-          format: date-time
-          description: Monitoring expiration date
-        last_execution:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp of last execution, null if never executed
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-        execution_results:
-          type: array
-          items:
-            type: object
-          description: Results from the latest monitoring execution
-        external_id:
-          type: string
-          description: External identifier for this monitoring
-    ValidationError:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationErrorItem'
-      required:
-      - errors
-    ValidationErrorItem:
-      type: object
-      properties:
-        path:
-          type: array
-          items:
-            type: string
-          description: JSON path to the field with the error
-        message:
-          type: string
-          description: Error message
-        code:
-          type: string
-          description: Error code indicating the type of error
-      required:
-      - path
-      - message
-      - code
-    MonitoringRequest:
-      type: object
-      required:
-      - website
-      - checks
-      - frequency
-      properties:
-        website:
-          type: string
-          format: uri
-          description: The website URL to monitor
-          example: https://example.com
-        checks:
-          type: array
-          minItems: 1
-          uniqueItems: true
-          items:
-            type: string
-            enum:
-            - non_operational_website
-            - high_risk_mcc
-            - high_risk_diligent_classification
-            - catalog_contain_loan_flipping_indicators
-          description: Array of monitoring checks to perform
-          example:
-          - non_operational_website
-          - high_risk_diligent_classification
-        frequency:
-          type: string
-          enum:
-          - weekly
-          - every_2_weeks
-          - every_3_weeks
-          - every_4_weeks
-          default: every_2_weeks
-          description: How often to run the monitoring checks
-          example: weekly
-        run_now:
-          type: boolean
-          default: true
-          description: Whether to execute the monitoring immediately after creation
-        expires_at:
-          type: string
-          format: date-time
-          description: Optional expiration date for the monitoring (defaults to 6 months from creation)
-          example: '2024-12-31T23:59:59.000Z'
-        skip_duplicate:
-          type: boolean
-          description: If an existing, active monitoring exist with the same site skip don't fail
-          example: false
     AcknowledgeAlertsRequest:
       type: object
       properties:
@@ -519,20 +369,6 @@ components:
       - required:
         - all
       description: Either alert_id OR all must be provided, but not both
-    AcknowledgeAlertsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Whether the operation succeeded
-        message:
-          type: string
-          description: Success message
-        unacknowledged_count:
-          type:
-          - integer
-          - 'null'
-          description: Number of unacknowledged alerts remaining
     MonitoringAlert:
       type: object
       properties:
@@ -607,6 +443,117 @@ components:
           - 'null'
           description: External reference ID or null if not set
           example: '123456'
+    ValidationErrorItem:
+      type: object
+      properties:
+        path:
+          type: array
+          items:
+            type: string
+          description: JSON path to the field with the error
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code indicating the type of error
+      required:
+      - path
+      - message
+      - code
+    Monitoring:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique monitoring identifier
+          example: d6e3b214-30b1-4401-a1b8-a1bd3c6a84e4
+        website:
+          type: string
+          format: uri
+          description: The monitored website URL
+          example: https://example.com
+        customer_id:
+          type: string
+          description: Customer identifier
+        checks:
+          type: array
+          items:
+            type: string
+            enum:
+            - non_operational_website
+            - high_risk_diligent_classification
+            - catalog_contain_loan_flipping_indicators
+          description: Active monitoring checks
+        frequency:
+          type: string
+          enum:
+          - weekly
+          - every_2_weeks
+          - every_3_weeks
+          - every_4_weeks
+          description: Monitoring frequency
+        is_active:
+          type: boolean
+          description: Whether monitoring is active
+        running_state:
+          type: string
+          enum:
+          - IDLE
+          - RUNNING
+          - FAILED
+          description: Current execution state
+        next_run_at:
+          type: string
+          format: date-time
+          description: Next scheduled execution time
+        expires_at:
+          type: string
+          format: date-time
+          description: Monitoring expiration date
+        last_execution:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp of last execution, null if never executed
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        execution_results:
+          type: array
+          items:
+            type: object
+          description: Results from the latest monitoring execution
+        external_id:
+          type: string
+          description: External identifier for this monitoring
+    AcknowledgeAlertsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the operation succeeded
+        message:
+          type: string
+          description: Success message
+        unacknowledged_count:
+          type:
+          - integer
+          - 'null'
+          description: Number of unacknowledged alerts remaining
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
     MonitoringAlertsListResponse:
       type: object
       properties:
@@ -622,12 +569,65 @@ components:
           type: string
           description: Pagination token for next page (null if last page)
           example: eyJjdXN0b21lcklkIjp7IlMiOiI2OWRmNWQ4MS0yYjc0LTRmNDItYTQwMS0xM2ViOTZiYTA2MTkifSwiZXhlY3V0aW9uVGltZSI6eyJTIjoiMjAyNS0wNy0zMVQxMjowMTozMC44OTFaIn19
-    ErrorResponse:
+    MonitoringRequest:
+      type: object
+      required:
+      - website
+      - checks
+      - frequency
+      properties:
+        website:
+          type: string
+          format: uri
+          description: The website URL to monitor
+          example: https://example.com
+        checks:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - non_operational_website
+            - high_risk_mcc
+            - high_risk_diligent_classification
+            - catalog_contain_loan_flipping_indicators
+          description: Array of monitoring checks to perform
+          example:
+          - non_operational_website
+          - high_risk_diligent_classification
+        frequency:
+          type: string
+          enum:
+          - weekly
+          - every_2_weeks
+          - every_3_weeks
+          - every_4_weeks
+          default: every_2_weeks
+          description: How often to run the monitoring checks
+          example: weekly
+        run_now:
+          type: boolean
+          default: true
+          description: Whether to execute the monitoring immediately after creation
+        expires_at:
+          type: string
+          format: date-time
+          description: Optional expiration date for the monitoring (defaults to 6 months from creation)
+          example: '2024-12-31T23:59:59.000Z'
+        skip_duplicate:
+          type: boolean
+          description: If an existing, active monitoring exist with the same site skip don't fail
+          example: false
+    ValidationError:
       type: object
       properties:
-        error:
-          type: string
-          description: Error message
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorItem'
+      required:
+      - errors
   securitySchemes:
     xApiKey:
       type: apiKey

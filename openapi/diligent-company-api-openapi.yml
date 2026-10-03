@@ -184,39 +184,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SignatoryPower:
-      type: object
-      properties:
-        first_name:
-          type: string
-          example: John
-        last_name:
-          type: string
-          example: Doe
-        date_of_birth:
-          type: string
-          example: '1990-01-01'
-        entity_name:
-          type: string
-          example: Example GmbH
-        location:
-          type: string
-          example: City, Country
-        role:
-          type: string
-          example: ROLE
-        effective_date:
-          type: string
-          example: '2024-01-01'
-        representation:
-          type: string
-          example: Representation details
-        role_local:
-          type: string
-          example: Role
-        signatory_power:
-          type: string
-          example: POWER_TYPE
     BlockedCompany:
       type: object
       required:
@@ -291,15 +258,6 @@ components:
           - 'null'
           description: Reference ID from the customer's system (if provided)
           example: cust-12345
-    ValidationError:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationErrorItem'
-      required:
-      - errors
     ValidationErrorItem:
       type: object
       properties:
@@ -568,17 +526,39 @@ components:
           type: string
           description: Additional notes for blocking the company
           example: Company engaged in fraudulent activity
-    Source:
-      required:
-      - name
+    SignatoryPower:
       type: object
       properties:
-        name:
+        first_name:
           type: string
-          example: Source Name
-        link:
+          example: John
+        last_name:
           type: string
-          example: https://www.example.com
+          example: Doe
+        date_of_birth:
+          type: string
+          example: '1990-01-01'
+        entity_name:
+          type: string
+          example: Example GmbH
+        location:
+          type: string
+          example: City, Country
+        role:
+          type: string
+          example: ROLE
+        effective_date:
+          type: string
+          example: '2024-01-01'
+        representation:
+          type: string
+          example: Representation details
+        role_local:
+          type: string
+          example: Role
+        signatory_power:
+          type: string
+          example: POWER_TYPE
     Shareholder:
       type: object
       properties:
@@ -609,11 +589,12 @@ components:
         address:
           type: string
           example: 123 Main St, City, Country
-    CompanyBlockRegisterNumberAndCountryCode:
+    CompanyBlockLegalNameAddress:
       type: object
       required:
-      - register_number
-      - country_code
+      - legal_name
+      - address
+      - reason
       properties:
         website:
           type: string
@@ -651,12 +632,31 @@ components:
           type: string
           description: Additional notes for blocking the company
           example: Company engaged in fraudulent activity
-    CompanyBlockLegalNameAddress:
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorItem'
+      required:
+      - errors
+    Source:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Source Name
+        link:
+          type: string
+          example: https://www.example.com
+    CompanyBlockRegisterNumberAndCountryCode:
       type: object
       required:
-      - legal_name
-      - address
-      - reason
+      - register_number
+      - country_code
       properties:
         website:
           type: string
