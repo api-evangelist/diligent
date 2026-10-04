@@ -140,6 +140,33 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    RemediateAlertRequest:
+      type: object
+      required:
+      - reference
+      - input
+      - hits
+      properties:
+        reference:
+          type: string
+          description: Provider reference for the alert (e.g. case ID from your screening provider).
+          example: WC-CASE-2026-001
+        alt_reference:
+          type: string
+          description: Your own client reference for the same alert (e.g. internal case number).
+          example: INTERNAL-42
+        input:
+          type: array
+          description: Subject profile as label/value pairs. Freeform labels — the AI uses LLM-based extraction.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/FreeformField'
+        hits:
+          type: array
+          description: Screening hits to remediate. At least one required.
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/RemediateHit'
     RemediateAlertResponse:
       type: object
       properties:
@@ -248,33 +275,6 @@ components:
                 type: string
                 description: Field value
                 example: John A. Doe
-    RemediateAlertRequest:
-      type: object
-      required:
-      - reference
-      - input
-      - hits
-      properties:
-        reference:
-          type: string
-          description: Provider reference for the alert (e.g. case ID from your screening provider).
-          example: WC-CASE-2026-001
-        alt_reference:
-          type: string
-          description: Your own client reference for the same alert (e.g. internal case number).
-          example: INTERNAL-42
-        input:
-          type: array
-          description: Subject profile as label/value pairs. Freeform labels — the AI uses LLM-based extraction.
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/FreeformField'
-        hits:
-          type: array
-          description: Screening hits to remediate. At least one required.
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/RemediateHit'
   securitySchemes:
     xApiKey:
       type: apiKey
