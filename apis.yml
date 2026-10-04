@@ -343,6 +343,9 @@ apis:
   - type: Documentation
     url: https://docs.godiligent.ai/guides/name-screening/remediation-api
 common:
+- type: CapabilityMap
+  url: capabilities/diligent-capability-edges.yml
+  name: Diligent Business Capability Map
 - type: Overlay
   url: overlays/diligent-api-overlay.yaml
 - type: TrustCenter

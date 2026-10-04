@@ -1,0 +1,36 @@
+slug: diligent
+provider: Diligent
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: CDD
+  spec_file: diligent-cdd-api-openapi.yml
+  capability_id: BC-130.10
+  capability_id_l1: BC-130
+  capability_name: Regulatory Compliance Management
+  confidence: 0.8
+  evidence: POST /cdds 'Perform CDD'; 'Run risk checks on a completed CDD case'; schemas RiskCategory,
+    Shareholder, Checks
+  reason: Customer Due Diligence for KYC/AML is regulatory compliance work; no financial-services-specific
+    capability exists in this frame, so regulatory compliance management is the honest fit.
+- tag: Name Screening
+  spec_file: diligent-name-screening-api-openapi.yml
+  capability_id: BC-130.10
+  capability_id_l1: BC-130
+  capability_name: Regulatory Compliance Management
+  confidence: 0.7
+  evidence: POST /v1/name-screenings/alerts/remediate 'Submit alert for remediation (Beta)'; description
+    'Submit externally-screened alerts for AI-powered remediation'
+  reason: Sanctions/PEP name-screening alert remediation is unambiguously an AML regulatory-compliance
+    activity; mapped to Regulatory Compliance Management as the nearest candidate since the frame lacks
+    a financial-crime capability.
