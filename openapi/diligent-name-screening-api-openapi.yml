@@ -167,6 +167,24 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/RemediateHit'
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: Validation failed
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                example: hits.0.reference
+              message:
+                type: string
+                example: Reference is required
     RemediateAlertResponse:
       type: object
       properties:
@@ -199,38 +217,6 @@ components:
                 type: string
                 description: Provider entity reference (as submitted, or defaulted to reference).
                 example: WC-ENTITY-789
-    ValidationError:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: Validation failed
-        details:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-                example: hits.0.reference
-              message:
-                type: string
-                example: Reference is required
-    FreeformField:
-      type: object
-      required:
-      - label
-      - value
-      properties:
-        label:
-          type: string
-          description: Field name
-          example: Name
-        value:
-          type: string
-          description: Field value
-          example: John Doe
     RemediateHit:
       type: object
       required:
@@ -275,6 +261,20 @@ components:
                 type: string
                 description: Field value
                 example: John A. Doe
+    FreeformField:
+      type: object
+      required:
+      - label
+      - value
+      properties:
+        label:
+          type: string
+          description: Field name
+          example: Name
+        value:
+          type: string
+          description: Field value
+          example: John Doe
   securitySchemes:
     xApiKey:
       type: apiKey
