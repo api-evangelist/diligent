@@ -12,7 +12,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 2
+edge_count: 3
 edges:
 - tag: CDD
   spec_file: diligent-cdd-api-openapi.yml
@@ -24,6 +24,17 @@ edges:
     Shareholder, Checks
   reason: Customer Due Diligence for KYC/AML is regulatory compliance work; no financial-services-specific
     capability exists in this frame, so regulatory compliance management is the honest fit.
+- tag: CDD
+  spec_file: diligent-cdd-api-openapi.yml
+  capability_id: BC-4300.10
+  capability_id_l1: BC-4300
+  capability_name: Client Acceptance Management
+  confidence: 0.7
+  evidence: POST /cdds  postCdds  Perform CDD; POST /cdds/{id}/run-checks  Run risk checks on a completed
+    CDD case
+  reason: Customer Due Diligence with registry documents, screening and periodic customer reviews maps
+    to client take-on/acceptance due diligence (KYC, AML screening). Noting the vendor targets banks and
+    fintechs rather than professional firms, so the frame fit is approximate.
 - tag: Name Screening
   spec_file: diligent-name-screening-api-openapi.yml
   capability_id: BC-130.10
