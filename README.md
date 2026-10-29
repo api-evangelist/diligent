@@ -64,6 +64,130 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Diligent is a company surfaced as a portfolio company of speedinvest and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Diligent (Diligent AI, godiligent.ai) builds autonomous AI agents for financial-crime compliance, automating the reasoning-heavy KYC/AML workflows that banks and fintechs run at scale. Its API exposes Customer Due Diligence (CDD) and business/merchant verification, name screening against sanctions and PEP providers with AI-powered alert remediation, ongoing monitoring with alerting, company identification and registry document retrieval, a blocked-company list, and an experimental instant website screening endpoint. The platform is API-first (X-API-KEY auth, production and sandbox environments, idempotency, and signed webhooks) and is used by fintechs and banks including Scalapay, Flywire, Allica Bank, Tamara, Teya, Vivid and Alma. Diligent is SOC 2 Type II certified, ISO 27001 certified, and GDPR compliant. It is backed by Speedinvest, Y Combinator and Shapers, and operates out of London and Berlin.
 
-Backed by: speedinvest
+**Areas:** Company · Compliance · RegTech · KYC · AML · Financial Crime · Due Diligence · Screening · Sanctions · Monitoring · Artificial Intelligence · Fintech
+
+## Diligent on APIs.io
+
+Everything profiled for Diligent is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/diligent/](https://apis.io/providers/diligent/)** — or go straight to one of the APIs or properties below.
+
+### APIs (6)
+
+- [Diligent CDD API](https://apis.io/apis/diligent/diligent-cdd-api/) — Customer Due Diligence
+- [Diligent Company API](https://apis.io/apis/diligent/diligent-company-api/) — Company Information
+- [Diligent Instant Screening (experimental) API](https://apis.io/apis/diligent/diligent-instant-screening-experimental-api/) — Instant Website Screening API
+- [Diligent Monitorings API](https://apis.io/apis/diligent/diligent-monitorings-api/) — Website monitoring and alerts for changes and risks
+- [Diligent Name Screening API](https://apis.io/apis/diligent/diligent-name-screening-api/) — Name screening remediation
+- [Diligent Webhooks API](https://apis.io/apis/diligent/diligent-webhooks-api/) — ## How to Secure Webhook Deliveries To ensure that webhook payloads are securely transmitted and verified. This guide explains how to configure and validate…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Diligent Webhooks](https://apis.io/asyncapis/diligent/diligent-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [diligent](https://apis.io/servers/diligent/diligent/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Diligent CDD API](https://apis.io/collections/diligent/open-diligent-cdd-api/)
+- [Diligent CDD Company API](https://apis.io/collections/diligent/open-diligent-company-api/)
+- [Diligent CDD Instant Screening (experimental) API](https://apis.io/collections/diligent/open-diligent-instant-screening-experimental-api/)
+- [Diligent CDD Monitorings API](https://apis.io/collections/diligent/open-diligent-monitorings-api/)
+- [Diligent CDD Name Screening API](https://apis.io/collections/diligent/open-diligent-name-screening-api/)
+- [Diligent CDD Webhooks API](https://apis.io/collections/diligent/open-diligent-webhooks-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Diligent Api Overlay](https://apis.io/overlays/diligent/diligent-api-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Diligent Authentication](https://apis.io/security/diligent/diligent-authentication/)
+- [Diligent Domain Security](https://apis.io/security/diligent/diligent-domain-security/)
+- [Diligent Trust Center](https://apis.io/security/diligent/diligent-trust-center/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.godiligent.ai)
+- [Documentation](https://docs.godiligent.ai)
+- [Getting started](https://docs.godiligent.ai/guides/introduction)
+- [API reference](https://docs.godiligent.ai/guides/introduction)
+- [Support](https://docs.godiligent.ai/support)
+- [Blog](https://www.godiligent.ai/news)
+- [Compliance](https://www.godiligent.ai/security)
+- [Terms of service](https://www.godiligent.ai/terms-and-conditions)
+- [Privacy policy](https://www.godiligent.ai/privacy-policy)
+- [Status](https://status.godiligent.ai/)
+
+## API Evangelist rating
+
+**Kin Score 49.7** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 55.8 |
+| Contract governance | 4.5 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 43.4 |
+
+**Agent readiness 37.9** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 27.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/diligent/](https://apis.io/providers/diligent/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Diligent: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/diligent/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
